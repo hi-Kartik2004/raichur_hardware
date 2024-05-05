@@ -1,35 +1,20 @@
 import { signIn } from "@/auth";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import HeroSection from "@/components/HeroSection";
+import MobileNavbar from "@/components/MobileNavbar";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
-  async function showLogin() {
-    "use server";
-    await signIn("github");
-  }
   return (
     <main>
-      <form
-        action={async () => {
-          "use server";
-          await signIn("github");
-        }}
-      >
-        <Button type="submit" className="m-2">
-          Signin with GitHub
-        </Button>
-      </form>
+      <div className="hidden lg:block">
+        <Navbar />
+      </div>
 
-      <form
-        action={async () => {
-          "use server";
-          await signIn("google");
-        }}
-      >
-        <Button type="submit" className="m-2">
-          Signin with Google
-        </Button>
-      </form>
+      <div className="block lg:hidden">
+        <MobileNavbar />
+      </div>
+
+      <HeroSection />
     </main>
   );
 }
