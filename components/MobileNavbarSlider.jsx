@@ -25,7 +25,7 @@ function MobileNavbarSlider() {
             Manage all the important sections of this website from here.
           </SheetDescription>
           <div className="flex flex-col gap-4 mt-4">
-            <div>
+            <div className="flex w-full">
               <ProductSearchBar />
             </div>
             <div className="mt-4">

@@ -48,6 +48,7 @@ function MobileNavbar() {
             </Avatar> */}
 
             <Button size={"sm"}>Sign in</Button>
+            <CartSheet />
           </div>
         </div>
         {/* <div className="flex items-center gap-6 ">

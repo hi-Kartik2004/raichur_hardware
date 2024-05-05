@@ -79,3 +79,7 @@
 body {
   font-family: "Archivo", sans-serif !important;
 }
+
+.line__height {
+  line-height: 3.5rem !important;
+}

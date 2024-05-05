@@ -9,13 +9,14 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { HiShoppingCart } from "react-icons/hi";
+import { Button } from "./ui/button";
 
 function CartSheet() {
   return (
     <div>
       <Sheet>
         <SheetTrigger>
-          <HiShoppingCart />
+          <HiShoppingCart size={20} />
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
