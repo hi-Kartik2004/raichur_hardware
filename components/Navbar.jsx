@@ -17,12 +17,14 @@ function Navbar() {
   }
 
   return (
-    <div className="pb-2">
+    <div className="pb-2 fixed w-full bg-background">
       <nav className="container pt-2">
         {/* Top Navbar */}
         <div className="flex justify-between gap-2 flex-wrap items-center ">
           <div className="  max-w-[600px] w-full flex-wrap flex gap-10 items-center">
-            <img src="/logo.png" alt="logo" className=" max-w-[120px]" />
+            <Link href="/">
+              <img src="/logo.png" alt="logo" className=" max-w-[120px]" />
+            </Link>
             <ProductSearchBar />
 
             <Link href="/faq" className="text-sm">

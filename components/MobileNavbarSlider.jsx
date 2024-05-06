@@ -17,7 +17,7 @@ function MobileNavbarSlider() {
     <div>
       <Sheet>
         <SheetTrigger>
-          <HiOutlineMenuAlt1 />
+          <HiOutlineMenuAlt1 size={25} />
         </SheetTrigger>
         <SheetContent side="left">
           <SheetHeader>Mobile Menu</SheetHeader>

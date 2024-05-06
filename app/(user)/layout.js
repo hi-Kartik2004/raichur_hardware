@@ -1,11 +1,10 @@
-import { signIn } from "@/auth";
-import HeroSection from "@/components/HeroSection";
 import MobileNavbar from "@/components/MobileNavbar";
 import Navbar from "@/components/Navbar";
+import React from "react";
 
-export default function Home() {
+function layout({ children }) {
   return (
-    <main>
+    <div>
       <div className="hidden lg:block">
         <Navbar />
       </div>
@@ -13,8 +12,9 @@ export default function Home() {
       <div className="block lg:hidden">
         <MobileNavbar />
       </div>
-
-      <HeroSection />
-    </main>
+      {children}
+    </div>
   );
 }
+
+export default layout;
