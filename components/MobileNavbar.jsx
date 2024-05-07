@@ -20,11 +20,13 @@ function MobileNavbar() {
         <div className="w-full flex-wrap flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <MobileNavbarSlider />
-            <img
-              src="/logo.png"
-              alt="logo"
-              className=" max-w-[100px] lg:max-w-[120px]"
-            />
+            <Link href="/">
+              <img
+                src="/logo.png"
+                alt="logo"
+                className=" max-w-[100px] lg:max-w-[120px]"
+              />
+            </Link>
           </div>
           {/* <div className="max-w-[250px] w-full  flex justify-between gap-2 flex-wrap relative">
             <Input
