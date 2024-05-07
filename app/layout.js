@@ -1,9 +1,9 @@
+import { auth } from "@/auth";
+import { Footer } from "@/components/component/footer";
+import { cn } from "@/lib/utils";
+import { SessionProvider } from "next-auth/react";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import Navbar from "@/components/Navbar";
-import MobileNavbar from "@/components/MobileNavbar";
-import { Footer } from "@/components/component/footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -15,19 +15,22 @@ export const metadata = {
   description: "Most trusted hardware store in Raichur",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth();
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        {children}
+    <SessionProvider session={session}>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable
+          )}
+        >
+          {children}
 
-        <Footer />
-      </body>
-    </html>
+          <Footer />
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

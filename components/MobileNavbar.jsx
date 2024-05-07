@@ -4,15 +4,18 @@ import { HiMenu, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import CartSheet from "./CartSheet";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import MobileNavbarSlider from "./MobileNavbarSlider";
+import UserButton from "./UserButton";
+import SignInButton from "./SignInButton";
 
-function MobileNavbar() {
+async function MobileNavbar() {
   async function handleLoginByGoogle() {
     "use server";
     await signIn("google", { redirectTo: "/private" });
   }
+  const session = await auth();
   return (
     <div>
       {/* Top Navbar */}
@@ -44,12 +47,7 @@ function MobileNavbar() {
           </Link> */}
 
           <div className="flex gap-4 items-center">
-            {/* <Avatar>
-              <AvatarImage src="/next.svg" alt="avatar" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar> */}
-
-            <Button size={"sm"}>Sign in</Button>
+            {session?.user ? <UserButton /> : <SignInButton />}
             <CartSheet />
           </div>
         </div>

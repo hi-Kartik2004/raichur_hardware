@@ -6,15 +6,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { FaCartShopping } from "react-icons/fa6";
 import { Button } from "./ui/button";
 import CartSheet from "./CartSheet";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { Separator } from "./ui/separator";
 import ProductSearchBar from "./ProductSearchBar";
+import SignInButton from "./SignInButton";
+import UserButton from "./UserButton";
 
-function Navbar() {
+async function Navbar() {
   async function handleLoginByGoogle() {
     "use server";
     await signIn("google", { redirectTo: "/private" });
   }
+
+  const session = await auth();
 
   return (
     <div className="pb-2 fixed w-full bg-background">
@@ -35,14 +39,8 @@ function Navbar() {
             </Link>
           </div>
           <div className="flex items-center gap-6 ">
-            {/* <Avatar> className="text-sm"
-            <AvatarImage src="/next.svg" alt="avatar" />
-            <AvatarFallback>U</AvatarFallback>
-          </Avatar> */}
+            {session?.user ? <UserButton /> : <SignInButton />}
 
-            <form action={handleLoginByGoogle}>
-              <Button type="submit">Sign in</Button>
-            </form>
             <CartSheet />
           </div>
         </div>

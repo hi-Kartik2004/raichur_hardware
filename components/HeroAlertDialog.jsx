@@ -15,7 +15,7 @@ function HeroAlertDialog() {
   useEffect(() => {
     setTimeout(() => {
       setOpen(true);
-    }, [1000]);
+    }, [5000]);
 
     return () => {
       setOpen(false);
@@ -23,7 +23,7 @@ function HeroAlertDialog() {
   }, []);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>
+      <DialogContent className="max-w-[400px] rounded">
         <DialogHeader>
           <DialogTitle>Summer Offer!</DialogTitle>
           <DialogDescription>

@@ -5,7 +5,7 @@ import { signIn } from "@/auth";
 function SignInButton({ className }) {
   async function handleLoginByGoogle() {
     "use server";
-    await signIn("google", { redirectTo: "/private" });
+    await signIn("google");
   }
   return (
     <form action={handleLoginByGoogle} className={className}>
