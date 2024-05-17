@@ -18,6 +18,7 @@ import SignOutButton from "./SignOutButton";
 
 import { Skeleton } from "./ui/skeleton";
 import { useSession } from "next-auth/react";
+import globalData from "@/app/data";
 
 function UserButton() {
   const { data: session, status, loading } = useSession();
@@ -26,8 +27,12 @@ function UserButton() {
     return <Skeleton className="w-10 h-10 rounded-full" />;
 
   if (status === "unauthenticated") return null;
-
+  let showAdminLink = false;
   console.log("session", session);
+
+  if (globalData.adminEmails.includes(session.user.email)) {
+    showAdminLink = true;
+  }
 
   return (
     <div>
@@ -42,6 +47,11 @@ function UserButton() {
           <DropdownMenuGroup>
             <DropdownMenuItem className="w-full">
               {session.user?.name || session.user?.email}
+            </DropdownMenuItem>
+            <DropdownMenuItem className="w-full">
+              <Link href="/admin" className="w-full">
+                Admin Panel
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="w-full">
               <Link href="/my-orders" className="w-full">

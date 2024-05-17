@@ -136,7 +136,7 @@ export function AddCategoryFormPageV0({
   );
 
   return (
-    <div className="flex flex-col gap-8 px-4 md:px-6 py-8 max-w-4xl mx-auto">
+    <div className="flex flex-col gap-8 px-4 md:px-6 pt-12 pb-8 max-w-4xl mx-auto">
       <Toaster />
       <div>
         <h1 className="text-2xl font-bold">Category Management</h1>

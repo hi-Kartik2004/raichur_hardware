@@ -3,7 +3,7 @@ import React from "react";
 
 function AdminNavbar() {
   return (
-    <section className="bg-muted">
+    <section className="bg-muted fixed w-full">
       <div className="container flex justify-between p-4 bg-muted">
         <div className="flex gap-6">
           <Link href="/admin/add-category">Add Category</Link>
