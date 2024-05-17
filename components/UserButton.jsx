@@ -48,11 +48,13 @@ function UserButton() {
             <DropdownMenuItem className="w-full">
               {session.user?.name || session.user?.email}
             </DropdownMenuItem>
-            <DropdownMenuItem className="w-full">
-              <Link href="/admin" className="w-full">
-                Admin Panel
-              </Link>
-            </DropdownMenuItem>
+            {showAdminLink && (
+              <DropdownMenuItem className="w-full">
+                <Link href="/admin" className="w-full">
+                  Admin Panel
+                </Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem className="w-full">
               <Link href="/my-orders" className="w-full">
                 My Orders
