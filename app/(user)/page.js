@@ -1,4 +1,4 @@
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import HeroAlertDialog from "@/components/HeroAlertDialog";
 import HeroSection from "@/components/HeroSection";
 import MobileNavbar from "@/components/MobileNavbar";
@@ -8,7 +8,8 @@ import { HeroTestimonials } from "@/components/component/hero-testimonials";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
   return (
     <>
       <main>

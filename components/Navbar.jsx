@@ -25,12 +25,14 @@ async function Navbar() {
       <nav className="container pt-2">
         {/* Top Navbar */}
         <div className="flex justify-between gap-2 flex-wrap items-center ">
-          <div className="  max-w-[600px] w-full flex-wrap flex gap-10 items-center">
+          <div className="  max-w-[700px]  w-full flex-wrap flex gap-10 items-center">
             <Link href="/">
               <img src="/logo.png" alt="logo" className=" max-w-[120px]" />
             </Link>
             <ProductSearchBar />
-
+            <Link href="/about" className="text-sm">
+              About
+            </Link>
             <Link href="/faq" className="text-sm">
               FAQ
             </Link>
