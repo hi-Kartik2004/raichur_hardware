@@ -40,8 +40,13 @@ function UserButton() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Link href="/my-orders">My Orders</Link>
+            <DropdownMenuItem className="w-full">
+              {session.user?.name || session.user?.email}
+            </DropdownMenuItem>
+            <DropdownMenuItem className="w-full">
+              <Link href="/my-orders" className="w-full">
+                My Orders
+              </Link>
             </DropdownMenuItem>
             <SignOutButton className="mt-2 flex w-full" />
           </DropdownMenuGroup>

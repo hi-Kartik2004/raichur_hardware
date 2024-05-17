@@ -1,5 +1,6 @@
 import MobileNavbar from "@/components/MobileNavbar";
 import Navbar from "@/components/Navbar";
+import { Footer } from "@/components/component/footer";
 import React from "react";
 
 function layout({ children }) {
@@ -13,6 +14,7 @@ function layout({ children }) {
         <MobileNavbar />
       </div>
       {children}
+      <Footer />
     </div>
   );
 }

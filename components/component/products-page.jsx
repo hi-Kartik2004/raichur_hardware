@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import FilterSheet from "../FilterSheet";
 import FilterForm from "../FilterForm";
+import Link from "next/link";
 
 export function ProductsPage() {
   return (
@@ -91,7 +92,9 @@ export function ProductsPage() {
               width={400}
             />
             <div className="p-4 space-y-2">
-              <h3 className="text-lg font-semibold">Product Name</h3>
+              <Link href="/product/1" className="text-lg font-semibold">
+                Product Name
+              </Link>
               <p className="text-gray-500 dark:text-gray-400">$49.99</p>
               <Button className="w-full" size="sm">
                 Add to Cart

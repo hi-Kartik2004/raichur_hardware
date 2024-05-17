@@ -5,7 +5,7 @@ import React from "react";
 function SignInPage() {
   async function handleLoginByGoogle() {
     "use server";
-    await signIn("google", { redirectTo: "/private" });
+    await signIn("google");
   }
 
   return (

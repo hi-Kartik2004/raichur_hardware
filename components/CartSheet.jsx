@@ -2,6 +2,7 @@
 import React from "react";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -10,6 +11,7 @@ import {
 } from "./ui/sheet";
 import { HiShoppingCart } from "react-icons/hi";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 function CartSheet() {
   return (
@@ -41,7 +43,9 @@ function CartSheet() {
                 width={64}
               />
               <div className="flex-1">
-                <h3 className="font-medium">Acme Circles T-Shirt</h3>
+                <Link href="/" className="font-medium">
+                  <SheetClose>Acme Circles T-Shirt</SheetClose>
+                </Link>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <button className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
@@ -69,7 +73,9 @@ function CartSheet() {
                 width={64}
               />
               <div className="flex-1">
-                <h3 className="font-medium">Acme Hoodie</h3>
+                <Link href="/" className="font-medium">
+                  <SheetClose>Acme Hoodie</SheetClose>
+                </Link>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <button className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
