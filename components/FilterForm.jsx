@@ -4,7 +4,7 @@ import { Label } from "./ui/label";
 import { Slider } from "./ui/slider";
 import { StarIcon } from "@radix-ui/react-icons";
 
-function FilterForm({ showOnMobile }) {
+function FilterForm({ showOnMobile, categories }) {
   return (
     <div>
       <div
@@ -24,21 +24,18 @@ function FilterForm({ showOnMobile }) {
             <h4 className="text-base font-medium mb-2">Categories</h4>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <Checkbox id="category-1" />
-                <Label htmlFor="category-1">Clothing</Label>
+                <Checkbox id="all" />
+                <Label htmlFor="all">All</Label>
               </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="category-2" />
-                <Label htmlFor="category-2">Electronics</Label>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="category-3" />
-                <Label htmlFor="category-3">Home & Garden</Label>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="category-4" />
-                <Label htmlFor="category-4">Beauty</Label>
-              </div>
+              {categories &&
+                categories.map((category) => (
+                  <div className="flex items-center gap-2">
+                    <Checkbox id={`category-${category.categoryName}`} />
+                    <Label htmlFor={`category-${category.categoryName}`}>
+                      {category.categoryName}
+                    </Label>
+                  </div>
+                ))}
             </div>
           </div>
           <div>
@@ -56,7 +53,7 @@ function FilterForm({ showOnMobile }) {
               </div>
             </h4>
           </div>
-          <div>
+          {/* <div>
             <h4 className="text-base font-medium mb-2">Rating</h4>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
@@ -90,7 +87,7 @@ function FilterForm({ showOnMobile }) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

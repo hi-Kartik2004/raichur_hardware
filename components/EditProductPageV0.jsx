@@ -14,34 +14,31 @@ import {
 import { Button } from "@/components/ui/button";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "@/firebase/config";
-import { toast } from "../ui/use-toast";
-import { Toaster } from "../ui/toaster";
-import {
-  Timestamp,
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
-import { Checkbox } from "../ui/checkbox";
+import { Timestamp, doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { toast } from "./ui/use-toast";
+import { Toaster } from "./ui/toaster";
+import { useRouter } from "next/navigation";
 
-export function AddProductPageV0({
+export function EditProductPageV0({
   categories,
   isProductAlreadyCreatedFunction,
+  product,
 }) {
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
-  const [sections, setSections] = useState([]);
-  const [imagePreviews, setImagePreviews] = useState([]);
+  const [sections, setSections] = useState(product?.sections || []);
+  const [imagePreviews, setImagePreviews] = useState(product?.images || []);
   const [formState, setFormState] = useState({
-    name: "",
-    price: "",
-    discount: "",
-    maxQuantity: "",
-    description: "",
-    inventory: "",
-    category: "",
+    name: product?.name || "",
+    price: product?.price || "",
+    discount: product?.discount || "",
+    maxQuantity: product?.maxQuantity || "",
+    description: product?.description || "",
+    inventory: product?.inventory || "",
+    category: product?.category || "",
     images: [],
-    sections: [],
-    hide: false,
+    sections: product?.sections || [],
+    hide: product?.hide || false,
   });
 
   async function getImageUrl(categoryImage) {
@@ -83,8 +80,20 @@ export function AddProductPageV0({
 
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
-    setImagePreviews(files.map((file) => URL.createObjectURL(file)));
-    setFormState({ ...formState, images: files });
+    const newImagePreviews = files.map((file) => URL.createObjectURL(file));
+    setImagePreviews((prev) => [...prev, ...newImagePreviews]);
+    setFormState((prev) => ({
+      ...prev,
+      images: [...prev.images, ...files],
+    }));
+  };
+
+  const handleRemoveImage = (index) => {
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+    setFormState((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
   };
 
   const handleInputChange = (e) => {
@@ -93,25 +102,22 @@ export function AddProductPageV0({
     setFormState({ ...formState, [name]: newValue });
   };
 
-  async function addProductToFirebaseFunction({ data }) {
-    const ref = collection(db, "products");
+  async function updateProductInFirebaseFunction(productId, { data }) {
+    const productRef = doc(db, "products", productId);
     try {
-      const doc = await addDoc(ref, {
+      await updateDoc(productRef, {
         ...data,
-        name_lowercase: data.name.toLowerCase(),
-        timestamp: serverTimestamp(),
+        updatedAt: serverTimestamp(),
       });
 
       return {
         resp: true,
-        message: "Product added successfully",
-        docId: doc.id,
+        message: "Product updated successfully",
       };
     } catch (error) {
       return {
         resp: false,
         message: error.message,
-        docId: null,
       };
     }
   }
@@ -119,10 +125,9 @@ export function AddProductPageV0({
   const handleSubmit = async (e) => {
     setSubmitting(true);
     e.preventDefault();
-    console.log(formState);
 
     const resp1 = await isProductAlreadyCreatedFunction(formState.name);
-    if (resp1.resp) {
+    if (resp1.resp && formState.name !== product.name) {
       toast({
         variant: "destructive",
         title: "Product already exists",
@@ -132,10 +137,14 @@ export function AddProductPageV0({
       return;
     }
 
-    // for all images get their imageURls and then add to firebase
-    const imageUrls = await Promise.all(
+    const newImageUrls = await Promise.all(
       formState.images.map((image) => getImageUrl(image))
     );
+
+    const imageUrls = [
+      ...imagePreviews.filter((preview) => !preview.startsWith("blob:")),
+      ...newImageUrls,
+    ];
 
     const formStateWithImageUrls = {
       ...formState,
@@ -143,36 +152,20 @@ export function AddProductPageV0({
       sections: sections,
     };
 
-    const resp = await addProductToFirebaseFunction({
+    const resp = await updateProductInFirebaseFunction(product.id, {
       data: formStateWithImageUrls,
     });
 
     if (resp.resp) {
       toast({
-        title: "Product added successfully",
-        description: resp.message + ", docId: " + resp.docId,
+        title: "Product updated successfully",
+        description: resp.message,
       });
-
-      // Reset form state
-      setFormState({
-        name: "",
-        price: "",
-        discount: "",
-        maxQuantity: "",
-        description: "",
-        inventory: "",
-        category: "",
-        images: [],
-        sections: [],
-        hide: false,
-      });
-      setSections([]);
-      setImagePreviews([]);
-      document.getElementById("images").value = ""; // Clear the file input
+      router.refresh();
     } else {
       toast({
         variant: "destructive",
-        title: "Failed to add Product",
+        title: "Failed to update Product",
         description: resp.message,
       });
     }
@@ -180,12 +173,15 @@ export function AddProductPageV0({
   };
 
   return (
-    <div key="1" className="mx-auto max-w-2xl space-y-8 py-12 px-4">
+    <div
+      key="1"
+      className="mx-auto max-w-2xl space-y-8 pb-8 px-4 overflow-y-auto"
+    >
       <Toaster />
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Create a New Product</h1>
+        <h1 className="text-3xl font-bold">Edit {product?.name}</h1>
         <p className="text-gray-500 dark:text-gray-400">
-          Fill out the form below to add a new product to your store.
+          Fill in the details to edit this product.
         </p>
       </div>
       <form className="grid gap-6" onSubmit={handleSubmit}>
@@ -317,23 +313,32 @@ export function AddProductPageV0({
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
-                required
+                required={imagePreviews.length === 0}
               />
             </div>
             <div className="flex flex-wrap gap-4">
               {imagePreviews.map((src, index) => (
-                <img
-                  key={index}
-                  alt="Product Image"
-                  className="rounded-md object-cover"
-                  height={100}
-                  src={src}
-                  style={{
-                    aspectRatio: "100/100",
-                    objectFit: "cover",
-                  }}
-                  width={100}
-                />
+                <div key={index} className="relative">
+                  <img
+                    alt="Product Image"
+                    className="rounded-md object-cover"
+                    height={100}
+                    src={src}
+                    style={{
+                      aspectRatio: "100/100",
+                      objectFit: "cover",
+                    }}
+                    width={100}
+                  />
+                  <Button
+                    className="absolute top-0 right-0"
+                    variant="outline"
+                    onClick={() => handleRemoveImage(index)}
+                    size={"xs"}
+                  >
+                    ❌
+                  </Button>
+                </div>
               ))}
             </div>
           </div>
@@ -405,7 +410,7 @@ export function AddProductPageV0({
           </Label>
         </div>
         <Button className="w-full" type="submit">
-          {submitting ? "Submitting..." : "Create Product"}
+          {submitting ? "Submitting..." : "Edit Product"}
         </Button>
       </form>
     </div>

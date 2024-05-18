@@ -11,6 +11,8 @@ import { Separator } from "./ui/separator";
 import ProductSearchBar from "./ProductSearchBar";
 import SignInButton from "./SignInButton";
 import UserButton from "./UserButton";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 async function Navbar() {
   async function handleLoginByGoogle() {
@@ -20,8 +22,26 @@ async function Navbar() {
 
   const session = await auth();
 
+  async function getAllCategories() {
+    "use server";
+    // Query categories collection and order by timestamp in descending order
+    const q = query(collection(db, "categories"), orderBy("timestamp"));
+
+    const snapshot = await getDocs(q);
+    let data = [];
+    snapshot.forEach((doc) => {
+      data.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    return data;
+  }
+
+  const categories = await getAllCategories();
+
   return (
-    <div className="pb-2 fixed w-full bg-background">
+    <div className="pb-2 fixed w-full bg-background z-10">
       <nav className="container pt-2">
         {/* Top Navbar */}
         <div className="flex justify-between gap-2 flex-wrap items-center ">
@@ -52,37 +72,16 @@ async function Navbar() {
         {/* Categories Bottom Navbar */}
         <div>
           <ul className="flex justify-start gap-14 flex-wrap mt-4 mb-2">
-            <li>
-              <Link href="/category/1" className="text-sm">
-                Category 1
-              </Link>
-            </li>
-            <li>
-              <Link href="/category/1" className="text-sm">
-                Category 1
-              </Link>
-            </li>
-            <li>
-              <Link href="/category/1" className="text-sm">
-                Category 1
-              </Link>
-            </li>
-            <li>
-              <Link href="/category/1" className="text-sm">
-                Category 1
-              </Link>
-            </li>
-
-            <li>
-              <Link href="/category/2" className="text-sm">
-                Category 2
-              </Link>
-            </li>
-            <li>
-              <Link href="/category/3" className="text-sm">
-                Category 3
-              </Link>
-            </li>
+            {categories.map((category) => (
+              <li key={category.categoryName}>
+                <Link
+                  href={`/category/${category.categoryName}`}
+                  className="text-sm"
+                >
+                  {category.categoryName}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </nav>

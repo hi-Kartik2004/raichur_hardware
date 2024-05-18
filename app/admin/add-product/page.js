@@ -68,7 +68,10 @@ async function page() {
     if (snapshot.empty) {
       return { resp: false, message: "Product not found" };
     }
-    return { resp: true, message: "Product " + productName + " exists" };
+    return {
+      resp: true,
+      message: "Product " + productName + " already exists",
+    };
   }
 
   return (

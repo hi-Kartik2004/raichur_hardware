@@ -13,7 +13,7 @@ import ProductSearchBar from "./ProductSearchBar";
 import Link from "next/link";
 import SignInButton from "./SignInButton";
 
-function MobileNavbarSlider() {
+function MobileNavbarSlider({ categories }) {
   return (
     <div>
       <Sheet>
@@ -59,23 +59,14 @@ function MobileNavbarSlider() {
               <p className="underline underline-offset-8">Categories</p>
             </div>
 
-            <div className="flex justify-start items-center">
-              <Link href="/category/1">
-                <SheetClose>Category 1</SheetClose>
-              </Link>
-            </div>
-
-            <div className="flex justify-start items-center">
-              <Link href="/category/2">
-                <SheetClose>Category 2</SheetClose>
-              </Link>
-            </div>
-
-            <div className="flex justify-start items-center">
-              <Link href="/category/3">
-                <SheetClose>Category 3</SheetClose>
-              </Link>
-            </div>
+            {categories &&
+              categories.map((category, index) => (
+                <div className="flex justify-start items-center" key={index}>
+                  <Link href={`/category/${category.categoryName}`}>
+                    <SheetClose>{category.categoryName}</SheetClose>
+                  </Link>
+                </div>
+              ))}
 
             {/* <div className="flex w-full">
               <SignInButton className="flex w-full" />
