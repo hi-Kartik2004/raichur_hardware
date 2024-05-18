@@ -134,7 +134,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
             <div>
               <p>{product?.description}</p>
             </div>
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <div className="flex items-center gap-0.5">
                 <StarIcon className="w-5 h-5 fill-primary" />
                 <StarIcon className="w-5 h-5 fill-primary" />
@@ -142,7 +142,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
                 <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
               </div>
-            </div>
+            </div> */}
             <div className="text-4xl font-bold">
               Rs {product?.price} /-{" "}
               {overPrice !== product?.price && (
