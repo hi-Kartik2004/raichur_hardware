@@ -13,8 +13,6 @@ export default async function Home() {
   return (
     <>
       <main>
-        <HeroAlertDialog />
-
         <HeroSection />
         <Separator />
         <FeaturedProducts className={"bg-gray-100"} />

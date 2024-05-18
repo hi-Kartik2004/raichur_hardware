@@ -23,6 +23,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { Checkbox } from "../ui/checkbox";
+import { Separator } from "../ui/separator";
 
 export function AddProductPageV0({
   categories,
@@ -42,6 +43,7 @@ export function AddProductPageV0({
     images: [],
     sections: [],
     hide: false,
+    featured: false,
   });
 
   async function getImageUrl(categoryImage) {
@@ -165,6 +167,7 @@ export function AddProductPageV0({
         images: [],
         sections: [],
         hide: false,
+        featured: false,
       });
       setSections([]);
       setImagePreviews([]);
@@ -216,7 +219,7 @@ export function AddProductPageV0({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="discount">Discount (in %)</Label>
+            <Label htmlFor="discount">Discount to be shown (in %)</Label>
             <Input
               id="discount"
               name="discount"
@@ -402,6 +405,21 @@ export function AddProductPageV0({
               className="w-6 h-6"
             />
             If checked, this product will not be displayed on the website.
+          </Label>
+        </div>
+        <Separator />
+        <div className="space-y-2">
+          <Label htmlFor="featured">Featured Product</Label>
+          <Label className="flex gap-2 items-center">
+            <Input
+              type="checkbox"
+              id="featured"
+              name="featured"
+              checked={formState.featured}
+              onChange={handleInputChange}
+              className="w-6 h-6"
+            />
+            If checked, this product will displayed on the main page.
           </Label>
         </div>
         <Button className="w-full" type="submit">

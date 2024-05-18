@@ -127,7 +127,7 @@ export function ProductsPage({
             alt="category image"
             className="w-full opacity-70"
           />
-          <h2 className="text-3xl font-bold absolute bottom-[50%] -translate-x-[50%] left-[50%] translate-y-[50%] p-4">
+          <h2 className="text-xl md:text-3xl font-bold absolute bottom-[50%] -translate-x-[50%] left-[50%] translate-y-[50%] p-4">
             {categoryDetails?.categoryTitle}
           </h2>
         </div>
@@ -217,8 +217,11 @@ export function ProductsPage({
                   {product?.description}
                 </p>
 
-                <p className="text-gray-500 dark:text-gray-400">
-                  Rs {" " + product.price}/-
+                <p className="text-gray-500 dark:text-gray-400 text-lg">
+                  Rs {" " + product.price}/- {"  "}
+                  <span className="text-green-500 text-sm">
+                    ({product?.discount} % off)
+                  </span>
                 </p>
                 <Button className="w-full" size="sm" asChild>
                   <Link href={`/product/${product.id}`}>View Product</Link>

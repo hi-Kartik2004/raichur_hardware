@@ -92,8 +92,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
     helper();
   }, []);
 
-  const discountedPrice =
-    product?.price - product?.price * (product?.discount / 100);
+  const overPrice = product?.price + product?.price * (product?.discount / 100);
   return (
     <>
       <div
@@ -145,12 +144,11 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
               </div>
             </div>
             <div className="text-4xl font-bold">
-              Rs {discountedPrice}
-              /-{" "}
-              {discountedPrice !== product?.price && (
+              Rs {product?.price} /-{" "}
+              {overPrice !== product?.price && (
                 <>
                   <span className="line-through text-sm">
-                    Rs {product?.price} /-{" "}
+                    Rs {overPrice} /-{" "}
                   </span>
                   <span className="text-green-500 text-lg">
                     ({" " + product?.discount}% off)
@@ -175,7 +173,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
             {product?.inventory > 0 ? (
               <AddToCartButton
                 productName={product?.name}
-                price={discountedPrice}
+                price={product?.price}
                 quantity={productQuantity}
                 imageUrl={product?.images[0]}
                 productId={productId}

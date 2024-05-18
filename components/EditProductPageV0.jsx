@@ -18,6 +18,7 @@ import { Timestamp, doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { toast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
+import { Separator } from "./ui/separator";
 
 export function EditProductPageV0({
   categories,
@@ -39,6 +40,7 @@ export function EditProductPageV0({
     images: [],
     sections: product?.sections || [],
     hide: product?.hide || false,
+    featured: product?.featured || false,
   });
 
   async function getImageUrl(categoryImage) {
@@ -212,7 +214,7 @@ export function EditProductPageV0({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="discount">Discount (in %)</Label>
+            <Label htmlFor="discount">Discount to be shown (in %)</Label>
             <Input
               id="discount"
               name="discount"
@@ -407,6 +409,23 @@ export function EditProductPageV0({
               className="w-6 h-6"
             />
             If checked, this product will not be displayed on the website.
+          </Label>
+        </div>
+
+        <Separator />
+
+        <div className="space-y-2">
+          <Label htmlFor="featured">featured Product</Label>
+          <Label className="flex gap-2 items-center">
+            <Input
+              type="checkbox"
+              id="featured"
+              name="featured"
+              checked={formState.featured}
+              onChange={handleInputChange}
+              className="w-6 h-6"
+            />
+            If checked, this product will be displayed on the home page.
           </Label>
         </div>
         <Button className="w-full" type="submit">
