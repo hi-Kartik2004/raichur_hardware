@@ -5,6 +5,7 @@ import { toast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
 import { RadioTower } from "lucide-react";
+import { useSession, signIn } from "next-auth/react";
 
 function AddToCartButton({
   productName,
@@ -14,6 +15,8 @@ function AddToCartButton({
   productId,
 }) {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
   const [submitting, setSubmitting] = useState(false);
   async function handleAddToCart(productName) {
     setSubmitting(true);
@@ -52,9 +55,13 @@ function AddToCartButton({
   return (
     <>
       <Toaster />
-      <Button className="w-full" onClick={() => handleAddToCart(productName)}>
-        {submitting ? "Adding..." : "Add to cart"}
-      </Button>
+      {status === "authenticated" ? (
+        <Button className="w-full" onClick={() => handleAddToCart(productName)}>
+          {submitting ? "Adding..." : "Add to cart"}
+        </Button>
+      ) : (
+        <Button onClick={() => signIn()}>Sign In to Add to Cart</Button>
+      )}
     </>
   );
 }

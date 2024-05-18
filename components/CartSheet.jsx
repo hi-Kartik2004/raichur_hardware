@@ -13,6 +13,7 @@ import { HiShoppingCart } from "react-icons/hi";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { toast } from "./ui/use-toast";
+import { getSession, signIn } from "next-auth/react";
 
 async function getMyCart() {
   let response;
@@ -130,15 +131,47 @@ async function checkout(cartItems, totalAmount) {
 }
 
 function CartSheet() {
+  const session = getSession();
   const [cartItems, setCartItems] = useState([]);
   const [open, setOpen] = useState(false);
+  if (!session?.user?.email) {
+    return (
+      <div>
+        <Sheet open={open} onOpenChange={() => setOpen(!open)}>
+          <SheetTrigger>
+            <HiShoppingCart size={20} />
+          </SheetTrigger>
+          <SheetContent className="overflow-y-auto">
+            <SheetHeader>
+              <SheetTitle>Your Cart</SheetTitle>
+              <SheetDescription>
+                There are {cartItems?.length} items in your cart. You may
+                confirm and proceed to payment or remove some items.
+              </SheetDescription>
+            </SheetHeader>
+
+            <div className="space-y-4 mt-10">
+              <div>
+                <p className="text-center">Your cart is empty</p>
+                <Button className="w-full mt-4 border" onClick={() => signIn()}>
+                  Sign in to view your cart
+                </Button>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+    );
+  }
   useEffect(() => {
     async function helper() {
       const cartItems = await getMyCart();
       console.log("cartItems", cartItems);
       setCartItems(cartItems.data);
     }
-    helper();
+    if (session) {
+      helper();
+    }
   }, [open]);
 
   const handleQuantityChange = async (itemId, quantity) => {

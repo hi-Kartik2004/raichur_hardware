@@ -27,6 +27,7 @@ async function ProductPage({ params }) {
   }
   const session = await auth();
   async function checkIfAddedToCart() {
+    if (!session) return [];
     const ref = collection(db, "cart");
     const q = query(ref, where("userEmail", "==", session.user.email));
     let data = [];

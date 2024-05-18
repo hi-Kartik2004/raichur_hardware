@@ -32,6 +32,18 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "../ui/separator";
 
 export function ContactPage() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
+
+    console.log(data);
+  }
   return (
     <>
       <section className="w-full py-12 md:py-24 lg:py-32">
@@ -48,11 +60,15 @@ export function ContactPage() {
               </p>
             </div>
             <div className="space-y-4">
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="name">Name</Label>
-                    <Input id="name" placeholder="Enter your name" />
+                    <Input
+                      id="name"
+                      name="name"
+                      placeholder="Enter your name"
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
@@ -60,16 +76,25 @@ export function ContactPage() {
                       id="email"
                       placeholder="Enter your email"
                       type="email"
+                      name="email"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="subject">Subject</Label>
-                  <Input id="subject" placeholder="Enter a subject" />
+                  <Input
+                    id="subject"
+                    placeholder="Enter a subject"
+                    name="subject"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
-                  <Textarea id="message" placeholder="Enter your message" />
+                  <Textarea
+                    id="message"
+                    placeholder="Enter your message"
+                    name="message"
+                  />
                 </div>
                 <Button className="w-full" type="submit">
                   Submit
