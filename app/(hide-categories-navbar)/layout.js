@@ -7,7 +7,7 @@ function layout({ children }) {
   return (
     <div>
       <div className="hidden lg:block">
-        <Navbar showCategories={true} />
+        <Navbar showCategories={false} />
       </div>
 
       <div className="block lg:hidden">

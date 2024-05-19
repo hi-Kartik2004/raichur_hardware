@@ -145,18 +145,18 @@ export function ProductsPage({
             alt="category image"
             className="w-full opacity-70"
           />
-          <h2 className="text-xl md:text-3xl text-center font-bold absolute bottom-[50%] -translate-x-[50%] left-[50%] translate-y-[50%] p-4">
+          <h2 className="text-xl md:text-3xl text-center font-bold absolute bottom-[50%] -translate-x-[50%] left-[50%] translate-y-[50%] p-4 normal-case">
             {categoryDetails?.categoryTitle}
           </h2>
         </div>
 
         {/* Product Summary */}
-        <div className="flex items-center justify-between w-full mb-4 mt-4">
+        <div className="flex items-center justify-between w-full mb-4 mt-4 flex-wrap gap-4">
           <div>
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl font-bold capitalize">
               {categoryDetails?.categoryName} Products
             </h2>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 dark:text-gray-400 normal-case">
               {products?.length} Products Found,{" "}
               {categoryDetails?.categoryDescription}
             </p>

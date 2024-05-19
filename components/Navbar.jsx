@@ -14,7 +14,7 @@ import UserButton from "./UserButton";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase/config";
 
-async function Navbar() {
+async function Navbar({ showCategories = true }) {
   async function handleLoginByGoogle() {
     "use server";
     await signIn("google", { redirectTo: "/private" });
@@ -67,23 +67,34 @@ async function Navbar() {
           </div>
         </div>
 
-        {/* <Separator className="my-2" /> */}
-
         {/* Categories Bottom Navbar */}
-        {/* <div>
-          <ul className="flex justify-start gap-14 flex-wrap mt-4 mb-2">
-            {categories.map((category) => (
-              <li key={category.categoryName}>
-                <Link
-                  href={`/category/${category.categoryName}`}
-                  className="text-sm"
-                >
-                  {category.categoryName}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div> */}
+        {showCategories && (
+          <>
+            <Separator className="my-2" />
+            <div>
+              <ul className="flex justify-start gap-14 flex-wrap mt-4 mb-2">
+                <li>
+                  <Link href={`/category/all`} className="text-sm">
+                    All
+                  </Link>
+                </li>
+                {categories.map(
+                  (category) =>
+                    category?.categoryName != "all" && (
+                      <li key={category.categoryName}>
+                        <Link
+                          href={`/category/${category.categoryName}`}
+                          className="text-sm capitalize"
+                        >
+                          {category.categoryName}
+                        </Link>
+                      </li>
+                    )
+                )}
+              </ul>
+            </div>
+          </>
+        )}
       </nav>
     </div>
   );
