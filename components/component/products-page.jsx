@@ -25,14 +25,28 @@ import { db } from "@/firebase/config";
 export async function fetchInBatches(
   categoryName,
   lastDoc = null,
-  pageSize = 12
+  pageSize = 12,
+  sortBy = "timestamp",
+  sortDirection = "desc"
 ) {
-  let q = query(
-    collection(db, "products"),
-    where("category", "==", categoryName),
-    where("hide", "==", false),
-    limit(pageSize)
-  );
+  let q;
+
+  if (categoryName === "all") {
+    q = query(
+      collection(db, "products"),
+      where("hide", "==", false),
+      orderBy(sortBy, sortDirection),
+      limit(pageSize)
+    );
+  } else {
+    q = query(
+      collection(db, "products"),
+      where("category", "==", categoryName),
+      where("hide", "==", false),
+      orderBy(sortBy, sortDirection),
+      limit(pageSize)
+    );
+  }
 
   if (lastDoc) {
     q = query(q, startAfter(lastDoc));
@@ -87,7 +101,9 @@ export function ProductsPage({
     const { data, lastVisible } = await fetchInBatches(
       categoryName,
       lastDoc,
-      loadProducts
+      loadProducts,
+      sortBy,
+      sortDirection
     );
     setProducts((prev) => [...prev, ...data]);
     setLastDoc(lastVisible);
@@ -100,7 +116,9 @@ export function ProductsPage({
     const { data, lastVisible } = await fetchInBatches(
       categoryName,
       null,
-      loadProducts
+      loadProducts,
+      sortBy,
+      sortDirection
     );
     setProducts(data);
     setLastDoc(lastVisible);
@@ -109,7 +127,7 @@ export function ProductsPage({
 
   useEffect(() => {
     fetchInitialData();
-  }, [categoryName]);
+  }, [categoryName, sortBy, sortDirection]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 p-4 md:p-8">
@@ -127,16 +145,16 @@ export function ProductsPage({
             alt="category image"
             className="w-full opacity-70"
           />
-          <h2 className="text-xl md:text-3xl font-bold absolute bottom-[50%] -translate-x-[50%] left-[50%] translate-y-[50%] p-4">
+          <h2 className="text-xl md:text-3xl text-center font-bold absolute bottom-[50%] -translate-x-[50%] left-[50%] translate-y-[50%] p-4">
             {categoryDetails?.categoryTitle}
           </h2>
         </div>
 
         {/* Product Summary */}
-        <div className="flex items-center justify-between w-full mb-4 mt-4">
+        <div className="flex items-center justify-between w-full mb-4 mt-4 flex-wrap gap-4">
           <div>
-            <h2 className="text-2xl font-bold">
-              Products {categoryDetails?.categoryName}
+            <h2 className="text-2xl font-bold capitalize">
+              {categoryDetails?.categoryName} Products
             </h2>
             <p className="text-gray-500 dark:text-gray-400">
               {products?.length} Products Found,{" "}

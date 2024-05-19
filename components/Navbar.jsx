@@ -67,10 +67,10 @@ async function Navbar() {
           </div>
         </div>
 
-        <Separator className="my-2" />
+        {/* <Separator className="my-2" /> */}
 
         {/* Categories Bottom Navbar */}
-        <div>
+        {/* <div>
           <ul className="flex justify-start gap-14 flex-wrap mt-4 mb-2">
             {categories.map((category) => (
               <li key={category.categoryName}>
@@ -83,7 +83,7 @@ async function Navbar() {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </nav>
     </div>
   );

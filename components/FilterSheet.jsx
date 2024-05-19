@@ -2,6 +2,7 @@
 import React from "react";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetTitle,
@@ -30,7 +31,9 @@ function FilterSheet({ showOnMobile, categories }) {
           <Button variant="secondary">Filter</Button>
         </SheetTrigger>
         <SheetContent>
-          <FilterForm showOnMobile={showOnMobile} categories={categories} />
+          <SheetClose className="w-full">
+            <FilterForm showOnMobile={showOnMobile} categories={categories} />
+          </SheetClose>
         </SheetContent>
       </Sheet>
     </div>

@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { db } from "@/firebase/config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { NextResponse } from "next/server";
 import { OK } from "zod";
 
@@ -11,7 +11,11 @@ export async function GET(req, res) {
     return { status: 401, data: { message: "Unauthorized" } };
   }
 
-  const q = query(collection(db, "cart"), where("userEmail", "==", email));
+  const q = query(
+    collection(db, "cart"),
+    where("userEmail", "==", email),
+    orderBy("timestamp", "desc")
+  );
   try {
     const snapshot = await getDocs(q);
     const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));

@@ -28,7 +28,7 @@ function UserButton() {
 
   if (status === "unauthenticated") return null;
   let showAdminLink = false;
-  console.log("session", session);
+  // console.log("session", session);
 
   if (globalData.adminEmails.includes(session.user.email)) {
     showAdminLink = true;

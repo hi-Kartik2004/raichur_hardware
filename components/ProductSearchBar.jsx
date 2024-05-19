@@ -94,10 +94,9 @@ function ProductSearchBar() {
                 key={product.id}
                 className="border-b last:border-0 p-4 flex gap-4 items-center"
               >
-                <Avatar>
-                  <AvatarImage src={product?.images[0]} alt={product.name} />
-                  <AvatarFallback>PI</AvatarFallback>
-                </Avatar>
+               <div>
+                <img src={product?.images[0]} alt={product?.name} className="w-[50px] h-[50px] object-cover rounded-lg" />
+               </div>
                 <div className="max-w-[200px]">
                   <Link
                     href={"/product/" + product?.id}

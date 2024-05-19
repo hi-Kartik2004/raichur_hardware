@@ -92,7 +92,10 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
     helper();
   }, []);
 
-  const overPrice = product?.price + product?.price * (product?.discount / 100);
+  const overPrice = +(
+    +product?.price +
+    +(product?.price * product?.discount) / 100
+  );
   return (
     <>
       <div

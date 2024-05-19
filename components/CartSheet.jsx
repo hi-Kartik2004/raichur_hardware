@@ -13,7 +13,7 @@ import { HiShoppingCart } from "react-icons/hi";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { toast } from "./ui/use-toast";
-import { getSession, signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 
 async function getMyCart() {
   let response;
@@ -52,10 +52,6 @@ async function updateCartItem(itemId, quantity) {
       });
       return;
     }
-    toast({
-      title: "Success",
-      description: "Cart item updated successfully",
-    });
   } catch (error) {
     console.error("Error updating cart item", error);
     toast({
@@ -84,10 +80,6 @@ async function deleteCartItem(itemId) {
       });
       return;
     }
-    toast({
-      title: "Success",
-      description: "Cart item deleted successfully",
-    });
   } catch (error) {
     console.error("Error deleting cart item", error);
     toast({
@@ -117,8 +109,9 @@ async function checkout(cartItems, totalAmount) {
       return;
     }
     toast({
-      title: "Success",
-      description: "Checkout successful",
+      title: "Checkout Successful!",
+      description:
+        "We will contact you regarding the product pickup time or delivery.",
     });
   } catch (error) {
     console.error("Error during checkout", error);
@@ -131,10 +124,11 @@ async function checkout(cartItems, totalAmount) {
 }
 
 function CartSheet() {
-  const session = getSession();
+  const { data: session, status } = useSession();
   const [cartItems, setCartItems] = useState([]);
   const [open, setOpen] = useState(false);
-  if (!session?.user?.email) {
+  const [loading, setLoading] = useState(false);
+  if (status === "unauthenticated") {
     return (
       <div>
         <Sheet open={open} onOpenChange={() => setOpen(!open)}>
@@ -163,14 +157,21 @@ function CartSheet() {
       </div>
     );
   }
+
   useEffect(() => {
     async function helper() {
-      const cartItems = await getMyCart();
-      console.log("cartItems", cartItems);
-      setCartItems(cartItems.data);
+      setLoading(true);
+      try {
+        const cartItems = await getMyCart();
+        console.log("cartItems", cartItems);
+        setCartItems(cartItems.data);
+      } catch (err) {
+        console.error(err);
+      }
+      setLoading(false);
     }
-    if (session) {
-      helper();
+    if (status === "authenticated") {
+      if (open === true) helper();
     }
   }, [open]);
 
@@ -214,11 +215,16 @@ function CartSheet() {
           </SheetHeader>
 
           <div className="space-y-4 mt-10">
+            {loading ? (
+              <p className="mt-4 text-center w-full">
+                Loading your cart items...
+              </p>
+            ) : null}
             {cartItems.length === 0 ? (
               <div>
                 <p className="text-center">Your cart is empty</p>
                 <Button className="w-full mt-4 border">
-                  <Link href="/category/all">Shop Now</Link>
+                  <Link href="">Shop Now</Link>
                 </Button>
               </div>
             ) : (

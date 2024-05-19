@@ -1,10 +1,17 @@
-import React from "react";
-import { Checkbox } from "./ui/checkbox";
-import { Label } from "./ui/label";
-import { Slider } from "./ui/slider";
-import { StarIcon } from "@radix-ui/react-icons";
+import React, { useState } from "react";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Separator } from "./ui/separator";
 
-function FilterForm({ showOnMobile, categories }) {
+function FilterForm({ showOnMobile, categories, onPriceRangeChange }) {
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000000);
+
+  const handlePriceRangeChange = () => {
+    onPriceRangeChange(minPrice, maxPrice);
+  };
+
   return (
     <div>
       <div
@@ -21,73 +28,46 @@ function FilterForm({ showOnMobile, categories }) {
           }`}
         >
           <div>
-            <h4 className="text-base font-medium mb-2">Categories</h4>
+            <h4 className="text-base font-medium mb-4">Categories</h4>
             <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Checkbox id="all" />
-                <Label htmlFor="all">All</Label>
-              </div>
               {categories &&
                 categories.map((category) => (
-                  <div className="flex items-center gap-2">
-                    <Checkbox id={`category-${category.categoryName}`} />
-                    <Label htmlFor={`category-${category.categoryName}`}>
+                  <div
+                    className="flex items-center md:justify-start justify-center gap-2"
+                    key={category.categoryName}
+                  >
+                    <Link
+                      href={`/category/${category.categoryName}`}
+                      className="capitalize text-sm"
+                    >
                       {category.categoryName}
-                    </Label>
+                    </Link>
                   </div>
                 ))}
             </div>
           </div>
+          <Separator />
           <div>
-            <h4 className="text-base font-medium mb-2">
+            <h4 className="text-base mb-2">
               <div className="grid gap-2">
-                <Label htmlFor="price-range">Price Range</Label>
-                <Slider
-                  className="w-full"
-                  //   defaultValue={[50, 300]}
-                  id="price-range"
-                  max={500}
-                  min={0}
-                  step={10}
+                <label htmlFor="min-price">Min Price</label>
+                <Input
+                  type="number"
+                  id="min-price"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(Number(e.target.value))}
                 />
+                <label htmlFor="max-price">Max Price</label>
+                <Input
+                  type="number"
+                  id="max-price"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                />
+                <Button onClick={handlePriceRangeChange}>Apply</Button>
               </div>
             </h4>
           </div>
-          {/* <div>
-            <h4 className="text-base font-medium mb-2">Rating</h4>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Checkbox id="rating-5" />
-                <div className="flex items-center gap-0.5">
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="rating-4" />
-                <div className="flex items-center gap-0.5">
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="rating-3" />
-                <div className="flex items-center gap-0.5">
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-primary" />
-                  <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                  <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>

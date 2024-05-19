@@ -34,7 +34,7 @@ async function MobileNavbar() {
   return (
     <div>
       {/* Top Navbar */}
-      <div className="flex justify-between gap-2 flex-wrap items-center px-4 fixed w-full py-2 bg-background">
+      <div className="flex justify-between gap-2 flex-wrap items-center px-4 fixed w-full py-2 bg-background z-10">
         <div className="w-full flex-wrap flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <MobileNavbarSlider categories={categories} />
