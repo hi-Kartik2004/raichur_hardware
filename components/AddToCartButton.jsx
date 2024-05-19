@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
-import { RadioTower } from "lucide-react";
+import { RadioTower, ShoppingCartIcon } from "lucide-react";
 import { useSession, signIn } from "next-auth/react";
 
 function AddToCartButton({
@@ -67,6 +67,7 @@ function AddToCartButton({
       <Toaster />
       {status === "authenticated" ? (
         <Button className="w-full" onClick={() => handleAddToCart(productName)}>
+          <ShoppingCartIcon className="mr-2 h-4 w-4" />{" "}
           {submitting ? "Adding..." : "Add to cart"}
         </Button>
       ) : (
