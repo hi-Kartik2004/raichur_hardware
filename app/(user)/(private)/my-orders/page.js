@@ -8,6 +8,7 @@ import {
   updateDoc,
   doc,
   query,
+  where,
 } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,8 +40,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 function Checkouts() {
+  const { data: session, status } = useSession();
+  //   console.log(session?.user?.email);
+  const userEmail = session?.user?.email;
+
   const [checkouts, setCheckouts] = useState([]);
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("none");
@@ -49,7 +55,11 @@ function Checkouts() {
   useEffect(() => {
     async function fetchCheckouts() {
       const ref = collection(db, "checkouts");
-      const q = query(ref, orderBy("timestamp", "desc"));
+      const q = query(
+        ref,
+        where("email", "==", userEmail),
+        orderBy("timestamp", "desc")
+      );
       const snapshot = await getDocs(q);
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -138,7 +148,6 @@ function Checkouts() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>User Email</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Images</TableHead>
               <TableHead>Quantity</TableHead>
@@ -147,12 +156,12 @@ function Checkouts() {
               <TableHead>Timestamp</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Actions</TableHead>
+              <TableHead>Admin Message (if any)</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {sortedCheckouts.map((checkout) => (
-              <TableRow key={checkout.id}>
-                <TableCell>{checkout.email}</TableCell>
+              <TableRow key={checkout?.id}>
                 <TableCell>
                   {checkout.cartItems.slice(0, 3).map((item, index) => (
                     <span key={item.id}>
@@ -169,9 +178,9 @@ function Checkouts() {
                 <TableCell>
                   {checkout.cartItems.slice(0, 3).map((item, index) => (
                     <img
-                      key={item.id}
-                      src={item.imageUrl}
-                      alt={item.product}
+                      key={item?.id}
+                      src={item?.imageUrl}
+                      alt={item?.product}
                       className="h-10 w-10 inline-block ml-2"
                     />
                   ))}
@@ -193,11 +202,17 @@ function Checkouts() {
                     <div key={item.id}>{item.price}</div>
                   ))}
                 </TableCell> */}
-                <TableCell>Rs {checkout.totalAmount}</TableCell>
+                <TableCell>Rs {checkout?.totalAmount}</TableCell>
                 <TableCell>
-                  {new Date(checkout.timestamp.seconds * 1000).toLocaleString()}
+                  {new Date(
+                    checkout?.timestamp?.seconds * 1000
+                  ).toLocaleString()}
                 </TableCell>
-                <TableCell>{checkout.status}</TableCell>
+                <TableCell>
+                  {checkout?.status == "pending"
+                    ? "Processing your order"
+                    : checkout?.status}
+                </TableCell>
                 <TableCell>
                   <Dialog>
                     <DialogTrigger asChild>
@@ -222,13 +237,13 @@ function Checkouts() {
                                   className="h-20 w-20 object-cover rounded"
                                 />
                                 <div className="font-semibold">
-                                  <Link href={`/product/${item.productId}`}>
-                                    {item.product}
+                                  <Link href={`/product/${item?.productId}`}>
+                                    {item?.product}
                                   </Link>
 
                                   <div className="font-medium">
-                                    <div>Quantity: {item.quantity}</div>
-                                    <div>Price: Rs {item.price}</div>
+                                    <div>Quantity: {item?.quantity}</div>
+                                    <div>Price: Rs {item?.price}</div>
                                   </div>
                                 </div>
                               </div>
@@ -237,39 +252,22 @@ function Checkouts() {
                           </>
                         ))}
                       </div>
-                      <div className="mt-4">
-                        <label htmlFor="adminMessage" className="block mb-2">
-                          Admin Message:
-                        </label>
-                        <Input
-                          id="adminMessage"
-                          value={adminMessage}
-                          onChange={(e) => setAdminMessage(e.target.value)}
-                          placeholder="Enter a message for this checkout"
-                          className="w-full"
-                        />
+                      <p>Incase of any queries</p>
+                      <div className={"flex flex-col"}>
+                        <div className="flex gap-2 justify-start">
+                          <Button asChild>
+                            <Link href="/contact">Contact Us</Link>
+                          </Button>
+
+                          <Button asChild variant="outline">
+                            <Link href="tele:6360006359">Call Us</Link>
+                          </Button>
+                        </div>
                       </div>
-                      <DialogFooter>
-                        <Button
-                          variant="secondary"
-                          onClick={() =>
-                            handleStatusChange(checkout.id, "completed")
-                          }
-                        >
-                          Mark as Completed
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          onClick={() =>
-                            handleStatusChange(checkout.id, "cancelled")
-                          }
-                        >
-                          Cancel
-                        </Button>
-                      </DialogFooter>
                     </DialogContent>
                   </Dialog>
                 </TableCell>
+                <TableCell>{checkout?.adminMessage}</TableCell>
               </TableRow>
             ))}
           </TableBody>
