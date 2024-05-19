@@ -15,6 +15,7 @@ import { db } from "@/firebase/config";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { SheetClose } from "./ui/sheet";
+import { useRouter } from "next/navigation";
 
 // Custom debounce function
 function debounce(func, wait) {
@@ -48,6 +49,7 @@ function ProductSearchBar({ onSheet = false }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const router = useRouter();
 
   const handleSearch = async (query) => {
     if (query.trim() !== "") {
@@ -94,12 +96,16 @@ function ProductSearchBar({ onSheet = false }) {
               <div
                 key={product.id}
                 className="border-b last:border-0 p-4 flex gap-4 items-center"
+                onClick={() => {
+                  setSearchQuery("");
+                  router.push(`/product/${product?.id}`);
+                }}
               >
                 <div>
                   <img
                     src={product?.images[0]}
                     alt={product?.name}
-                    className="w-[50px] h-[50px] object-cover rounded-lg"
+                    className="w-[120px] h-[60px] object-cover rounded-lg"
                   />
                 </div>
                 <div className="max-w-[200px]">
@@ -114,7 +120,7 @@ function ProductSearchBar({ onSheet = false }) {
                       product?.name
                     )}
                   </Link>
-                  {/* <p className="line-clamp-2">{product?.description}</p> */}
+                  {/* <p className="line-clamp-2 text-xs">{product?.description}</p> */}
                 </div>
               </div>
             ))
