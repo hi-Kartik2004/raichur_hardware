@@ -44,7 +44,7 @@ async function searchInAllProducts(searchQuery) {
   return data;
 }
 
-function ProductSearchBar() {
+function ProductSearchBar({ onSheet = false }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -106,9 +106,15 @@ function ProductSearchBar() {
                   <Link
                     href={"/product/" + product?.id}
                     className=" text-md font-semibold"
+                    onClick={() => setSearchQuery("")}
                   >
-                    <SheetClose>{product.name}</SheetClose>
+                    {onSheet ? (
+                      <SheetClose>{product?.name}</SheetClose>
+                    ) : (
+                      product?.name
+                    )}
                   </Link>
+                  {/* <p className="line-clamp-2">{product?.description}</p> */}
                 </div>
               </div>
             ))

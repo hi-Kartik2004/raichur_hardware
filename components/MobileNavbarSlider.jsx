@@ -27,7 +27,7 @@ function MobileNavbarSlider({ categories }) {
           </SheetDescription>
           <div className="flex flex-col gap-4 mt-4">
             <div className="flex w-full">
-              <ProductSearchBar />
+              <ProductSearchBar onSheet={true} />
             </div>
             <div className="mt-4">
               <p className="underline underline-offset-8">Links</p>
