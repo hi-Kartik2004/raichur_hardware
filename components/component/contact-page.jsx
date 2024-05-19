@@ -34,6 +34,8 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { toast } from "../ui/use-toast";
 import { Toaster } from "../ui/toaster";
+import globalData from "@/app/data";
+import { MailIcon } from "lucide-react";
 
 export function ContactPage() {
   async function handleSubmit(e) {
@@ -74,12 +76,10 @@ export function ContactPage() {
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="space-y-4">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Get in Touch
+                {globalData?.contactTitle}
               </h1>
               <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
-                Have a question or need assistance? Our team is here to help.
-                Fill out the form or use the contact information below to reach
-                out.
+                {globalData?.contactDescription}
               </p>
             </div>
             <div className="space-y-4">
@@ -138,21 +138,28 @@ export function ContactPage() {
                 <div className="flex items-center gap-2">
                   <MapPinIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                   <p className="text-gray-500 dark:text-gray-400">
-                    123 Main Street, Anytown USA
+                    {globalData?.address}
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <PhoneIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                  <p className="text-gray-500 dark:text-gray-400">
-                    (123) 456-7890
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <ClockIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                  <p className="text-gray-500 dark:text-gray-400">
-                    Monday - Friday, 9am - 5pm
-                  </p>
-                </div>
+                {globalData?.phones &&
+                  globalData?.phones.map((phone) => (
+                    <div className="flex items-center gap-2" key={phone}>
+                      <PhoneIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                      <p className="text-gray-500 dark:text-gray-400">
+                        {phone}
+                      </p>
+                    </div>
+                  ))}
+
+                {globalData?.emails &&
+                  globalData?.emails.map((email) => (
+                    <div className="flex items-center gap-2" key={email}>
+                      <MailIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                      <p className="text-gray-500 dark:text-gray-400">
+                        {email}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="space-y-4">
@@ -164,7 +171,7 @@ export function ContactPage() {
                   alt="Map"
                   className="w-full h-auto"
                   height="400"
-                  src="/placeholder.svg"
+                  src={`${globalData?.contactImageUrl}`}
                   style={{
                     aspectRatio: "600/400",
                     objectFit: "cover",

@@ -27,6 +27,7 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import globalData from "@/app/data";
 
 export function ContactUsTableV0() {
   return (

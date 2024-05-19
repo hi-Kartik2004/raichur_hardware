@@ -1,4 +1,5 @@
 import icons from "@/app/icons";
+import { FaPhoneSlash } from "react-icons/fa6";
 
 const data = {
   adminEmails: ["kudlu2004@gmail.com", "raichurhardware2024@gmail.com"],
@@ -8,6 +9,15 @@ const data = {
 
   // name
   companyName: "Raichur Hardware",
+
+  // phone numbers
+  phones: ["+91 9876543210", "+91 1234567990"],
+
+  // emails
+  emails: ["raichurhardware2024@gmail.com"],
+
+  // address
+  address: "123 Main Street, Anytown USA",
 
   // footer desc
   footerDescription:
@@ -116,6 +126,12 @@ const data = {
         "The setup process is designed to be quick and easy. Most customers can get up and running in just a few minutes. We provide detailed onboarding guides and our support team is available to help you every step of the way.",
     },
   ],
+
+  // contact page
+  contactTitle: "Get in Touch",
+  contactDescription:
+    "Have a question or need assistance? Our team is here to help. Fill out the form or use the contact information below to reach out.",
+  contactImageUrl: "/placeholder.svg",
 };
 
 export default data;
