@@ -219,8 +219,7 @@ function CartSheet() {
               <p className="mt-4 text-center w-full">
                 Loading your cart items...
               </p>
-            ) : null}
-            {cartItems.length === 0 ? (
+            ) : cartItems.length === 0 ? (
               <div>
                 <p className="text-center">Your cart is empty</p>
                 <Button className="w-full mt-4 border">
