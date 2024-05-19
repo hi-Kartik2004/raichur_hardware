@@ -36,6 +36,7 @@ import { toast } from "../ui/use-toast";
 import { Toaster } from "../ui/toaster";
 import globalData from "@/app/data";
 import { MailIcon } from "lucide-react";
+import Link from "next/link";
 
 export function ContactPage() {
   async function handleSubmit(e) {
@@ -145,9 +146,12 @@ export function ContactPage() {
                   globalData?.phones.map((phone) => (
                     <div className="flex items-center gap-2" key={phone}>
                       <PhoneIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <Link
+                        href={`tel:${phone}`}
+                        className="text-gray-500 dark:text-gray-400"
+                      >
                         {phone}
-                      </p>
+                      </Link>
                     </div>
                   ))}
 
@@ -155,9 +159,12 @@ export function ContactPage() {
                   globalData?.emails.map((email) => (
                     <div className="flex items-center gap-2" key={email}>
                       <MailIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <Link
+                        href={`mailto:${email}`}
+                        className="text-gray-500 dark:text-gray-400"
+                      >
                         {email}
-                      </p>
+                      </Link>
                     </div>
                   ))}
               </div>

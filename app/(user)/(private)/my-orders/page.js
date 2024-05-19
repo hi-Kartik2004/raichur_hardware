@@ -41,6 +41,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import globalData from "@/app/data";
 
 function Checkouts() {
   const { data: session, status } = useSession();
@@ -260,7 +261,9 @@ function Checkouts() {
                           </Button>
 
                           <Button asChild variant="outline">
-                            <Link href="tele:6360006359">Call Us</Link>
+                            <Link href={`tel:${globalData?.phones[0]}`}>
+                              Call Us
+                            </Link>
                           </Button>
                         </div>
                       </div>
