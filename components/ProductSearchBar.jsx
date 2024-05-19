@@ -95,23 +95,33 @@ function ProductSearchBar({ onSheet = false }) {
             products.slice(0, 4).map((product) => (
               <div
                 key={product.id}
-                className="border-b last:border-0 p-4 flex gap-4 items-center"
+                className="border-b last:border-0 p-4 flex gap-4"
                 onClick={() => {
                   setSearchQuery("");
                   router.push(`/product/${product?.id}`);
                 }}
               >
-                <div>
-                  <img
-                    src={product?.images[0]}
-                    alt={product?.name}
-                    className="w-[120px] h-[60px] object-cover rounded-lg"
-                  />
-                </div>
-                <div className="max-w-[200px]">
+                <Link href={`/product/${product?.id}`}>
+                  {onSheet ? (
+                    <SheetClose>
+                      <img
+                        src={product?.images[0]}
+                        alt={product?.name}
+                        className="w-[60px] h-[60px] object-cover rounded-lg"
+                      />
+                    </SheetClose>
+                  ) : (
+                    <img
+                      src={product?.images[0]}
+                      alt={product?.name}
+                      className="w-[80px] h-[60px] object-cover rounded-lg"
+                    />
+                  )}
+                </Link>
+                <div className="max-w-[125px]">
                   <Link
                     href={"/product/" + product?.id}
-                    className=" text-md font-semibold"
+                    className="font-semibold text-sm"
                     onClick={() => setSearchQuery("")}
                   >
                     {onSheet ? (
@@ -120,7 +130,7 @@ function ProductSearchBar({ onSheet = false }) {
                       product?.name
                     )}
                   </Link>
-                  {/* <p className="line-clamp-2 text-xs">{product?.description}</p> */}
+                  <p className="line-clamp-2 text-xs">{product?.description}</p>
                 </div>
               </div>
             ))

@@ -116,10 +116,10 @@ function Checkouts() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 pb-16 lg:pt-40 pt-24">
       <Toaster />
       <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
-        <h1 className="text-2xl font-bold">Checkout Details</h1>
+        <h1 className="text-2xl font-bold">My orders</h1>
         <div className="flex gap-4">
           <Select onValueChange={setStatusFilter}>
             <SelectTrigger className="w-full md:w-[150px]">

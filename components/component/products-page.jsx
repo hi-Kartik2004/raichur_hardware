@@ -27,7 +27,9 @@ export async function fetchInBatches(
   lastDoc = null,
   pageSize = 12,
   sortBy = "timestamp",
-  sortDirection = "desc"
+  sortDirection = "desc",
+  minPrice = 0,
+  maxPrice = 1000000
 ) {
   let q;
 
@@ -35,6 +37,8 @@ export async function fetchInBatches(
     q = query(
       collection(db, "products"),
       where("hide", "==", false),
+      where("price", ">=", minPrice),
+      where("price", "<=", maxPrice),
       orderBy(sortBy, sortDirection),
       limit(pageSize)
     );
@@ -43,6 +47,8 @@ export async function fetchInBatches(
       collection(db, "products"),
       where("category", "==", categoryName),
       where("hide", "==", false),
+      where("price", ">=", minPrice),
+      where("price", "<=", maxPrice),
       orderBy(sortBy, sortDirection),
       limit(pageSize)
     );
@@ -75,6 +81,8 @@ export function ProductsPage({
   const [sortBy, setSortBy] = useState("timestamp");
   const [sortDirection, setSortDirection] = useState("desc");
   const [hasMore, setHasMore] = useState(true);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000000);
 
   const handleSortByChange = (value) => {
     const [criteria, direction] = value.split("-");
@@ -103,7 +111,9 @@ export function ProductsPage({
       lastDoc,
       loadProducts,
       sortBy,
-      sortDirection
+      sortDirection,
+      minPrice,
+      maxPrice
     );
     setProducts((prev) => [...prev, ...data]);
     setLastDoc(lastVisible);
@@ -118,7 +128,9 @@ export function ProductsPage({
       null,
       loadProducts,
       sortBy,
-      sortDirection
+      sortDirection,
+      minPrice,
+      maxPrice
     );
     setProducts(data);
     setLastDoc(lastVisible);
@@ -127,13 +139,23 @@ export function ProductsPage({
 
   useEffect(() => {
     fetchInitialData();
-  }, [categoryName, sortBy, sortDirection]);
+  }, [categoryName, sortBy, sortDirection, minPrice, maxPrice]);
+
+  const handlePriceRangeChange = (min, max) => {
+    setMinPrice(min);
+    setMaxPrice(max);
+    fetchInitialData();
+  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 p-4 md:p-8">
       {/* Filter Form */}
       <div className="hidden lg:block">
-        <FilterForm showOnMobile={false} categories={categories} />
+        <FilterForm
+          showOnMobile={false}
+          categories={categories}
+          onPriceRangeChange={handlePriceRangeChange}
+        />
       </div>
 
       {/* Product List */}
@@ -231,7 +253,7 @@ export function ProductsPage({
                   {product.name}
                 </Link>
 
-                <p className="text-muted-foreground text-ellipsis line-clamp-3 text-sm normal-case">
+                <p className="text-muted-foreground text-ellipsis line-clamp-2 text-sm normal-case">
                   {product?.description}
                 </p>
 

@@ -34,7 +34,7 @@ export function AddProductPageV0({
   const [imagePreviews, setImagePreviews] = useState([]);
   const [formState, setFormState] = useState({
     name: "",
-    price: "",
+    price: 0,
     discount: "",
     maxQuantity: "",
     description: "",
@@ -91,7 +91,13 @@ export function AddProductPageV0({
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const newValue = type === "checkbox" ? checked : value;
+    // Parse the value as a number if the input is for the "price" field
+    const newValue =
+      name === "price"
+        ? parseFloat(value)
+        : type === "checkbox"
+        ? checked
+        : value;
     setFormState({ ...formState, [name]: newValue });
   };
 
@@ -158,7 +164,7 @@ export function AddProductPageV0({
       // Reset form state
       setFormState({
         name: "",
-        price: "",
+        price: 0,
         discount: "",
         maxQuantity: "",
         description: "",

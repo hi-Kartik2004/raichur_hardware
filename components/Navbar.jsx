@@ -14,31 +14,13 @@ import UserButton from "./UserButton";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase/config";
 
-async function Navbar({ showCategories = true }) {
+async function Navbar({ showCategories = true, categories }) {
   async function handleLoginByGoogle() {
     "use server";
     await signIn("google", { redirectTo: "/private" });
   }
 
   const session = await auth();
-
-  async function getAllCategories() {
-    "use server";
-    // Query categories collection and order by timestamp in descending order
-    const q = query(collection(db, "categories"), orderBy("timestamp"));
-
-    const snapshot = await getDocs(q);
-    let data = [];
-    snapshot.forEach((doc) => {
-      data.push({
-        id: doc.id,
-        ...doc.data(),
-      });
-    });
-    return data;
-  }
-
-  const categories = await getAllCategories();
 
   return (
     <div className="pb-2 fixed w-full bg-background z-10">

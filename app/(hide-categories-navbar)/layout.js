@@ -2,8 +2,27 @@ import MobileNavbar from "@/components/MobileNavbar";
 import Navbar from "@/components/Navbar";
 import { Footer } from "@/components/component/footer";
 import React from "react";
+import { db } from "@/firebase/config";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
-function layout({ children }) {
+async function layout({ children }) {
+  async function getAllCategories() {
+    "use server";
+    // Query categories collection and order by timestamp in descending order
+    const q = query(collection(db, "categories"), orderBy("timestamp"));
+
+    const snapshot = await getDocs(q);
+    let data = [];
+    snapshot.forEach((doc) => {
+      data.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    return data;
+  }
+
+  const categories = await getAllCategories();
   return (
     <div>
       <div className="hidden lg:block">
@@ -14,7 +33,7 @@ function layout({ children }) {
         <MobileNavbar />
       </div>
       {children}
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

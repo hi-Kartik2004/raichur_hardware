@@ -19,7 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import Link from "next/link";
 
-export function Footer() {
+export function Footer({ categories }) {
   return (
     <footer className="bg-gray-100 dark:bg-gray-800 pt-12 pb-6 md:pt-16 md:pb-8 px-2">
       <div className="container max-w-8xl grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
@@ -45,35 +45,24 @@ export function Footer() {
               <li>
                 <Link
                   className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
+                  href={`/category/all`}
                 >
-                  Clothing
+                  All Products
                 </Link>
               </li>
-              <li>
-                <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  Electronics
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  Home & Garden
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  Beauty & Personal Care
-                </Link>
-              </li>
+              {categories &&
+                categories
+                  .filter((category) => category?.categoryName != "all")
+                  .map((category) => (
+                    <li>
+                      <Link
+                        className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 capitalize"
+                        href={`/category/${category?.categoryName}`}
+                      >
+                        {category?.categoryName}
+                      </Link>
+                    </li>
+                  ))}
             </ul>
           </div>
           <div className="space-y-2">
@@ -84,7 +73,7 @@ export function Footer() {
               <li>
                 <Link
                   className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
+                  href="/about"
                 >
                   About Us
                 </Link>
@@ -92,7 +81,7 @@ export function Footer() {
               <li>
                 <Link
                   className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
+                  href="/contact"
                 >
                   Contact
                 </Link>
@@ -100,19 +89,19 @@ export function Footer() {
               <li>
                 <Link
                   className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
+                  href="/faq"
                 >
                   FAQs
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   href="#"
                 >
                   Shipping & Returns
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
