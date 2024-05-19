@@ -19,6 +19,7 @@ export async function POST(req) {
       cartItems,
       totalAmount,
       timestamp: new Date(),
+      status: "pending",
     });
     return NextResponse.json({ message: "Checkout successful" });
   } catch (error) {

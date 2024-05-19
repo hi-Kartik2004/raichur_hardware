@@ -30,10 +30,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Separator } from "../ui/separator";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "@/firebase/config";
+import { toast } from "../ui/use-toast";
+import { Toaster } from "../ui/toaster";
 
 export function ContactPage() {
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    const form = e.target;
     const formData = new FormData(e.target);
     const data = {
       name: formData.get("name"),
@@ -42,11 +47,28 @@ export function ContactPage() {
       message: formData.get("message"),
     };
 
-    console.log(data);
+    const ref = collection(db, "queries");
+    try {
+      const snapshot = await addDoc(ref, data);
+      toast({
+        title: "Query Submitted Successfully",
+        description: "We will reach you out on your email!",
+      });
+      // reset the form
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      toast({
+        variant: "destructive",
+        title: "Unable to submit Query",
+        description: `There was some error submitting your query${err}`,
+      });
+    }
   }
   return (
     <>
       <section className="w-full py-12 md:py-24 lg:py-32">
+        <Toaster />
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="space-y-4">
