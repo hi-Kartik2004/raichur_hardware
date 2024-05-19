@@ -30,7 +30,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Separator } from "../ui/separator";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { toast } from "../ui/use-toast";
 import { Toaster } from "../ui/toaster";
@@ -45,6 +45,7 @@ export function ContactPage() {
       email: formData.get("email"),
       subject: formData.get("subject"),
       message: formData.get("message"),
+      timestamp: serverTimestamp(),
     };
 
     const ref = collection(db, "queries");
