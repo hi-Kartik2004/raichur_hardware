@@ -14,6 +14,7 @@ import {
 import { db } from "@/firebase/config";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
+import { SheetClose } from "./ui/sheet";
 
 // Custom debounce function
 function debounce(func, wait) {
@@ -94,15 +95,19 @@ function ProductSearchBar() {
                 key={product.id}
                 className="border-b last:border-0 p-4 flex gap-4 items-center"
               >
-               <div>
-                <img src={product?.images[0]} alt={product?.name} className="w-[50px] h-[50px] object-cover rounded-lg" />
-               </div>
+                <div>
+                  <img
+                    src={product?.images[0]}
+                    alt={product?.name}
+                    className="w-[50px] h-[50px] object-cover rounded-lg"
+                  />
+                </div>
                 <div className="max-w-[200px]">
                   <Link
                     href={"/product/" + product?.id}
                     className=" text-md font-semibold"
                   >
-                    {product.name}
+                    <SheetClose>{product.name}</SheetClose>
                   </Link>
                 </div>
               </div>
