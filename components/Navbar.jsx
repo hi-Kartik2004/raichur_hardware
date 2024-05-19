@@ -13,6 +13,7 @@ import SignInButton from "./SignInButton";
 import UserButton from "./UserButton";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import globalData from "@/app/data";
 
 async function Navbar({ showCategories = true, categories }) {
   async function handleLoginByGoogle() {
@@ -29,7 +30,11 @@ async function Navbar({ showCategories = true, categories }) {
         <div className="flex justify-between gap-2 flex-wrap items-center ">
           <div className="  max-w-[700px]  w-full flex-wrap flex gap-10 items-center">
             <Link href="/">
-              <img src="/logo.png" alt="logo" className=" max-w-[120px]" />
+              <img
+                src={globalData?.logoUrl}
+                alt="logo"
+                className=" max-w-[120px]"
+              />
             </Link>
             <ProductSearchBar />
             <Link href="/about" className="text-sm">

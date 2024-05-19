@@ -4,6 +4,7 @@ import ImageCaurosel from "./ImageCaurosel";
 import { HiArrowCircleRight, HiArrowRight } from "react-icons/hi";
 import HeroAlertDialog from "./HeroAlertDialog";
 import Link from "next/link";
+import globalData from "@/app/data";
 
 function HeroSection() {
   return (
@@ -11,29 +12,13 @@ function HeroSection() {
       <div className="container flex flex-wrap justify-around">
         <div className="flex items-center justify-center xl:mt-10 mt-24 h-full xl:min-h-[100vh]">
           <div className="max-w-[635px] h-full xl:mt-0">
-            <h1
-              className="text-4xl xl:text-5xl font-bold"
-              style={{ lineHeight: "3.1rem" }}
-            >
-              Most <span className="text-amber-950"> Trusted Hardware ✨ </span>{" "}
-              Wholesale Store in{" "}
-              <span className="text-amber-950">Raichur </span>
-            </h1>
-            <p className="text-lg my-2">
-              We have most of the products in the market. Check them out!
-            </p>
+            {globalData?.heroTitleFunc()}
+            <p className="text-lg mb-2 mt-6">{globalData?.heroDescription}</p>
 
-            <p className="text-lg my-6">
-              Building trust, faith and having delivered services to{" "}
-              <span className="underline underline-offset-4">
-                more than 2 Lakh
-              </span>{" "}
-              customers and counting in Raichur and near{" "}
-              <span className="underline underline-offset-4">since 1990</span>.
-            </p>
+            {globalData?.heroDescriptionSecondLineFunc()}
             <Button size="lg" asChild>
               <Link href="/category/all">
-                Shop Now <HiArrowRight className="ml-2" />
+                {globalData?.heroButtonText} <HiArrowRight className="ml-2" />
               </Link>
             </Button>
           </div>

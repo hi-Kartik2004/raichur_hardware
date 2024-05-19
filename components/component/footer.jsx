@@ -18,6 +18,7 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 import Link from "next/link";
+import globalData from "@/app/data";
 
 export function Footer({ categories }) {
   return (
@@ -28,12 +29,10 @@ export function Footer({ categories }) {
             className="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-50"
             href="#"
           >
-            <span>Raichur Hardware</span>
+            <span>{globalData?.companyName}</span>
           </Link>
           <p className="text-gray-500 dark:text-gray-400">
-            Raichur hardware Store is your one-stop shop for high-quality
-            products at affordable prices. Discover the best deals and enjoy a
-            seamless shopping experience.
+            {globalData?.footerDescription}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-4 md:gap-14">
@@ -113,7 +112,7 @@ export function Footer({ categories }) {
             <li>
               <Link
                 className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href={`${globalData?.privacy}`}
               >
                 Privacy Policy
               </Link>
@@ -121,7 +120,7 @@ export function Footer({ categories }) {
             <li>
               <Link
                 className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href={`${globalData?.termsOfService}`}
               >
                 Terms of Service
               </Link>

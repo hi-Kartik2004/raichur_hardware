@@ -11,7 +11,8 @@ import UserButton from "./UserButton";
 import SignInButton from "./SignInButton";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { Caesar_Dressing } from "next/font/google";
+import globalData from "@/app/data";
+// import { Caesar_Dressing } from "next/font/google";
 
 async function MobileNavbar() {
   async function handleLoginByGoogle() {
@@ -40,7 +41,7 @@ async function MobileNavbar() {
             <MobileNavbarSlider categories={categories} />
             <Link href="/">
               <img
-                src="/logo.png"
+                src={globalData?.logoUrl}
                 alt="logo"
                 className=" max-w-[100px] lg:max-w-[120px]"
               />

@@ -29,6 +29,7 @@ import {
   CollapsibleContent,
   Collapsible,
 } from "@/components/ui/collapsible";
+import globalData from "@/app/data";
 
 export function FaqPage() {
   return (
@@ -51,24 +52,20 @@ export function FaqPage() {
           </p>
         </div>
         <div className="mx-auto mt-12 max-w-3xl space-y-4">
-          <Collapsible>
-            <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md bg-gray-100 px-4 py-3 text-left font-medium transition-colors hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:bg-gray-800 dark:hover:bg-gray-700">
-              <div className="flex items-center gap-3">
-                <DollarSignIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                <span>What is the pricing structure for your product?</span>
-              </div>
-            </CollapsibleTrigger>
-            <CollapsibleContent className="rounded-b-md border-x border-b border-gray-200 bg-white px-4 py-3 text-gray-500 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-400">
-              Our pricing is based on the number of users and the features you
-              need. We offer a range of plans to fit different business sizes
-              and budgets. You can find more details on our{" "}
-              <Link className="font-medium underline" href="#">
-                pricing page
-              </Link>
-              or contact our sales team for a custom quote.
-            </CollapsibleContent>
-          </Collapsible>
-          <Collapsible>
+          {globalData?.faqs.map((faq) => (
+            <Collapsible key={faq?.question}>
+              <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md bg-gray-100 px-4 py-3 text-left font-medium transition-colors hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <div className="flex items-center gap-3">
+                  {faq?.icon}
+                  <span>{faq?.question}</span>
+                </div>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="rounded-b-md border-x border-b border-gray-200 bg-white px-4 py-3 text-gray-500 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-400">
+                {faq?.answer}
+              </CollapsibleContent>
+            </Collapsible>
+          ))}
+          {/* <Collapsible>
             <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md bg-gray-100 px-4 py-3 text-left font-medium transition-colors hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 dark:bg-gray-800 dark:hover:bg-gray-700">
               <div className="flex items-center gap-3">
                 <ClockIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
@@ -137,7 +134,7 @@ export function FaqPage() {
               </Link>
               .
             </CollapsibleContent>
-          </Collapsible>
+          </Collapsible> */}
         </div>
       </div>
     </section>
