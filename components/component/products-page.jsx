@@ -151,9 +151,9 @@ export function ProductsPage({
         </div>
 
         {/* Product Summary */}
-        <div className="flex items-center justify-between w-full mb-4 mt-4 flex-wrap gap-4">
+        <div className="flex items-center justify-between w-full mb-4 mt-4">
           <div>
-            <h2 className="text-2xl font-bold capitalize">
+            <h2 className="text-2xl font-bold">
               {categoryDetails?.categoryName} Products
             </h2>
             <p className="text-gray-500 dark:text-gray-400">
@@ -226,12 +226,12 @@ export function ProductsPage({
               <div className="p-4 space-y-2">
                 <Link
                   href={`/product/${product.id}`}
-                  className="text-lg font-semibold"
+                  className="text-lg font-semibold capitalize"
                 >
                   {product.name}
                 </Link>
 
-                <p className="text-muted-foreground text-ellipsis line-clamp-3 text-sm">
+                <p className="text-muted-foreground text-ellipsis line-clamp-3 text-sm normal-case">
                   {product?.description}
                 </p>
 

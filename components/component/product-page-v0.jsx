@@ -180,6 +180,8 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 quantity={productQuantity}
                 imageUrl={product?.images[0]}
                 productId={productId}
+                maxQuantity={product?.maxQuantity}
+                inventory={product?.inventory}
               />
             ) : (
               <Button size="lg" disabled>

@@ -13,7 +13,17 @@ function AddToCartButton({
   quantity,
   imageUrl,
   productId,
+  maxQuantity,
+  inventory,
 }) {
+  const maxLimit = Math.min(inventory, maxQuantity);
+  if (quantity > maxLimit) {
+    toast({
+      variant: "destructive",
+      title: `You can't add more than ${maxLimit} items`,
+    });
+  }
+
   const router = useRouter();
   const { data: session, status } = useSession();
 

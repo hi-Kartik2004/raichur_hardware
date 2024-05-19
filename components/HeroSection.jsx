@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import ImageCaurosel from "./ImageCaurosel";
 import { HiArrowCircleRight, HiArrowRight } from "react-icons/hi";
 import HeroAlertDialog from "./HeroAlertDialog";
+import Link from "next/link";
 
 function HeroSection() {
   return (
@@ -30,8 +31,10 @@ function HeroSection() {
               customers and counting in Raichur and near{" "}
               <span className="underline underline-offset-4">since 1990</span>.
             </p>
-            <Button size="lg">
-              Shop Now <HiArrowRight className="ml-2" />
+            <Button size="lg" asChild>
+              <Link href="/category/all">
+                Shop Now <HiArrowRight className="ml-2" />
+              </Link>
             </Button>
           </div>
         </div>
