@@ -325,7 +325,9 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 <CardTitle>
                   <Link href={"/product/" + product.id}>{product.name}</Link>
                 </CardTitle>
-                <CardDescription>{product.description}</CardDescription>
+                <CardDescription className="line-clamp-2">
+                  {product.description}
+                </CardDescription>
               </CardHeader>
               <CardContent className="w-full -mt-2">
                 <Link href={"/product/" + product.id}>
