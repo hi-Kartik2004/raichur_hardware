@@ -116,7 +116,7 @@ function Checkouts() {
       <Toaster />
       <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
         <h1 className="text-2xl font-bold">Checkout Details</h1>
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-wrap">
           <Select onValueChange={setStatusFilter}>
             <SelectTrigger className="w-full md:w-[150px]">
               <SelectValue placeholder="Filter by Status" />

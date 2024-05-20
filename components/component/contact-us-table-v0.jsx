@@ -96,10 +96,10 @@ const ContactUsTableV0 = () => {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
-      <div className="flex items-center justify-between mb-6">
+    <div className="container mx-auto px-4 py-12 md:px-6 md:py-18">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <h1 className="text-2xl font-bold">Contact Us Queries</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <Button variant="outline" onClick={() => handleFilterChange("all")}>
             All
           </Button>
