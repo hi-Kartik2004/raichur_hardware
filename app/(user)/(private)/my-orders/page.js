@@ -164,7 +164,9 @@ function Checkouts() {
           <TableBody>
             {sortedCheckouts.map((checkout) => (
               <TableRow key={checkout?.id}>
-                <TableCell>{checkout?.id}</TableCell>
+                <TableCell className="w-[110px] break-all">
+                  {checkout?.id}
+                </TableCell>
                 <TableCell>
                   {checkout.cartItems.slice(0, 3).map((item, index) => (
                     <span key={item.id}>

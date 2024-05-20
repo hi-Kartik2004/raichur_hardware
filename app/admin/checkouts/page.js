@@ -176,7 +176,9 @@ function Checkouts() {
           <TableBody>
             {sortedCheckouts.map((checkout) => (
               <TableRow key={checkout.id}>
-                <TableCell>{checkout.id}</TableCell>
+                <TableCell className="w-[110px] break-all">
+                  <p>{checkout.id}</p>
+                </TableCell>
                 <TableCell>{checkout?.userDetails?.name}</TableCell>
                 <TableCell>{checkout.email}</TableCell>
                 <TableCell>{checkout?.userDetails?.phone}</TableCell>
@@ -192,16 +194,16 @@ function Checkouts() {
                   </Dialog>
                 </TableCell>
                 <TableCell>
-                  {checkout.cartItems.slice(0, 3).map((item, index) => (
+                  {checkout.cartItems.slice(0, 2).map((item, index) => (
                     <span key={item.id}>
                       {item.product}
-                      {index < 2 && index < checkout.cartItems.length - 1
+                      {index < 1 && index < checkout.cartItems.length - 1
                         ? ", "
                         : ""}
                     </span>
                   ))}
-                  {checkout.cartItems.length > 3 && (
-                    <span> (+{checkout.cartItems.length - 3} more)</span>
+                  {checkout.cartItems.length > 2 && (
+                    <span> (+{checkout.cartItems.length - 2} more)</span>
                   )}
                 </TableCell>
                 <TableCell>
@@ -215,7 +217,6 @@ function Checkouts() {
                   ))}
                   {checkout.cartItems.length > 3 && (
                     <span className="ml-2">
-                      <br />
                       (+{checkout.cartItems.length - 3} more)
                     </span>
                   )}
