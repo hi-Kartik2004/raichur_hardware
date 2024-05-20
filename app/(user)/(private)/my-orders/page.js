@@ -149,6 +149,7 @@ function Checkouts() {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>Checkout id</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Images</TableHead>
               <TableHead>Quantity</TableHead>
@@ -163,6 +164,7 @@ function Checkouts() {
           <TableBody>
             {sortedCheckouts.map((checkout) => (
               <TableRow key={checkout?.id}>
+                <TableCell>{checkout?.id}</TableCell>
                 <TableCell>
                   {checkout.cartItems.slice(0, 3).map((item, index) => (
                     <span key={item.id}>

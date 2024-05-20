@@ -45,6 +45,7 @@ function Checkouts() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("none");
   const [phoneFilter, setPhoneFilter] = useState("");
+  const [idFilter, setIdFilter] = useState("");
   const [adminMessage, setAdminMessage] = useState("");
 
   useEffect(() => {
@@ -89,7 +90,8 @@ function Checkouts() {
       statusFilter === "all" || checkout.status === statusFilter;
     const matchesPhone =
       phoneFilter === "" || checkout?.userDetails?.phone.includes(phoneFilter);
-    return matchesStatus && matchesPhone;
+    const matchesId = idFilter === "" || checkout.id.includes(idFilter);
+    return matchesStatus && matchesPhone && matchesId;
   });
 
   const sortedCheckouts = [...filteredCheckouts].sort((a, b) => {
@@ -143,12 +145,20 @@ function Checkouts() {
             onChange={(e) => setPhoneFilter(e.target.value)}
             className="w-full md:w-[200px]"
           />
+          <Input
+            type="text"
+            placeholder="Filter by ID"
+            value={idFilter}
+            onChange={(e) => setIdFilter(e.target.value)}
+            className="w-full md:w-[200px]"
+          />
         </div>
       </div>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>id</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>User Email</TableHead>
               <TableHead>Phone</TableHead>
@@ -166,6 +176,7 @@ function Checkouts() {
           <TableBody>
             {sortedCheckouts.map((checkout) => (
               <TableRow key={checkout.id}>
+                <TableCell>{checkout.id}</TableCell>
                 <TableCell>{checkout?.userDetails?.name}</TableCell>
                 <TableCell>{checkout.email}</TableCell>
                 <TableCell>{checkout?.userDetails?.phone}</TableCell>
