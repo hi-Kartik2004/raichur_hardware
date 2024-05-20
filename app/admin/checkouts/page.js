@@ -176,7 +176,7 @@ function Checkouts() {
           <TableBody>
             {sortedCheckouts.map((checkout) => (
               <TableRow key={checkout.id}>
-                <TableCell className="w-[110px] break-all">
+                <TableCell className="max-w-[110px] min-w-[110px] break-all">
                   <p>{checkout.id}</p>
                 </TableCell>
                 <TableCell>{checkout?.userDetails?.name}</TableCell>

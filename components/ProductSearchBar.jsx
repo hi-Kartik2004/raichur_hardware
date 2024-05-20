@@ -130,7 +130,11 @@ function ProductSearchBar({ onSheet = false }) {
                       product?.name
                     )}
                   </Link>
-                  <p className="line-clamp-2 text-xs">{product?.description}</p>
+                  <Link href={`/product/${product?.id}`}>
+                    <p className="line-clamp-2 text-xs">
+                      {product?.description}
+                    </p>
+                  </Link>
                 </div>
               </div>
             ))

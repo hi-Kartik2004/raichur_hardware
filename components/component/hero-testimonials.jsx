@@ -19,6 +19,8 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 
+import globalData from "@/app/data";
+
 export function HeroTestimonials() {
   return (
     <section className="relative bg-gradient-to-b from-gray-100 to-gray-200 py-12 md:py-20 dark:from-gray-800 dark:to-gray-900">
@@ -33,6 +35,33 @@ export function HeroTestimonials() {
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {globalData?.heroTestimonials &&
+            globalData.heroTestimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950"
+              >
+                <div className="flex items-start">
+                  <Avatar className="mr-4 h-12 w-12">
+                    <AvatarImage
+                      alt={testimonial.name}
+                      src={testimonial.image}
+                    />
+                    <AvatarFallback>
+                      {testimonial.name[0] + testimonial.name[1]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-lg font-semibold">
+                      {testimonial.name}
+                    </h3>
+                    <p className="mt-2 text-gray-500 dark:text-gray-400">
+                      "{testimonial.message}"
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
             <div className="flex items-start">
               <Avatar className="mr-4 h-12 w-12">

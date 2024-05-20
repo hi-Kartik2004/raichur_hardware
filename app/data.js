@@ -1,4 +1,5 @@
 import icons from "@/app/icons";
+import { HeroTestimonials } from "@/components/component/hero-testimonials";
 import { FaPhoneSlash } from "react-icons/fa6";
 
 const data = {
@@ -156,6 +157,22 @@ const data = {
   contactDescription:
     "Have a question or need assistance? Our team is here to help. Fill out the form or use the contact information below to reach out.",
   contactImageUrl: "/placeholder.svg",
+
+  // what our customers say testimonials
+  heroTestimonials: [
+    {
+      name: "Sarah Smith",
+      message:
+        "I absolutely love this product! It has transformed my daily routine and made my life so much easier.",
+      image: "",
+    },
+    {
+      name: "Alex Smith",
+      message:
+        "I was hesitant at first, but this product has exceeded all my expectations. It's a game-changer!",
+      image: "",
+    },
+  ],
 };
 
 export default data;

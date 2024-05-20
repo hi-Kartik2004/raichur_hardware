@@ -12,6 +12,7 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import ProductSearchBar from "./ProductSearchBar";
 import Link from "next/link";
 import SignInButton from "./SignInButton";
+import { Button } from "./ui/button";
 
 function MobileNavbarSlider({ categories }) {
   return (
@@ -29,6 +30,13 @@ function MobileNavbarSlider({ categories }) {
             <div className="flex w-full">
               <ProductSearchBar onSheet={true} />
             </div>
+            <SheetClose className="w-full">
+              <Button className="w-full">
+                <Link href="/category/all" className="w-full">
+                  View All products &rarr;
+                </Link>
+              </Button>
+            </SheetClose>
             <div className="mt-4">
               <p className="underline underline-offset-8">Links</p>
             </div>
