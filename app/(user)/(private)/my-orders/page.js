@@ -187,7 +187,6 @@ function Checkouts() {
                   ))}
                   {checkout.cartItems.length > 3 && (
                     <span className="ml-2">
-                      <br />
                       (+{checkout.cartItems.length - 3} more)
                     </span>
                   )}
@@ -205,14 +204,25 @@ function Checkouts() {
                 </TableCell> */}
                 <TableCell>Rs {checkout?.totalAmount}</TableCell>
                 <TableCell>
-                  {new Date(
-                    checkout?.timestamp?.seconds * 1000
-                  ).toLocaleString()}
+                  {new Date(checkout?.timestamp?.seconds * 1000).toLocaleString(
+                    "en-IN"
+                  )}
                 </TableCell>
                 <TableCell>
                   {checkout?.status == "pending"
-                    ? "Processing your order"
+                    ? "Contact for confirmation pending"
                     : checkout?.status}
+                </TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">Address</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <p className="font-semibold">Given Address</p>
+                      {checkout?.userDetails?.address}
+                    </DialogContent>
+                  </Dialog>
                 </TableCell>
                 <TableCell>
                   <Dialog>
@@ -270,7 +280,11 @@ function Checkouts() {
                     </DialogContent>
                   </Dialog>
                 </TableCell>
-                <TableCell>{checkout?.adminMessage}</TableCell>
+                <TableCell>
+                  {checkout.adminMessage
+                    ? checkout.adminMessage
+                    : "We will contact you to confirm your order and share payment details"}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

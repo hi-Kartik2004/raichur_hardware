@@ -18,6 +18,9 @@ function AdminNavbar() {
           <Link href="/admin/checkouts" className="text-xs">
             Checkouts
           </Link>
+          <Link href="/admin/queries" className="text-xs">
+            Queries
+          </Link>
         </div>
 
         <div className="flex items-center">

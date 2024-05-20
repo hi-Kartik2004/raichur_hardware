@@ -11,13 +11,14 @@ export async function POST(req) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const { cartItems, totalAmount } = await req.json();
+  const { cartItems, totalAmount, userDetails } = await req.json();
 
   try {
     await addDoc(collection(db, "checkouts"), {
       email,
       cartItems,
       totalAmount,
+      userDetails,
       timestamp: new Date(),
       status: "pending",
     });

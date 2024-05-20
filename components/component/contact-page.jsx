@@ -98,8 +98,10 @@ export function ContactPage() {
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
-                      placeholder="Enter your email"
-                      type="email"
+                      placeholder="Enter your phone number"
+                      min={1000000000}
+                      max={9999999999}
+                      type="number"
                       name="email"
                     />
                   </div>

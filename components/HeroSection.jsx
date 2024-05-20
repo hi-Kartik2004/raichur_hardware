@@ -24,7 +24,7 @@ function HeroSection() {
           </div>
         </div>
 
-        <ImageCaurosel />
+        <ImageCaurosel images={globalData?.heroImages} />
       </div>
     </section>
   );

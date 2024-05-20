@@ -1,4 +1,4 @@
-import { ContactUsTableV0 } from "@/components/component/contact-us-table-v0";
+import ContactUsTableV0 from "@/components/component/contact-us-table-v0";
 import React from "react";
 
 function Queries() {

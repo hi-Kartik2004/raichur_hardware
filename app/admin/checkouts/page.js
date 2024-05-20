@@ -44,6 +44,7 @@ function Checkouts() {
   const [checkouts, setCheckouts] = useState([]);
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("none");
+  const [phoneFilter, setPhoneFilter] = useState("");
   const [adminMessage, setAdminMessage] = useState("");
 
   useEffect(() => {
@@ -84,8 +85,11 @@ function Checkouts() {
   }
 
   const filteredCheckouts = checkouts.filter((checkout) => {
-    if (statusFilter === "all") return true;
-    return checkout.status === statusFilter;
+    const matchesStatus =
+      statusFilter === "all" || checkout.status === statusFilter;
+    const matchesPhone =
+      phoneFilter === "" || checkout?.userDetails?.phone.includes(phoneFilter);
+    return matchesStatus && matchesPhone;
   });
 
   const sortedCheckouts = [...filteredCheckouts].sort((a, b) => {
@@ -132,13 +136,23 @@ function Checkouts() {
               <SelectItem value="decreasing">Decreasing</SelectItem>
             </SelectContent>
           </Select>
+          <Input
+            type="text"
+            placeholder="Filter by Phone"
+            value={phoneFilter}
+            onChange={(e) => setPhoneFilter(e.target.value)}
+            className="w-full md:w-[200px]"
+          />
         </div>
       </div>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>Name</TableHead>
               <TableHead>User Email</TableHead>
+              <TableHead>Phone</TableHead>
+              <TableHead>Address</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Images</TableHead>
               <TableHead>Quantity</TableHead>
@@ -152,7 +166,20 @@ function Checkouts() {
           <TableBody>
             {sortedCheckouts.map((checkout) => (
               <TableRow key={checkout.id}>
+                <TableCell>{checkout?.userDetails?.name}</TableCell>
                 <TableCell>{checkout.email}</TableCell>
+                <TableCell>{checkout?.userDetails?.phone}</TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DialogTrigger>
+                      <Button variant={"outline"}>Address</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <h3 className={"text-lg font-semibold"}>Address</h3>
+                      {checkout?.userDetails?.address}
+                    </DialogContent>
+                  </Dialog>
+                </TableCell>
                 <TableCell>
                   {checkout.cartItems.slice(0, 3).map((item, index) => (
                     <span key={item.id}>

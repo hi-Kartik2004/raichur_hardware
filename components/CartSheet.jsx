@@ -9,11 +9,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
+import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { HiShoppingCart } from "react-icons/hi";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { toast } from "./ui/use-toast";
 import { getSession, signIn, useSession } from "next-auth/react";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { setConfig } from "next/config";
 
 async function getMyCart() {
   let response;
@@ -90,44 +94,63 @@ async function deleteCartItem(itemId) {
   }
 }
 
-async function checkout(cartItems, totalAmount) {
-  try {
-    const response = await fetch("/api/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cartItems, totalAmount }),
-    });
-
-    if (!response.ok) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Error during checkout",
-      });
-      return;
-    }
-    toast({
-      title: "Checkout Successful!",
-      description:
-        "We will contact you regarding the product pickup time or delivery.",
-    });
-  } catch (error) {
-    console.error("Error during checkout", error);
-    toast({
-      variant: "destructive",
-      title: "Error",
-      description: "Error during checkout",
-    });
-  }
-}
-
 function CartSheet() {
   const { data: session, status } = useSession();
   const [cartItems, setCartItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+
+  async function checkout(cartItems, totalAmount, userDetails) {
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cartItems, totalAmount, userDetails }),
+      });
+      setSubmitting(false);
+
+      if (!response.ok) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Error during checkout",
+        });
+        return;
+      }
+      toast({
+        title: "Checkout Successful!",
+        description:
+          "We will contact you regarding the product pickup time or delivery.",
+      });
+
+      // Clear cart items after successful checkout
+      // map over cart items and call the delte cart items where delete cartItems is a async function
+
+      cartItems.map(async (item) => {
+        await deleteCartItem(item.id);
+      });
+    } catch (error) {
+      console.error("Error during checkout", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Error during checkout",
+      });
+    }
+
+    setSubmitting(false);
+  }
+
   if (status === "unauthenticated") {
     return (
       <div>
@@ -190,12 +213,17 @@ function CartSheet() {
   };
 
   const handleCheckout = async () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogSubmit = async (e) => {
+    e.preventDefault();
     const totalAmount = cartItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
     );
-    await checkout(cartItems, totalAmount);
-    cartItems.length > 0 && cartItems.map((item) => handleDeleteItem(item.id));
+    await checkout(cartItems, totalAmount, userDetails);
+    setDialogOpen(false);
     setCartItems([]); // Clear cart items after successful checkout
   };
 
@@ -305,6 +333,58 @@ function CartSheet() {
           )}
         </SheetContent>
       </Sheet>
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        {/* <DialogTrigger asChild>
+          <Button>Open Dialog</Button>
+        </DialogTrigger> */}
+        <DialogContent>
+          <form onSubmit={handleDialogSubmit}>
+            <h2 className="text-lg font-medium">Confirm your details</h2>
+            <p>
+              We will contact you to confirm your order and share payment
+              related details.
+            </p>
+            <div className="mt-4">
+              <label className="block text-sm font-medium">Name</label>
+              <Input
+                type="text"
+                value={userDetails.name}
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, name: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block text-sm font-medium">Phone</label>
+              <Input
+                type="text"
+                value={userDetails.phone}
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, phone: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="mt-4">
+              <label className="block text-sm font-medium">Address</label>
+              <Textarea
+                value={userDetails.address}
+                onChange={(e) =>
+                  setUserDetails({ ...userDetails, address: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className="mt-6">
+              <Button type="submit" className="w-full" disabled={submitting}>
+                {submitting ? "Checking out..." : "Confirm and Checkout"}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

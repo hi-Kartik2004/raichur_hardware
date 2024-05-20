@@ -51,6 +51,21 @@ const data = {
   ),
   heroButtonText: "Shop Now",
 
+  heroImages: [
+    "/store_entrance_1.png",
+    "/store/insider_8.jpg",
+    "/store/insider_6.jpg",
+    "/store/insider_5.jpg",
+    "/store/insider_4.jpg",
+    "/store/insider_3.jpg",
+    "/store/insider_2.jpg",
+    "/store/insider_1.jpg",
+    "/store/people_in_store_2.jpg",
+    "/people/team_pic_1.jpg",
+    "/people/finolex_winning_2.jpg",
+    "/certificates/jaquar_certificate.jpg",
+  ],
+
   // about page
   aboutPageSections: [
     {
@@ -59,7 +74,7 @@ const data = {
       aboutSectionDescriptions: [
         "Raichur Hardware has been serving the local community for over 50 years, providing high-quality tools, supplies, and expert advice to help you tackle any home improvement project.",
       ],
-      aboutSectionImageUrl: "/placeholder.svg",
+      aboutSectionImageUrl: "/image_of_seth_jeevraj.jpg",
     },
     {
       aboutSectionBadgeText: "Our Products",
@@ -69,7 +84,7 @@ const data = {
         "At Raichur Hardware, we offer a comprehensive selection of high-quality tools, hardware, and home improvement supplies to meet all your needs. From power tools and hand tools to gardening equipment, plumbing supplies, and electrical components, we have everything you need to tackle any project, big or small.",
         "Our knowledgeable staff is always on hand to provide expert advice and help you find the right products for your specific needs. Whether you're a seasoned DIYer or a first-time homeowner, we're here to support you every step of the way.",
       ],
-      aboutSectionImageUrl: "/placeholder.svg",
+      aboutSectionImageUrl: "/people/family_1.jpg",
     },
     {
       aboutSectionBadgeText: "Our Services",
@@ -78,7 +93,16 @@ const data = {
         "In addition to our extensive product selection, Raichur Hardware also offers a range of services to support our customers. Our experienced staff can provide expert advice and guidance on everything from tool selection and project planning to troubleshooting and repair.",
         "We also offer a variety of hands-on workshops and DIY classes to help our customers learn new skills and tackle their home improvement projects with confidence. Whether you're a seasoned DIYer or a first-time homeowner, we're here to support you every step of the way.",
       ],
-      aboutSectionImageUrl: "/placeholder.svg",
+      aboutSectionImageUrl: "/people/crowd_1.jpg",
+    },
+    {
+      aboutSectionBadgeText: "Our Services",
+      aboutSectionTitle: "Expert Advice and Personalized Support",
+      aboutSectionDescriptions: [
+        "In addition to our extensive product selection, Raichur Hardware also offers a range of services to support our customers. Our experienced staff can provide expert advice and guidance on everything from tool selection and project planning to troubleshooting and repair.",
+        "We also offer a variety of hands-on workshops and DIY classes to help our customers learn new skills and tackle their home improvement projects with confidence. Whether you're a seasoned DIYer or a first-time homeowner, we're here to support you every step of the way.",
+      ],
+      aboutSectionImageUrl: "/people/finolex_winning.jpg",
     },
     {
       aboutSectionBadgeText: "Contact Us",
