@@ -13,7 +13,7 @@ export function FeaturedProducts({ className, category, products }) {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
             Featured Products in {category.categoryName}
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-base md:text-lg">
+          <p className="text-gray-500 dark:text-gray-400 text-base md:text-lg line-clamp-3">
             {category?.categoryDescription}
           </p>
         </div>
@@ -36,7 +36,7 @@ export function FeaturedProducts({ className, category, products }) {
               <div className="p-4">
                 <Link href={`/product/${product?.id}`}>
                   <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                  <p className="text-gray-500 dark:text-gray-400 mb-4">
+                  <p className="text-gray-500 dark:text-gray-400 mb-4 line-clamp-3">
                     {product.description}
                   </p>
                   <p className="text-gray-500 dark:text-gray-400 mb-4">

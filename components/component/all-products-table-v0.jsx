@@ -1,17 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -27,15 +18,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useRouter } from "next/navigation";
 import { Toaster } from "../ui/toaster";
 import { toast } from "../ui/use-toast";
-import { AddProductPageV0 } from "./add-product-page-v0";
-import { ViewSectionsDialog } from "../ViewSectionsDialog";
 import { EditProductPageV0 } from "../EditProductPageV0";
+import { ViewSectionsDialog } from "../ViewSectionsDialog";
 import { db } from "@/firebase/config";
 
 export function AllProductsTableV0({
@@ -154,28 +143,31 @@ export function AllProductsTableV0({
     return true;
   });
 
+  // Sort filtered products based on price order
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    if (selectedPriceOrder === "low-to-high") {
+      return a.price - b.price;
+    } else if (selectedPriceOrder === "high-to-low") {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
   // Calculate index of the last product on current page
   const indexOfLastProduct = currentPage * productsPerPage;
   // Calculate index of the first product on current page
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   // Get current products to display based on pagination
-  const currentProducts = filteredProducts.slice(
+  const currentProducts = sortedProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-
-  // Sort filtered products based on price order
-  if (selectedPriceOrder === "low-to-high") {
-    filteredProducts.sort((a, b) => a.price - b.price);
-  } else if (selectedPriceOrder === "high-to-low") {
-    filteredProducts.sort((a, b) => b.price - a.price);
-  }
 
   // Logic for displaying page numbers
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(filteredProducts.length / productsPerPage);
+    i <= Math.ceil(sortedProducts.length / productsPerPage);
     i++
   ) {
     pageNumbers.push(i);

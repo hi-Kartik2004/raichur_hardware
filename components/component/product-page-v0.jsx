@@ -198,7 +198,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
               </div>
             );
           })}
-          <div className="grid gap-4 text-sm leading-loose">
+          {/* <div className="grid gap-4 text-sm leading-loose">
             <h2 className="font-bold text-lg">Product Details</h2>
             <p>
               Introducing the Acme Prism T-Shirt, a perfect blend of style and
@@ -212,7 +212,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
               comfortable. The shirt features a unique prism-inspired pattern
               that adds a modern and eye-catching touch to your ensemble.
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* <div className="grid md:grid-col-2 gap-4">
@@ -318,7 +318,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
         <Separator />
 
         <h2 className="font-bold text-lg mt-4 ">Related Products</h2>
-        <div className="w-full flex gap-6 flex-wrap justify-around py-4">
+        <div className="w-full flex gap-6 flex-wrap justify-between py-4">
           {relatedData.slice(0, 5).map((product) => (
             <Card className="max-w-[350px] md:max-w-[250px]">
               <CardHeader>
