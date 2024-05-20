@@ -251,7 +251,9 @@ function CartSheet() {
               <div>
                 <p className="text-center">Your cart is empty</p>
                 <Button className="w-full mt-4 border">
-                  <Link href="/category/all">Shop Now</Link>
+                  <Link href="/category/all" className="w-full">
+                    Shop Now
+                  </Link>
                 </Button>
               </div>
             ) : (
