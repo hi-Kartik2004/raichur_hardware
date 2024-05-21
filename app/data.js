@@ -3,7 +3,11 @@ import { HeroTestimonials } from "@/components/component/hero-testimonials";
 import { FaPhoneSlash } from "react-icons/fa6";
 
 const data = {
-  adminEmails: ["kudlu2004@gmail.com", "raichurhardware2024@gmail.com"],
+  adminEmails: [
+    "kudlu2004@gmail.com",
+    "raichurhardware2024@gmail.com",
+    "ddhara36@gmail.com",
+  ],
 
   // logo
   logoUrl: "/logo.png",
