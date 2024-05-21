@@ -35,7 +35,7 @@ export function Footer({ categories }) {
             {globalData?.footerDescription}
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-4 md:gap-14">
+        <div className="grid grid-cols-3 gap-4 md:gap-14">
           <div className="space-y-2">
             <h4 className="font-semibold text-gray-900 dark:text-gray-50">
               Categories
@@ -103,29 +103,36 @@ export function Footer({ categories }) {
               </li> */}
             </ul>
           </div>
+          <div className="space-y-2">
+            <h4 className="font-semibold text-gray-900 dark:text-gray-50">
+              About
+            </h4>
+            <ul className="space-y-1">
+              <li>
+                <Link
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  href={`${globalData?.privacy}`}
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  href={`${globalData?.termsOfService}`}
+                >
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="space-y-2">
-          <h4 className="font-semibold text-gray-900 dark:text-gray-50">
-            About
-          </h4>
-          <ul className="space-y-1">
-            <li>
-              <Link
-                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href={`${globalData?.privacy}`}
-              >
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href={`${globalData?.termsOfService}`}
-              >
-                Terms of Service
-              </Link>
-            </li>
-          </ul>
+        <div className="w-full flex justify-center md:justify-end">
+          <img
+            src="/care_agency_logo.jpg"
+            alt="care_agency_logo"
+            className="border rounded"
+          />
         </div>
       </div>
       <div className="container max-w-8xl mt-8 md:mt-12 flex items-center justify-between">
