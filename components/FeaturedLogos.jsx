@@ -11,16 +11,16 @@ function FeaturedLogos() {
 
         <div className="flex justify-around gap-8 flex-wrap mt-10">
           <Link href="/">
-            <img src="/next.svg" alt="logo" className="max-w-[200px]" />
+            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
           </Link>
           <Link href="/">
-            <img src="/next.svg" alt="logo" className="max-w-[200px]" />
+            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
           </Link>
           <Link href="/">
-            <img src="/next.svg" alt="logo" className="max-w-[200px]" />
+            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
           </Link>
           <Link href="/">
-            <img src="/next.svg" alt="logo" className="max-w-[200px]" />
+            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
           </Link>
         </div>
       </div>
