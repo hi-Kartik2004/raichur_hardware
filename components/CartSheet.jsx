@@ -134,8 +134,6 @@ function CartSheet() {
       });
 
       // Clear cart items after successful checkout
-      // map over cart items and call the delte cart items where delete cartItems is a async function
-
       cartItems.map(async (item) => {
         await deleteCartItem(item.id);
       });
@@ -279,7 +277,10 @@ function CartSheet() {
                     >
                       <SheetClose>{item?.product}</SheetClose>
                     </Link>
-                    <div className="flex items-center justify-between">
+                    <p className="text-muted-foreground text-xs">
+                      Colour: {item?.color}, Size: {item?.size}
+                    </p>
+                    <div className="flex items-center justify-between mt-1">
                       <div className="flex items-center gap-2">
                         <button
                           className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"

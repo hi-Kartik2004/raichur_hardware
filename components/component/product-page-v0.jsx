@@ -57,6 +57,8 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
   const [relatedData, setRelatedData] = useState([]);
   const [selectedImage, setSelectedImage] = useState(product?.images[0]);
   const [productQuantity, setProductQuantity] = useState(1);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   function handlePreviewClick(imageUrl) {
     setSelectedImage(imageUrl);
@@ -96,6 +98,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
     +product?.price +
     +(product?.price * product?.discount) / 100
   );
+
   return (
     <>
       <div
@@ -137,15 +140,6 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
             <div>
               <p>{product?.description}</p>
             </div>
-            {/* <div className="flex items-center gap-4">
-              <div className="flex items-center gap-0.5">
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-              </div>
-            </div> */}
             <div className="text-4xl font-bold">
               Rs {product?.price} /-{" "}
               {overPrice !== product?.price && (
@@ -173,11 +167,51 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 onChange={(e) => setProductQuantity(e.target.value)}
               />
             </div>
+            <div className="grid gap-2">
+              <Label className="text-base" htmlFor="color">
+                Color
+              </Label>
+              <select
+                id="color"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                className="border rounded-md p-2"
+              >
+                <option value="">Select a color</option>
+                {product?.colors &&
+                  product?.colors.map((color, index) => (
+                    <option key={index} value={color}>
+                      {color}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="grid gap-2">
+              <Label className="text-base" htmlFor="size">
+                Size
+              </Label>
+              <select
+                id="size"
+                value={selectedSize}
+                onChange={(e) => setSelectedSize(e.target.value)}
+                className="border rounded-md p-2"
+              >
+                <option value="">Select a size</option>
+                {product?.sizes &&
+                  product?.sizes.map((size, index) => (
+                    <option key={index} value={size}>
+                      {size}
+                    </option>
+                  ))}
+              </select>
+            </div>
             {product?.inventory > 0 ? (
               <AddToCartButton
                 productName={product?.name}
                 price={product?.price}
                 quantity={productQuantity}
+                color={selectedColor}
+                size={selectedSize}
                 imageUrl={product?.images[0]}
                 productId={productId}
                 maxQuantity={product?.maxQuantity}
@@ -190,156 +224,48 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
             )}
           </div>
           <Separator />
-          {product?.sections.map((section) => {
+          {product?.sections.map((section, index) => {
             return (
-              <div className="grid gap-4 text-sm leading-loose">
+              <div key={index} className="grid gap-4 text-sm leading-loose">
                 <h2 className="font-bold text-lg">{section?.title}</h2>
                 <p>{section?.description}</p>
               </div>
             );
           })}
-          {/* <div className="grid gap-4 text-sm leading-loose">
-            <h2 className="font-bold text-lg">Product Details</h2>
-            <p>
-              Introducing the Acme Prism T-Shirt, a perfect blend of style and
-              comfort for the modern individual. This tee is crafted with a
-              meticulous composition of 60% combed ringspun cotton and 40%
-              polyester jersey, ensuring a soft and breathable fabric that feels
-              gentle against the skin.
-            </p>
-            <p>
-              The design of the Acme Prism T-Shirt is as striking as it is
-              comfortable. The shirt features a unique prism-inspired pattern
-              that adds a modern and eye-catching touch to your ensemble.
-            </p>
-          </div> */}
         </div>
-
-        {/* <div className="grid md:grid-col-2 gap-4">
-        <Separator />
-        <h2 className="font-bold text-lg">Reviews</h2>
-        <div className="flex gap-4">
-          <Avatar className="w-10 h-10 border">
-            <AvatarImage alt="@shadcn" src="/placeholder-user.jpg" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-4">
-            <div className="flex gap-4 items-start">
-              <div className="grid gap-0.5 text-sm">
-                <h3 className="font-semibold">Sarah Johnson</h3>
-                <time className="text-sm text-gray-500 dark:text-gray-400">
-                  2 days ago
-                </time>
-              </div>
-              <div className="flex items-center gap-0.5 ml-auto">
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-              </div>
-            </div>
-            <div className="text-sm leading-loose text-gray-500 dark:text-gray-400">
-              <p>
-                I've been experimenting with my Acme Prism T-Shirt for a few
-                weeks now, and it's been a versatile addition to my wardrobe.
-                The fabric is soft and comfortable, and the unique prism design
-                really makes it stand out.
-              </p>
-            </div>
-          </div>
-        </div>
-        <Separator />
-        <div className="flex gap-4">
-          <Avatar className="w-10 h-10 border">
-            <AvatarImage alt="@shadcn" src="/placeholder-user.jpg" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-4">
-            <div className="flex gap-4 items-start">
-              <div className="grid gap-0.5 text-sm">
-                <h3 className="font-semibold">Alex Smith</h3>
-                <time className="text-sm text-gray-500 dark:text-gray-400">
-                  3 weeks ago
-                </time>
-              </div>
-              <div className="flex items-center gap-0.5 ml-auto">
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-              </div>
-            </div>
-            <div className="text-sm leading-loose text-gray-500 dark:text-gray-400">
-              <p>
-                The Acme Prism T-Shirt is a great addition to my wardrobe. The
-                fabric is high-quality and the design is unique and eye-
-                catching. I've received a lot of compliments on it.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <Separator />
-        <div className="flex gap-4">
-          <Avatar className="w-10 h-10 border">
-            <AvatarImage alt="@shadcn" src="/placeholder-user.jpg" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-4">
-            <div className="flex gap-4 items-start">
-              <div className="grid gap-0.5 text-sm">
-                <h3 className="font-semibold">Alex Smith</h3>
-                <time className="text-sm text-gray-500 dark:text-gray-400">
-                  3 weeks ago
-                </time>
-              </div>
-              <div className="flex items-center gap-0.5 ml-auto">
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-primary" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-              </div>
-            </div>
-            <div className="text-sm leading-loose text-gray-500 dark:text-gray-400">
-              <p>
-                The Acme Prism T-Shirt is a great addition to my wardrobe. The
-                fabric is high-quality and the design is unique and eye-
-                catching. I've received a lot of compliments on it.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> */}
       </div>
       <div className="w-full container gap-4">
         <Separator />
-
         <h2 className="font-bold text-lg mt-4 ">Related Products</h2>
         <div className="w-full flex gap-6 flex-wrap justify-between py-4">
-          {relatedData.slice(0, 5).map((product) => (
-            <Card className="max-w-[350px] md:max-w-[250px]">
+          {relatedData.slice(0, 5).map((relatedProduct) => (
+            <Card
+              key={relatedProduct.id}
+              className="max-w-[350px] md:max-w-[250px]"
+            >
               <CardHeader>
                 <CardTitle>
-                  <Link href={"/product/" + product.id}>{product.name}</Link>
+                  <Link href={"/product/" + relatedProduct.id}>
+                    {relatedProduct.name}
+                  </Link>
                 </CardTitle>
                 <CardDescription className="line-clamp-2">
-                  {product.description}
+                  {relatedProduct.description}
                 </CardDescription>
               </CardHeader>
               <CardContent className="w-full -mt-2">
-                <Link href={"/product/" + product.id}>
+                <Link href={"/product/" + relatedProduct.id}>
                   <img
-                    src={product.images[0]}
+                    src={relatedProduct.images[0]}
                     alt="Product Image"
                     className="w-full rounded"
                   />
                 </Link>
                 <div className="flex w-full mt-4">
                   <Button size="sm" className="w-full">
-                    <Link href={"/product/" + product.id}>View Product</Link>
+                    <Link href={"/product/" + relatedProduct.id}>
+                      View Product
+                    </Link>
                   </Button>
                 </div>
               </CardContent>

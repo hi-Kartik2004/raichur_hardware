@@ -39,16 +39,18 @@ export function FeaturedProducts({ className, category, products }) {
                   <p className="text-gray-500 dark:text-gray-400 mb-4 line-clamp-3">
                     {product.description}
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400 mb-4">
-                    Price: Rs {product.price}/-{" "}
+                  <p className="dark:text-gray-400 mb-4">
+                    Rs {product.price}/-{" "}
                     <span className="text-sm line-through	">
                       Rs{" "}
                       {+product?.price +
                         (product?.discount / 100) * product?.price}
-                    </span>
-                  </p>
-                  <p className="text-green-500 dark:text-green-400 mb-4">
-                    Discount: {product.discount}% off
+                    </span>{" "}
+                    {product?.discount > 0 && (
+                      <span className="text-sm text-green-500">
+                        ({product.discount}% off)
+                      </span>
+                    )}
                   </p>
                 </Link>
                 <AddToCartButton

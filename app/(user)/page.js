@@ -5,6 +5,7 @@ import { HeroTestimonials } from "@/components/component/hero-testimonials";
 import { Separator } from "@/components/ui/separator";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import FeaturedLogos from "@/components/FeaturedLogos";
 
 export default async function Home() {
   const session = await auth();
@@ -58,6 +59,8 @@ export default async function Home() {
     <>
       <main>
         <HeroSection />
+        <Separator />
+        <FeaturedLogos />
         <Separator />
         {featuredProductsData.map(
           ({ category, products }, index) =>

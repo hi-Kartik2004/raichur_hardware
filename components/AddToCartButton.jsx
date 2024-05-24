@@ -15,6 +15,8 @@ function AddToCartButton({
   productId,
   maxQuantity,
   inventory,
+  color,
+  size,
 }) {
   const maxLimit = Math.min(inventory, maxQuantity);
   if (quantity > maxLimit) {
@@ -42,6 +44,8 @@ function AddToCartButton({
         quantity: quantity,
         imageUrl: imageUrl,
         productId: productId,
+        color: color,
+        size: size,
       }),
     });
 

@@ -42,9 +42,14 @@ export function AddProductPageV0({
     category: "",
     images: [],
     sections: [],
+    colors: [],
+    sizes: [],
     hide: false,
     featured: false,
   });
+
+  const [colorInput, setColorInput] = useState("");
+  const [sizeInput, setSizeInput] = useState("");
 
   async function getImageUrl(categoryImage) {
     if (!categoryImage) return null;
@@ -91,7 +96,6 @@ export function AddProductPageV0({
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    // Parse the value as a number if the input is for the "price" field
     const newValue =
       name === "price"
         ? parseFloat(value)
@@ -99,6 +103,32 @@ export function AddProductPageV0({
         ? checked
         : value;
     setFormState({ ...formState, [name]: newValue });
+  };
+
+  const handleAddColor = () => {
+    setFormState({
+      ...formState,
+      colors: [...formState.colors, colorInput],
+    });
+    setColorInput("");
+  };
+
+  const handleRemoveColor = (index) => {
+    const updatedColors = formState.colors.filter((_, idx) => idx !== index);
+    setFormState({ ...formState, colors: updatedColors });
+  };
+
+  const handleAddSize = () => {
+    setFormState({
+      ...formState,
+      sizes: [...formState.sizes, sizeInput],
+    });
+    setSizeInput("");
+  };
+
+  const handleRemoveSize = (index) => {
+    const updatedSizes = formState.sizes.filter((_, idx) => idx !== index);
+    setFormState({ ...formState, sizes: updatedSizes });
   };
 
   async function addProductToFirebaseFunction({ data }) {
@@ -140,7 +170,6 @@ export function AddProductPageV0({
       return;
     }
 
-    // for all images get their imageURls and then add to firebase
     const imageUrls = await Promise.all(
       formState.images.map((image) => getImageUrl(image))
     );
@@ -161,7 +190,6 @@ export function AddProductPageV0({
         description: resp.message + ", docId: " + resp.docId,
       });
 
-      // Reset form state
       setFormState({
         name: "",
         price: 0,
@@ -172,12 +200,14 @@ export function AddProductPageV0({
         category: "",
         images: [],
         sections: [],
+        colors: [],
+        sizes: [],
         hide: false,
         featured: false,
       });
       setSections([]);
       setImagePreviews([]);
-      document.getElementById("images").value = ""; // Clear the file input
+      document.getElementById("images").value = "";
     } else {
       toast({
         variant: "destructive",
@@ -400,6 +430,64 @@ export function AddProductPageV0({
           </Button>
         </div>
         <div className="space-y-2">
+          <Label htmlFor="colors">Product Colors</Label>
+          <div className="flex items-center gap-2">
+            <Input
+              id="colors"
+              name="colors"
+              placeholder="Enter a color"
+              value={colorInput}
+              onChange={(e) => setColorInput(e.target.value)}
+            />
+            <Button type="button" onClick={handleAddColor}>
+              Add Color
+            </Button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {formState.colors.map((color, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <span>{color}</span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => handleRemoveColor(index)}
+                >
+                  Remove
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="sizes">Product Sizes</Label>
+          <div className="flex items-center gap-2">
+            <Input
+              id="sizes"
+              name="sizes"
+              placeholder="Enter a size"
+              value={sizeInput}
+              onChange={(e) => setSizeInput(e.target.value)}
+            />
+            <Button type="button" onClick={handleAddSize}>
+              Add Size
+            </Button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {formState.sizes.map((size, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <span>{size}</span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => handleRemoveSize(index)}
+                >
+                  Remove
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-2">
           <Label htmlFor="hide">Hide Product</Label>
           <Label className="flex gap-2 items-center">
             <Input
@@ -425,7 +513,7 @@ export function AddProductPageV0({
               onChange={handleInputChange}
               className="w-6 h-6"
             />
-            If checked, this product will displayed on the main page.
+            If checked, this product will be displayed on the main page.
           </Label>
         </div>
         <Button className="w-full" type="submit">
