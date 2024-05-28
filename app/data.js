@@ -177,6 +177,22 @@ const data = {
       image: "",
     },
   ],
+
+  // dropdowns
+  dropdowns: [
+    "Brands",
+    "Pipes & Fittings", //    "Garden Pipes",
+    "Valves",
+    "Solvent & Clamps",
+    "Chamber Covers",
+    "Water Tanks",
+    "Bath Fittings", // "Plastic Bath Fittings",
+    "Sanitary Ware",
+    "Kitchen Sinks",
+    "Agricultural",
+  ],
+
+  brands: ["Finolex", "Astral", "Supreme", "Prince", "Cera", "Others"],
 };
 
 export default data;

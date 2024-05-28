@@ -257,8 +257,15 @@ function Checkouts() {
                                   </Link>
 
                                   <div className="font-medium">
-                                    <div>Quantity: {item?.quantity}</div>
-                                    <div>Price: Rs {item?.price}</div>
+                                    <div className="flex justify-between gap-2 flex-wrap text-sm mt-1">
+                                      <p>Quantity: {item.quantity}</p>
+                                      <p>Price: Rs {item.price}</p>
+                                    </div>
+
+                                    <div className="flex justify-between gap-2 flex-wrap text-sm mt-1">
+                                      <p>Color: {item?.color}</p>
+                                      <p>Size:{item?.size}</p>
+                                    </div>
                                   </div>
                                 </div>
                               </div>

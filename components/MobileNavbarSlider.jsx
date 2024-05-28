@@ -50,6 +50,11 @@ function MobileNavbarSlider({ categories }) {
                 <SheetClose>About</SheetClose>
               </Link>
             </div>
+            <div className="flex justify-start items-center">
+              <Link href="/gallery">
+                <SheetClose>Gallery</SheetClose>
+              </Link>
+            </div>
 
             <div className="flex justify-start items-center">
               <Link href="/faq">

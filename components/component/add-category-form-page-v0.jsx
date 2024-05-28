@@ -28,6 +28,15 @@ import { Search } from "lucide-react";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { Router, useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import globalData from "@/app/data";
 
 export function AddCategoryFormPageV0({
   addCategoryToFirebaseFunction,
@@ -70,12 +79,14 @@ export function AddCategoryFormPageV0({
       ? await getImageUrl(categoryImage)
       : "";
     const categoryTitle = formData.get("categoryTitle");
+    const dropdown = formData.get("dropdown");
     const categoryDescription = formData.get("categoryDescription");
     const resp = await addCategoryToFirebaseFunction(
       categoryName,
       categoryTitle,
       categoryDescription,
-      categoryImageUrl
+      categoryImageUrl,
+      dropdown
     );
 
     if (resp.resp) {
@@ -176,6 +187,25 @@ export function AddCategoryFormPageV0({
                 name="categoryDescription"
               />
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="category">Dropdown</Label>
+              <Select id="dropdown" name="dropdown" required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {globalData?.dropdowns.map((dropdown) => (
+                      <SelectItem key={dropdown} value={dropdown}>
+                        {dropdown}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="grid gap-2">
               <Label htmlFor="categoryImage">Category Image</Label>
               <Input type="file" id="categoryImage" name={"categoryImage"} />

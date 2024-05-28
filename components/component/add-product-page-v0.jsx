@@ -24,6 +24,7 @@ import {
 } from "firebase/firestore";
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
+import globalData from "@/app/data";
 
 export function AddProductPageV0({
   categories,
@@ -46,6 +47,7 @@ export function AddProductPageV0({
     sizes: [],
     hide: false,
     featured: false,
+    brand: "",
   });
 
   const [colorInput, setColorInput] = useState("");
@@ -204,6 +206,7 @@ export function AddProductPageV0({
         sizes: [],
         hide: false,
         featured: false,
+        brand: "",
       });
       setSections([]);
       setImagePreviews([]);
@@ -334,6 +337,32 @@ export function AddProductPageV0({
               </SelectContent>
             </Select>
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="brands">Brands</Label>
+          <Select
+            id="brand"
+            name="brand"
+            value={formState.brand}
+            onValueChange={(value) =>
+              setFormState({ ...formState, brand: value })
+            }
+            required
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a brand" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {globalData?.brands?.map((brand) => (
+                  <SelectItem key={brand} value={brand}>
+                    {brand}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
         <div className="space-y-2">
           <Label htmlFor="images">Product Images</Label>

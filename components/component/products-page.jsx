@@ -148,7 +148,7 @@ export function ProductsPage({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 p-4 md:p-8">
+    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 p-4 md:p-24">
       {/* Filter Form */}
       <div className="hidden lg:block">
         <FilterForm
@@ -161,7 +161,7 @@ export function ProductsPage({
       {/* Product List */}
       <div>
         {/* Category Image and Title */}
-        <div className="w-full object-cover max-h-[120px] overflow-hidden rounded-lg relative">
+        {/* <div className="w-full object-cover max-h-[120px] overflow-hidden rounded-lg relative">
           <img
             src={categoryDetails?.categoryImageUrl}
             alt="category image"
@@ -170,7 +170,7 @@ export function ProductsPage({
           <h2 className="text-xl md:text-3xl text-center font-bold absolute bottom-[50%] -translate-x-[50%] left-[50%] translate-y-[50%] p-4 normal-case">
             {categoryDetails?.categoryTitle}
           </h2>
-        </div>
+        </div> */}
 
         {/* Product Summary */}
         <div className="flex items-center justify-between w-full mb-4 mt-4 flex-wrap gap-4">

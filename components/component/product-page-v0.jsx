@@ -136,9 +136,9 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
         </div>
         <div className="grid gap-4 md:gap-10 items-start">
           <div className="grid gap-4">
-            <h1 className="font-bold text-3xl">{product?.name} </h1>
+            <h1 className="font-bold text-3xl capitalize">{product?.name} </h1>
             <div>
-              <p>{product?.description}</p>
+              <p className="capitalize">{product?.description}</p>
             </div>
             <div className="text-4xl font-bold">
               Rs {product?.price} /-{" "}
@@ -237,19 +237,19 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
       <div className="w-full container gap-4">
         <Separator />
         <h2 className="font-bold text-lg mt-4 ">Related Products</h2>
-        <div className="w-full flex gap-6 flex-wrap justify-between py-4">
+        <div className="w-full gap-6 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {relatedData.slice(0, 5).map((relatedProduct) => (
             <Card
               key={relatedProduct.id}
-              className="max-w-[350px] md:max-w-[250px]"
+              className="max-w-[350px] md:max-w-[250px] grid-cols-1 mx-auto"
             >
               <CardHeader>
-                <CardTitle>
+                <CardTitle className="capitalize">
                   <Link href={"/product/" + relatedProduct.id}>
                     {relatedProduct.name}
                   </Link>
                 </CardTitle>
-                <CardDescription className="line-clamp-2">
+                <CardDescription className="line-clamp-2 capitalize">
                   {relatedProduct.description}
                 </CardDescription>
               </CardHeader>
