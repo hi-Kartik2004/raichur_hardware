@@ -286,8 +286,8 @@ export function GalleryPagev0() {
             </div>
           </div>
         </section>
-        <section className="px-4 md:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between mb-6 mt-4 mr-4 ml-4">
+        <section className="px-4 md:px-6 lg:px-8 container">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-6 mt-4 mr-4">
             <div className="flex items-center gap-4">
               <Input
                 className="max-w-xs"
