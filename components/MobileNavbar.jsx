@@ -20,15 +20,21 @@ async function MobileNavbar() {
     await signIn("google", { redirectTo: "/private" });
   }
   const session = await auth();
-
+  let categoriesData = {};
   async function getAllCategories() {
     const ref = query(collection(db, "categories"), orderBy("timestamp"));
-    const snapshot = await getDocs(ref);
-    let categories = [];
-    snapshot.forEach((doc) => {
-      categories.push(doc.data());
+    const querySnapshot = await getDocs(ref);
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const dropdown = data.dropdown;
+
+      if (!categoriesData[dropdown]) {
+        categoriesData[dropdown] = [];
+      }
+      categoriesData[dropdown].push(data);
     });
-    return categories;
+    return categoriesData;
   }
 
   const categories = await getAllCategories();
@@ -38,7 +44,7 @@ async function MobileNavbar() {
       <div className="flex justify-between gap-2 flex-wrap items-center px-4 fixed w-full py-2 bg-background z-10">
         <div className="w-full flex-wrap flex justify-between items-center">
           <div className="flex gap-4 items-center">
-            <MobileNavbarSlider categories={categories} />
+            <MobileNavbarSlider categories={categoriesData} />
             <Link href="/">
               <img
                 src={globalData?.logoUrl}

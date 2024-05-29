@@ -10,6 +10,7 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "@radix-ui/react-hover-card";
+import MobileNavbarSlider from "./MobileNavbarSlider";
 
 const CategoriesNavbar = () => {
   const [categories, setCategories] = useState({});
@@ -41,8 +42,8 @@ const CategoriesNavbar = () => {
     <>
       <Separator className="my-2" />
       <div className="relative">
-        <ul className="flex justify-start gap-14 flex-wrap mt-4 mb-2">
-          {globalData?.dropdowns?.map((dropdown) => (
+        <ul className="flex justify-start gap-14 flex-wrap mt-4 mb-2 items-center">
+          {globalData?.dropdowns?.slice(0, 9)?.map((dropdown) => (
             <li key={dropdown} className="relative">
               <HoverCard openDelay={0}>
                 <HoverCardTrigger asChild>
@@ -69,6 +70,13 @@ const CategoriesNavbar = () => {
               </HoverCard>
             </li>
           ))}
+          <li className="relative">
+            <MobileNavbarSlider
+              categories={categories}
+              showOnlyDropdowns={true}
+              triggerName={"View all"}
+            />
+          </li>
         </ul>
       </div>
     </>
