@@ -10,7 +10,7 @@ const data = {
   ],
 
   // logo
-  logoUrl: "/logo.png",
+  logoUrl: "/raichur_hardware_logo_nobg.png",
 
   // name
   companyName: "Raichur Hardware",
@@ -40,18 +40,18 @@ const data = {
       className="text-4xl xl:text-5xl font-bold"
       style={{ lineHeight: "3.1rem" }}
     >
-      Most <span className="text-amber-950"> Trusted Hardware ✨ </span>{" "}
-      Wholesale Store in <span className="text-amber-950">Raichur </span>
+      Most <span className="text-amber-950"> Trusted Hardware </span> Wholesale
+      Store in <span className="text-amber-950">Raichur </span>
     </h1>
   ),
   heroDescription:
-    " We have most of the products in the market. Check them out!",
+    "Offering complete solutions for agricultural, irrigational, and water supply (plumbing) needs.",
   heroDescriptionSecondLineFunc: () => (
     <p className="text-lg my-6">
       Building trust, faith and having delivered services to{" "}
       <span className="underline underline-offset-4">more than 2 Lakh</span>{" "}
       customers and counting in Raichur and near{" "}
-      <span className="underline underline-offset-4">since 1990</span>.
+      <span className="underline underline-offset-4">since 1970</span>.
     </p>
   ),
   heroButtonText: "Shop Now",
@@ -192,7 +192,116 @@ const data = {
     "Agricultural",
   ],
 
-  brands: ["Finolex", "Astral", "Supreme", "Prince", "Cera", "Others"],
+  // featured logos
+  //   https://www.finolexpipes.com/
+  // 2. https://www.taropumps.com/
+  // 3. https://www.jaquar.com/
+  // 4. https://www.godrej.com/godrej-locking-solutions-and-systems
+  // 5. https://watertecindia.com/
+  // 6. https://carysil.com/
+  // 7. https://www.se.com/in/en/ - SCHNEIDER
+  // 8. https://www.vikingindia.com/
+  // 9. https://www.esscobathware.com/
+  // 10. https://www.aquatech.com/
+  // 11. https://www.bergerpaints.com/
+  // 12. https://www.finolexdrip.com/
+  // 13. https://www.skf.com/in
+  // 14. https://www.matrixvalves.in/
+  // 15. https://www.grundfos.com/in
+  // 16. https://deepakvalves.com/
+  // 17. https://www.sonetindia.com/
+  featuredLogos: [
+    {
+      logo: "/company_logos/Finolex Pipes.png",
+      link: "https://www.finolexpipes.com/",
+    },
+    {
+      logo: "/company_logos/Taro.png",
+      link: "https://www.taropumps.com/",
+    },
+    {
+      logo: "/company_logos/jaquar.png",
+      link: "https://www.jaquar.com/",
+    },
+    {
+      logo: "/company_logos/godrej Locks.png",
+      link: "https://www.godrej.com/godrej-locking-solutions-and-systems",
+    },
+    {
+      logo: "/company_logos/Watertec.png",
+      link: "https://watertecindia.com/",
+    },
+    {
+      logo: "/company_logos/Carysil.png",
+      link: "https://carysil.com/",
+    },
+    {
+      logo: "/company_logos/schneider.png",
+      link: "https://www.se.com/in/en/",
+    },
+    {
+      logo: "/company_logos/viking.png",
+      link: "https://www.vikingindia.com/",
+    },
+    {
+      logo: "/company_logos/essco.jpg",
+      link: "https://www.esscobathware.com/",
+    },
+    {
+      logo: "/company_logos/Aqua-tech.png",
+      link: "https://www.aquatech.com/",
+    },
+    {
+      logo: "/company_logos/Berger_Paints.png",
+      link: "https://www.bergerpaints.com/",
+    },
+    {
+      logo: "/company_logos/finolex plassion.png",
+      link: "https://www.finolexdrip.com/",
+    },
+    {
+      logo: "/company_logos/SKF BEARINGS.png",
+      link: "https://www.skf.com/in",
+    },
+    {
+      logo: "/company_logos/matrix ball valve.png",
+      link: "https://www.matrixvalves.in/",
+    },
+    {
+      logo: "/company_logos/grundfos.png",
+      link: "https://www.grundfos.com/in",
+    },
+    {
+      logo: "/company_logos/deepak.png",
+      link: "https://deepakvalves.com/",
+    },
+    {
+      logo: "/company_logos/sonet.png",
+      link: "https://www.sonetindia.com/",
+    },
+  ],
+
+  // brands
+  brands: [
+    "Finolex Pipes",
+    "Taro Pumps",
+    "Jaquar",
+    "Godrej",
+    "WaterTecIndia",
+    "Carysil",
+    "Schneider",
+    "Viking",
+    "Essco Bathware",
+    "Aquatech",
+    "Berger Paints",
+    "Finolex Drip",
+    "SKF",
+    "Matrix Valves",
+    "Grundfos",
+    "Deepak Valves",
+    "Sonet India",
+    "Others",
+  ],
 };
 
 export default data;

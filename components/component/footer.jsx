@@ -19,6 +19,8 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import Link from "next/link";
 import globalData from "@/app/data";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa6";
+import { Separator } from "../ui/separator";
 
 export function Footer({ categories }) {
   return (
@@ -34,6 +36,34 @@ export function Footer({ categories }) {
           <p className="text-gray-500 dark:text-gray-400">
             {globalData?.footerDescription}
           </p>
+          <img src={globalData?.logoUrl} alt="logo" className="max-w-[120px]" />
+
+          <Separator />
+          <div className="mt-6">
+            <h4 className="text-semibold text-start">Our Reach</h4>
+            <div className="flex justify-between gap-4 flex-wrap mt-4 max-w-full">
+              <div className="flex flex-col gap-1 items-start">
+                <h3 className="text-xl font-semibold">21000+</h3>
+                <p className="text-sm text-muted-foreground">
+                  Lorem ipsum dolor
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-1 items-start">
+                <h3 className="text-xl font-semibold">900+</h3>
+                <p className="text-sm text-muted-foreground">
+                  Lorem ipsum dolor
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-1 items-start">
+                <h3 className="text-xl font-semibold">40+</h3>
+                <p className="text-sm text-muted-foreground">
+                  Lorem ipsum dolor
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-4 md:gap-14">
           <div className="space-y-2">
@@ -127,12 +157,29 @@ export function Footer({ categories }) {
             </ul>
           </div>
         </div>
-        <div className="w-full flex justify-center md:justify-end">
+        <div className="w-full flex justify-center md:justify-end flex-col">
           <img
-            src="/care_agency_logo.jpg"
+            src="/care_agency_logo_nobg.png"
             alt="care_agency_logo"
-            className="border rounded"
+            className="rounded"
           />
+          <Separator className="my-4" />
+          <div className="">
+            <h4 className="text-md">Connect with us!</h4>
+            <div className="flex justify-between gap-2 flex-wrap mt-4 max-w-[200px]">
+              <Link href={"/"}>
+                <FaFacebook size={30} />
+              </Link>
+
+              <Link href="/">
+                <FaInstagram size={30} />
+              </Link>
+
+              <Link href="/">
+                <FaLinkedin size={30} />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       <div className="container max-w-8xl mt-8 md:mt-12 flex items-center justify-between">

@@ -23,7 +23,7 @@ async function Navbar() {
               <img
                 src={globalData?.logoUrl}
                 alt="logo"
-                className="max-w-[120px]"
+                className="max-w-[75px]"
               />
             </Link>
             <ProductSearchBar />

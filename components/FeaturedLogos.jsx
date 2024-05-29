@@ -1,28 +1,29 @@
 import Link from "next/link";
 import React from "react";
+import globalData from "@/app/data";
+import Marquee from "react-fast-marquee";
 
 function FeaturedLogos() {
   return (
     <div className="bg-muted py-10">
       <div className="container">
-        <p className="text-center">
-          We have the most preimum products from premium companies.
+        <p className="text-center font-semibold text-lg">
+          We have the most preimum products from 18+ premium companies.
         </p>
 
-        <div className="flex justify-around gap-8 flex-wrap mt-10">
-          <Link href="/">
-            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
-          </Link>
-          <Link href="/">
-            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
-          </Link>
-          <Link href="/">
-            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
-          </Link>
-          <Link href="/">
-            <img src="/placeholder.svg" alt="logo" className="max-w-[200px]" />
-          </Link>
-        </div>
+        <Marquee pauseOnHover={true} className="flex gap-16">
+          <div className="flex justify-around gap-16 mt-10 items-center">
+            {globalData?.featuredLogos.map((item, index) => (
+              <Link href={item?.link} target="_blank">
+                <img
+                  src={item?.logo}
+                  alt={item?.logo}
+                  className="max-w-[200px]"
+                />
+              </Link>
+            ))}
+          </div>
+        </Marquee>
       </div>
     </div>
   );
