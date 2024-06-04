@@ -33,6 +33,7 @@ const CategoriesNavbar = () => {
       });
 
       setCategories(categoriesData);
+      localStorage.setItem("categories", JSON.stringify(categoriesData));
     };
 
     fetchCategories();

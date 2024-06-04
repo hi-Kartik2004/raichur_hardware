@@ -17,16 +17,24 @@ To read more about using these font, please visit the Next.js documentation:
 - App Directory: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
+"use client";
 import Link from "next/link";
 import globalData from "@/app/data";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import { Separator } from "../ui/separator";
+import { useEffect, useState } from "react";
 
-export function Footer({ categories }) {
+export function Footer() {
+  const [categories, setCategories] = useState({});
+
+  useEffect(() => {
+    setCategories(JSON.parse(localStorage.getItem("categories")));
+  }, []);
+
   return (
-    <footer className="bg-gray-100 dark:bg-gray-800 pt-12 pb-6 md:pt-16 md:pb-8 px-2">
-      <div className="container max-w-8xl grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-        <div className="space-y-4">
+    <footer className="bg-gray-100 dark:bg-gray-800 pt-12 pb-6 md:pt-16 md:pb-8 px-6">
+      <div className="max-w-8xl grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+        <div className="space-y-4 md:pr-4 md:border-r-2 col-span-4">
           <Link
             className="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-50"
             href="#"
@@ -36,7 +44,21 @@ export function Footer({ categories }) {
           <p className="text-gray-500 dark:text-gray-400">
             {globalData?.footerDescription}
           </p>
-          <img src={globalData?.logoUrl} alt="logo" className="max-w-[120px]" />
+          <div className="flex justify-between gap-4 flex-wrap items-center">
+            <img
+              src={globalData?.logoUrl}
+              alt="logo"
+              className="max-w-[120px]"
+            />
+
+            <div>
+              <img
+                src="/care_agency_logo_nobg.png"
+                alt="care_agency_logo"
+                className="rounded max-w-[150px]"
+              />
+            </div>
+          </div>
 
           <Separator />
           <div className="mt-6">
@@ -64,36 +86,49 @@ export function Footer({ categories }) {
               </div>
             </div>
           </div>
-        </div>
-        <div className="grid grid-cols-3 gap-4 md:gap-14">
-          <div className="space-y-2">
-            <h4 className="font-semibold text-gray-900 dark:text-gray-50">
-              Categories
-            </h4>
-            <ul className="space-y-1">
-              <li>
-                <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href={`/category/all`}
-                >
-                  All Products
+
+          <Separator />
+          <div className="w-full flex justify-center md:justify-end flex-col">
+            <div className="">
+              <h4 className="text-md">Connect with us!</h4>
+              <div className="flex justify-between gap-2 flex-wrap mt-4 max-w-[200px]">
+                <Link href={"/"}>
+                  <FaFacebook size={30} />
                 </Link>
-              </li>
-              {categories &&
-                categories
-                  .filter((category) => category?.categoryName != "all")
-                  .map((category) => (
+
+                <Link href="/">
+                  <FaInstagram size={30} />
+                </Link>
+
+                <Link href="/">
+                  <FaLinkedin size={30} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="grid md:col-span-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-8 w-full gap-4 md:gap-14 justify-center">
+          {globalData?.dropdowns.map((dropdown) => (
+            <div className="space-y-2">
+              <h4 className="font-semibold text-gray-900 dark:text-gray-50 capitalize">
+                {dropdown}
+              </h4>
+              <ul className="space-y-1">
+                {categories[dropdown] &&
+                  categories[dropdown].map((category) => (
                     <li>
                       <Link
-                        className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 capitalize"
-                        href={`/category/${category?.categoryName}`}
+                        href={`/category/${category.categoryName}`}
+                        className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                       >
-                        {category?.categoryName}
+                        {category.categoryTitle}
                       </Link>
                     </li>
                   ))}
-            </ul>
-          </div>
+              </ul>
+            </div>
+          ))}
+
           <div className="space-y-2">
             <h4 className="font-semibold text-gray-900 dark:text-gray-50">
               Quick Links
@@ -101,7 +136,7 @@ export function Footer({ categories }) {
             <ul className="space-y-1">
               <li>
                 <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                   href="/about"
                 >
                   About Us
@@ -109,7 +144,7 @@ export function Footer({ categories }) {
               </li>
               <li>
                 <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                   href="/contact"
                 >
                   Contact
@@ -117,7 +152,7 @@ export function Footer({ categories }) {
               </li>
               <li>
                 <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                   href="/faq"
                 >
                   FAQs
@@ -140,7 +175,7 @@ export function Footer({ categories }) {
             <ul className="space-y-1">
               <li>
                 <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                   href={`${globalData?.privacy}`}
                 >
                   Privacy Policy
@@ -148,37 +183,13 @@ export function Footer({ categories }) {
               </li>
               <li>
                 <Link
-                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                   href={`${globalData?.termsOfService}`}
                 >
                   Terms of Service
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
-        <div className="w-full flex justify-center md:justify-end flex-col">
-          <img
-            src="/care_agency_logo_nobg.png"
-            alt="care_agency_logo"
-            className="rounded"
-          />
-          <Separator className="my-4" />
-          <div className="">
-            <h4 className="text-md">Connect with us!</h4>
-            <div className="flex justify-between gap-2 flex-wrap mt-4 max-w-[200px]">
-              <Link href={"/"}>
-                <FaFacebook size={30} />
-              </Link>
-
-              <Link href="/">
-                <FaInstagram size={30} />
-              </Link>
-
-              <Link href="/">
-                <FaLinkedin size={30} />
-              </Link>
-            </div>
           </div>
         </div>
       </div>

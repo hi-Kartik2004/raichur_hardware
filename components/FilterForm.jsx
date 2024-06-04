@@ -28,7 +28,7 @@ function FilterForm({ showOnMobile, categories, onPriceRangeChange }) {
             showOnMobile ? "block lg:hidden " : "hidden lg:block"
           }`}
         >
-          <div>
+          {/* <div>
             <h4 className="text-base font-medium mb-4">Categories</h4>
             <div className="space-y-2">
               {categories &&
@@ -46,8 +46,8 @@ function FilterForm({ showOnMobile, categories, onPriceRangeChange }) {
                   </div>
                 ))}
             </div>
-          </div>
-          <Separator />
+          </div> */}
+          {/* <Separator /> */}
           <div>
             <h4 className="text-base mb-2">
               <div className="grid gap-2">

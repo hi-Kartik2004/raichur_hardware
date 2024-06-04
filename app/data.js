@@ -45,13 +45,13 @@ const data = {
     </h1>
   ),
   heroDescription:
-    "Offering complete solutions for agricultural, irrigational, and water supply (plumbing) needs.",
+    "Offering complete solutions for agricultural, irrigational, and water supply (plumbing) needs since 1970.",
   heroDescriptionSecondLineFunc: () => (
     <p className="text-lg my-6">
-      Building trust, faith and having delivered services to{" "}
+      {/* Building trust, faith and having delivered services to{" "}
       <span className="underline underline-offset-4">more than 2 Lakh</span>{" "}
       customers and counting in Raichur and near{" "}
-      <span className="underline underline-offset-4">since 1970</span>.
+      <span className="underline underline-offset-4">since 1970</span>. */}
     </p>
   ),
   heroButtonText: "Shop Now",
@@ -113,11 +113,10 @@ const data = {
       aboutSectionBadgeText: "Contact Us",
       aboutSectionTitle: "Visit Us at Raichur Hardware",
       aboutSectionDescriptions: [
-        "123 Main Street, Anytown USA",
-        "Phone: (555) 555-5555",
-        "Hours: Monday - Saturday, 8am - 8pm",
+        "Old 12-10-49 , New 12-10-87 Near Chandramouleshwar circle, Lingasugur Road, Raichur Karnataka – 584101, India",
+        "Phone: (+91) 94490 30030",
       ],
-      aboutSectionImageUrl: "/placeholder.svg",
+      aboutSectionImageUrl: "/store_entrance_1.png",
     },
   ],
 

@@ -30,6 +30,7 @@ import {
 import globalData from "@/app/data";
 import { toast } from "../ui/use-toast";
 import { Toaster } from "../ui/toaster";
+import Image from "next/image";
 
 export function GalleryPagev0() {
   const [images, setImages] = useState([]);
@@ -182,7 +183,7 @@ export function GalleryPagev0() {
           </button>
           {selectedImage && (
             <div className="">
-              <img
+              <Image
                 alt={selectedImage.title}
                 className="w-full h-auto object-contain aspect-video"
                 height="800"
@@ -248,6 +249,7 @@ export function GalleryPagev0() {
                             placeholder="Image Title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            required={true}
                           />
                         </div>
                         <div className="grid grid-cols-10 items-center gap-4">
@@ -260,6 +262,7 @@ export function GalleryPagev0() {
                             type="date"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
+                            required={true}
                           />
                         </div>
                         <div className="grid grid-cols-10 items-center gap-4">
@@ -271,6 +274,7 @@ export function GalleryPagev0() {
                             id="image"
                             type="file"
                             onChange={(e) => setImageFile(e.target.files[0])}
+                            required={true}
                           />
                         </div>
                       </div>
@@ -320,12 +324,14 @@ export function GalleryPagev0() {
                 >
                   <span className="sr-only">View</span>
                 </button>
-                <img
+                <Image
                   alt={image.title}
                   className="aspect-square object-cover w-full group-hover:scale-105 transition-transform duration-300 ease-in-out"
                   height="300"
                   src={image.imageUrl}
                   width="300"
+                  blurDataURL="/loading_image.jpg"
+                  placeholder="blur" // Optional blur-up while loading
                 />
 
                 <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">

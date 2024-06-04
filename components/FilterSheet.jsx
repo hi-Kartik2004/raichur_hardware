@@ -23,7 +23,7 @@ import { StarIcon } from "@radix-ui/react-icons";
 import FilterForm from "./FilterForm";
 // import { StarIcon } from "lucide-react";
 
-function FilterSheet({ showOnMobile, categories }) {
+function FilterSheet({ showOnMobile, categories, onPriceRangeChange }) {
   return (
     <div className={`block xl:hidden`}>
       <Sheet>
@@ -31,9 +31,11 @@ function FilterSheet({ showOnMobile, categories }) {
           <Button variant="secondary">Filter</Button>
         </SheetTrigger>
         <SheetContent>
-          <SheetClose className="w-full">
-            <FilterForm showOnMobile={showOnMobile} categories={categories} />
-          </SheetClose>
+          <FilterForm
+            showOnMobile={showOnMobile}
+            categories={categories}
+            onPriceRangeChange={onPriceRangeChange}
+          />
         </SheetContent>
       </Sheet>
     </div>

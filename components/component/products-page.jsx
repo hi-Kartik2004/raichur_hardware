@@ -148,14 +148,16 @@ export function ProductsPage({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 p-4 md:p-24">
+    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 p-4 md:pt-10">
       {/* Filter Form */}
-      <div className="hidden lg:block">
-        <FilterForm
-          showOnMobile={false}
-          categories={categories}
-          onPriceRangeChange={handlePriceRangeChange}
-        />
+      <div className="hidden lg:block relative">
+        <div className="sticky top-2">
+          <FilterForm
+            showOnMobile={false}
+            categories={categories}
+            onPriceRangeChange={handlePriceRangeChange}
+          />
+        </div>
       </div>
 
       {/* Product List */}
@@ -185,7 +187,11 @@ export function ProductsPage({
           </div>
           <div className="flex gap-2">
             {/* Filter Sheet */}
-            <FilterSheet showOnMobile={true} categories={categories} />
+            <FilterSheet
+              showOnMobile={true}
+              categories={categories}
+              onPriceRangeChange={handlePriceRangeChange}
+            />
 
             {/* Dropdown Menu for Sorting */}
             <DropdownMenu>

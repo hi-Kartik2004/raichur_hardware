@@ -22,7 +22,7 @@ function loading() {
     }, 2000);
   }, []);
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-muted">
+    <div className="w-full h-screen flex justify-center items-center bg-muted">
       <div className="flex flex-col gap-4 items-center">
         <Loader2Icon className=" animate-spin" size={50} />
         <p className="text-center">{randomQuote}</p>

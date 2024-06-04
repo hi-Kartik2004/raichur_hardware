@@ -48,10 +48,10 @@ export function AboutPageV0() {
                 <img
                   alt="Raichur Hardware Store"
                   className="rounded-lg"
-                  height="400"
+                  height="450"
                   src={section?.aboutSectionImageUrl}
                   style={{
-                    aspectRatio: "600/400",
+                    aspectRatio: "600/450",
                     objectFit: "cover",
                   }}
                   width="600"

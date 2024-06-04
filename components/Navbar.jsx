@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { auth, signIn } from "@/auth";
+import { auth } from "@/auth";
 import ProductSearchBar from "./ProductSearchBar";
 import SignInButton from "./SignInButton";
 import UserButton from "./UserButton";
@@ -15,15 +15,15 @@ async function Navbar() {
 
   return (
     <div className="pb-2 fixed w-full bg-background z-10">
-      <nav className="container pt-2">
+      <nav className="px-4 pt-2 w-full grid grid-cols-12">
         {/* Top Navbar */}
-        <div className="flex justify-between gap-2 flex-wrap items-center">
-          <div className="max-w-[750px] w-full flex-wrap flex gap-10 items-center ">
+        <div className="flex justify-between items-center w-full flex-wrap gap-2 col-span-6">
+          <div className="flex items-center gap-10">
             <Link href="/">
               <img
                 src={globalData?.logoUrl}
                 alt="logo"
-                className="max-w-[75px]"
+                className="max-w-[50px] md:max-w-[70px]"
               />
             </Link>
             <ProductSearchBar />
@@ -40,14 +40,13 @@ async function Navbar() {
               Gallery
             </Link>
           </div>
-          <div className="flex items-center gap-6">
-            {session?.user ? <UserButton /> : <SignInButton />}
-            <CartSheet />
-          </div>
         </div>
-
+        <div className="flex items-center gap-6 col-start-10 col-end-12">
+          {session?.user ? <UserButton /> : <SignInButton />}
+          <CartSheet />
+        </div>
         {/* Categories Bottom Navbar */}
-        {showCategories && <CategoriesNavbar />}
+        {/* {showCategories && <CategoriesNavbar />} */}
       </nav>
     </div>
   );

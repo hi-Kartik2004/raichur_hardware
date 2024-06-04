@@ -32,7 +32,7 @@ async function layout({ children }) {
         <MobileNavbar />
       </div>
       {children}
-      <Footer categories={categories} />
+      {/* <Footer categories={categories} /> */}
     </div>
   );
 }

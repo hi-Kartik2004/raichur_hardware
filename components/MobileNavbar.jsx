@@ -49,7 +49,7 @@ async function MobileNavbar() {
               <img
                 src={globalData?.logoUrl}
                 alt="logo"
-                className=" max-w-[100px] lg:max-w-[120px]"
+                className="max-w-[70px] lg:max-w-[120px]"
               />
             </Link>
           </div>
