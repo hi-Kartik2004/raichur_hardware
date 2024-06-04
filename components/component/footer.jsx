@@ -107,7 +107,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="grid md:col-span-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-8 w-full gap-4 md:gap-14 justify-center">
+        <div className="grid md:col-span-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-6 w-full gap-4 md:gap-14 justify-center">
           {globalData?.dropdowns.map((dropdown) => (
             <div className="space-y-2">
               <h4 className="font-semibold text-gray-900 dark:text-gray-50 capitalize">
