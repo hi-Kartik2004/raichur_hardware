@@ -39,6 +39,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import globalData from "@/app/data";
+import { BillV0 } from "@/components/component/bill-v0";
 
 function Checkouts() {
   const [checkouts, setCheckouts] = useState([]);
@@ -162,7 +164,7 @@ function Checkouts() {
               <TableHead>Name</TableHead>
               <TableHead>User Email</TableHead>
               <TableHead>Phone</TableHead>
-              <TableHead>Address</TableHead>
+              <TableHead>Bill</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Images</TableHead>
               <TableHead>Quantity</TableHead>
@@ -185,11 +187,25 @@ function Checkouts() {
                 <TableCell>
                   <Dialog>
                     <DialogTrigger>
-                      <Button variant={"outline"}>Address</Button>
+                      <Button variant={"outline"}>View Bill</Button>
                     </DialogTrigger>
-                    <DialogContent>
-                      <h3 className={"text-lg font-semibold"}>Address</h3>
-                      {checkout?.userDetails?.address}
+                    <DialogContent className="max-w-3xl">
+                      <BillV0
+                        companyLogo={globalData?.logoUrl}
+                        companyName={globalData?.companyName}
+                        companyAddress={globalData?.address}
+                        companyPhone={globalData?.phones[0]}
+                        companyEmail={globalData?.emails[0]}
+                        buyerAddress={checkout?.userDetails?.address}
+                        buyerName={checkout?.userDetails?.name}
+                        buyerPhone={checkout?.userDetails?.phone}
+                        items={checkout?.cartItems}
+                        invoiceId={checkout?.id}
+                        gstNumber={globalData?.gstNumber}
+                        dateIssued={new Date(
+                          checkout?.timestamp?.seconds * 1000
+                        ).toLocaleString("en-IN")}
+                      />
                     </DialogContent>
                   </Dialog>
                 </TableCell>
