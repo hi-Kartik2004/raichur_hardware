@@ -19,6 +19,7 @@ import { toast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
 import { Separator } from "./ui/separator";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 export function EditProductPageV0({
   categories,
@@ -28,6 +29,7 @@ export function EditProductPageV0({
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [sections, setSections] = useState(product?.sections || []);
+  const [addonInput, setAddonInput] = useState("");
   const [imagePreviews, setImagePreviews] = useState(product?.images || []);
   const [formState, setFormState] = useState({
     name: product?.name || "",
@@ -42,7 +44,7 @@ export function EditProductPageV0({
     hide: product?.hide || false,
     featured: product?.featured || false,
     excelId: product?.excelId || "",
-    addons: [],
+    addons: product?.addons || [],
   });
 
   async function getImageUrl(categoryImage) {
