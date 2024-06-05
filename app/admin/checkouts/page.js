@@ -164,7 +164,7 @@ function Checkouts() {
               <TableHead>Name</TableHead>
               <TableHead>User Email</TableHead>
               <TableHead>Phone</TableHead>
-              <TableHead>Bill</TableHead>
+              <TableHead>Bill Details</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Images</TableHead>
               <TableHead>Quantity</TableHead>
