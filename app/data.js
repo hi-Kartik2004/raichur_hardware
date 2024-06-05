@@ -7,6 +7,7 @@ const data = {
     "kudlu2004@gmail.com",
     "raichurhardware2024@gmail.com",
     "ddhara36@gmail.com",
+    "bhuvandesai2006@gmail.com",
   ],
 
   // logo

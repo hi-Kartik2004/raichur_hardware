@@ -42,6 +42,7 @@ export function EditProductPageV0({
     hide: product?.hide || false,
     featured: product?.featured || false,
     excelId: product?.excelId || "",
+    addons: [],
   });
 
   async function getImageUrl(categoryImage) {
@@ -173,6 +174,19 @@ export function EditProductPageV0({
       });
     }
     setSubmitting(false);
+  };
+
+  const handleAddAddon = () => {
+    setFormState({
+      ...formState,
+      addons: [...formState.addons, addonInput],
+    });
+    setAddonInput("");
+  };
+
+  const handleRemoveAddon = (index) => {
+    const updatedAddons = formState.addons.filter((_, idx) => idx !== index);
+    setFormState({ ...formState, addons: updatedAddons });
   };
 
   return (
@@ -438,6 +452,38 @@ export function EditProductPageV0({
             />
             If checked, this product will be displayed on the home page.
           </Label>
+        </div>
+        <div className="space-y-2">
+          <Label>Add-ons</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Enter add-on Excel ID"
+              value={addonInput}
+              onChange={(e) => setAddonInput(e.target.value)}
+            />
+            <Button type="button" onClick={handleAddAddon}>
+              Add Add-on
+            </Button>
+          </div>
+          <div className="flex flex-wrap space-x-2">
+            {formState.addons.map((addon, index) => (
+              <div
+                key={index}
+                className="flex items-center space-x-1 border px-2 py-1 rounded gap-2"
+              >
+                <span>{addon}</span>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="xs"
+                  className="p-[0.1rem]"
+                  onClick={() => handleRemoveAddon(index)}
+                >
+                  <Cross2Icon />
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
         <Button className="w-full" type="submit">
           {submitting ? "Submitting..." : "Edit Product"}
