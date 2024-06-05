@@ -92,6 +92,7 @@ export function ContactPage() {
                       id="name"
                       name="name"
                       placeholder="Enter your name"
+                      required={true}
                     />
                   </div>
                   <div className="space-y-2">
@@ -103,6 +104,7 @@ export function ContactPage() {
                       max={9999999999}
                       type="number"
                       name="email"
+                      required={true}
                     />
                   </div>
                 </div>
@@ -112,6 +114,7 @@ export function ContactPage() {
                     id="subject"
                     placeholder="Enter a subject"
                     name="subject"
+                    required={true}
                   />
                 </div>
                 <div className="space-y-2">
@@ -120,6 +123,7 @@ export function ContactPage() {
                     id="message"
                     placeholder="Enter your message"
                     name="message"
+                    required={true}
                   />
                 </div>
                 <Button className="w-full" type="submit">
