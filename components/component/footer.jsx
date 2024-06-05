@@ -117,7 +117,7 @@ export function Footer() {
                 {categories &&
                   categories[dropdown] &&
                   categories[dropdown].map((category) => (
-                    <li>
+                    <li key={category.categoryName}>
                       <Link
                         href={`/category/${category.categoryName}`}
                         className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
