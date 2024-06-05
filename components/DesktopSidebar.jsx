@@ -52,11 +52,11 @@ function DesktopSidebar() {
                 {categories[dropdown]?.map((category) => (
                   <li
                     key={category.categoryName}
-                    className="p-2 flex rounded-sm hover:bg-gray-100 w-full"
+                    className="p-2 flex rounded-sm hover:bg-gray-100 w-full hover:border border-gray-200"
                   >
                     <Link
                       href={`/category/${category.categoryName}`}
-                      className="text-sm w-full hover:border"
+                      className="text-sm w-full "
                     >
                       {category.categoryTitle}
                     </Link>

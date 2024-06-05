@@ -1,5 +1,5 @@
 // AddToCartButton.js
-
+"use client";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
