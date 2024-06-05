@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Sheet,
   SheetClose,
@@ -24,9 +24,20 @@ import FilterForm from "./FilterForm";
 // import { StarIcon } from "lucide-react";
 
 function FilterSheet({ showOnMobile, categories, onPriceRangeChange }) {
+  const [open, setOpen] = useState(false);
+
+  function closeSheet() {
+    setOpen(false);
+  }
+
   return (
     <div className={`block xl:hidden`}>
-      <Sheet>
+      <Sheet
+        open={open}
+        onOpenChange={() => {
+          setOpen(!open);
+        }}
+      >
         <SheetTrigger asChild>
           <Button variant="secondary">Filter</Button>
         </SheetTrigger>
@@ -35,6 +46,7 @@ function FilterSheet({ showOnMobile, categories, onPriceRangeChange }) {
             showOnMobile={showOnMobile}
             categories={categories}
             onPriceRangeChange={onPriceRangeChange}
+            closeSheet={closeSheet}
           />
         </SheetContent>
       </Sheet>

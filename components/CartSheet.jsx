@@ -258,17 +258,19 @@ function CartSheet() {
               cartItems.map((item) => (
                 <div key={item.id} className="flex items-center gap-4 relative">
                   <Link href={`/product/${item?.productId}`}>
-                    <img
-                      alt="Product Image"
-                      className="rounded-md relative"
-                      height={64}
-                      src={item?.imageUrl}
-                      style={{
-                        aspectRatio: "64/64",
-                        objectFit: "cover",
-                      }}
-                      width={64}
-                    />
+                    <SheetClose>
+                      <img
+                        alt="Product Image"
+                        className="rounded-md relative"
+                        height={64}
+                        src={item?.imageUrl}
+                        style={{
+                          aspectRatio: "64/64",
+                          objectFit: "cover",
+                        }}
+                        width={64}
+                      />
+                    </SheetClose>
                   </Link>
                   <div className="flex-1">
                     <Link

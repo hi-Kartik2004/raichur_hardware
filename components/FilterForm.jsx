@@ -5,12 +5,18 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 
-function FilterForm({ showOnMobile, categories, onPriceRangeChange }) {
+function FilterForm({
+  showOnMobile,
+  categories,
+  onPriceRangeChange,
+  closeSheet,
+}) {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000000);
 
   const handlePriceRangeChange = () => {
     onPriceRangeChange(minPrice, maxPrice);
+    closeSheet();
   };
 
   return (
