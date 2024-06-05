@@ -40,6 +40,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import globalData from "@/app/data";
+import dynamic from "next/dynamic";
 
 const BillV0 = dynamic(() => import("@/components/component/bill-v0"), {
   ssr: false,
