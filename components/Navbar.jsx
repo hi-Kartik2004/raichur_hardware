@@ -46,7 +46,11 @@ async function Navbar() {
           <CartSheet />
         </div>
         {/* Categories Bottom Navbar */}
-        {/* {showCategories && <CategoriesNavbar />} */}
+        {
+          <div className="hidden">
+            <CategoriesNavbar />
+          </div>
+        }
       </nav>
     </div>
   );
