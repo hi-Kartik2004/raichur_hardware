@@ -21,6 +21,9 @@ function AdminNavbar() {
           <Link href="/admin/queries" className="text-xs">
             Queries
           </Link>
+          <Link href="/admin/add-excel" className="text-xs">
+            Upload Excel
+          </Link>
         </div>
 
         <div className="flex items-center">

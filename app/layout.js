@@ -27,17 +27,7 @@ export default async function RootLayout({ children }) {
             fontSans.variable
           )}
         >
-          <div className="grid grid-cols-12">
-            <div className=" col-span-2 relative bg-muted border-r hidden lg:block">
-              <div className="sticky top-2">
-                <DesktopSidebar />
-              </div>
-            </div>
-            <div className="lg:col-start-3 lg:col-span-11 col-span-full w-full">
-              {children}
-            </div>
-          </div>
-          <Footer />
+          {children}
         </body>
       </html>
     </SessionProvider>

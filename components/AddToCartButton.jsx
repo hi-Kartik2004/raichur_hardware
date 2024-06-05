@@ -1,11 +1,14 @@
-"use client";
+// AddToCartButton.js
+
 import React, { useState } from "react";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
+import { useSession, signIn } from "next-auth/react";
+import { ShoppingCartIcon } from "lucide-react";
 import { toast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
-import { useRouter } from "next/navigation";
-import { RadioTower, ShoppingCartIcon } from "lucide-react";
-import { useSession, signIn } from "next-auth/react";
+import AddOnDialog from "./component/AddOnDialog";
+import { Separator } from "./ui/separator";
 
 function AddToCartButton({
   productName,
@@ -17,19 +20,16 @@ function AddToCartButton({
   inventory,
   color,
   size,
+  showAddOnDialog,
+  addons,
 }) {
   const maxLimit = Math.min(inventory, maxQuantity);
-  if (quantity > maxLimit) {
-    toast({
-      variant: "destructive",
-      title: `You can't add more than ${maxLimit} items`,
-    });
-  }
-
   const router = useRouter();
   const { data: session, status } = useSession();
-
   const [submitting, setSubmitting] = useState(false);
+
+  const [showDialog, setShowDialog] = useState(false);
+
   async function handleAddToCart(productName) {
     setSubmitting(true);
     console.log("Adding to cart", productName);
@@ -55,7 +55,7 @@ function AddToCartButton({
         description: `Product ${productName} added to cart`,
       });
 
-      router.refresh();
+      setShowDialog(true);
     } else {
       toast({
         variant: "destructive",
@@ -66,6 +66,7 @@ function AddToCartButton({
 
     setSubmitting(false);
   }
+
   return (
     <>
       <Toaster />
@@ -77,6 +78,10 @@ function AddToCartButton({
       ) : (
         <Button onClick={() => signIn()}>Sign In to Add to Cart</Button>
       )}
+
+      <Separator className="mt-4" />
+
+      {showDialog && showAddOnDialog && <AddOnDialog addons={addons} />}
     </>
   );
 }

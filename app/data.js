@@ -189,6 +189,9 @@ const data = {
     "Sanitary Ware",
     "Kitchen Sinks",
     "Agricultural",
+    "Plastic Bath Fittings",
+    "Garden Pipes",
+    "Agricultural Pipes",
   ],
 
   // featured logos

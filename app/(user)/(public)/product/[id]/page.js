@@ -48,7 +48,7 @@ async function ProductPage({ params }) {
   const isAddedToCart = cartItems.length > 0;
 
   return (
-    <div className="pt-20 md:pt-36">
+    <div className="pt-20 md:pt-20">
       <ProductPageV0
         productId={params.id}
         product={data}

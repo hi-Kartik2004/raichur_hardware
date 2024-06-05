@@ -8,7 +8,7 @@ function FeaturedLogos() {
     <div className="bg-muted py-10">
       <div className="container">
         <p className="text-center font-semibold text-lg">
-          We have the most preimum products from 18+ premium companies.
+          We provide exclusive products from more than 18 renowned brands
         </p>
 
         <Marquee pauseOnHover={true} className="flex gap-16">

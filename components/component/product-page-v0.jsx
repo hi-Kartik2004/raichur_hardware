@@ -52,6 +52,7 @@ import {
 import { db } from "@/firebase/config";
 import { useEffect, useState } from "react";
 import AddToCartButton from "../AddToCartButton";
+import AddOnDialog from "./AddOnDialog";
 
 export function ProductPageV0({ productId, product, isAddedToCart }) {
   const [relatedData, setRelatedData] = useState([]);
@@ -59,6 +60,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
   const [productQuantity, setProductQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+  const [addonDetails, setAddonDetails] = useState(null);
 
   function handlePreviewClick(imageUrl) {
     setSelectedImage(imageUrl);
@@ -91,6 +93,33 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
       setRelatedData(data);
       console.log("related data", data);
     }
+    async function getAddonDetail(addon) {
+      const coll = collection(db, "products");
+      const addonRef = query(coll, where("excelId", "==", addon));
+      const addonSnap = await getDocs(addonRef);
+      let addonData = [];
+      addonSnap.forEach((doc) => {
+        addonData.push({ ...doc.data(), id: doc.id });
+      });
+      return addonData;
+    }
+
+    async function getAllAddonDetails(addons) {
+      if (!addons) return [];
+      let addonData = [];
+      for (let i = 0; i < addons.length; i++) {
+        const data = await getAddonDetail(addons[i]);
+        addonData.push(data);
+      }
+      return addonData;
+    }
+
+    async function fetchAllAddonDetails() {
+      const resp = await getAllAddonDetails(product?.addons);
+      setAddonDetails(resp);
+    }
+
+    fetchAllAddonDetails();
     helper();
   }, []);
 
@@ -180,7 +209,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 <option value="">Select a color</option>
                 {product?.colors &&
                   product?.colors.map((color, index) => (
-                    <option key={index} value={color}>
+                    <option key={index} value={color} className=" capitalize">
                       {color}
                     </option>
                   ))}
@@ -199,7 +228,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 <option value="">Select a size</option>
                 {product?.sizes &&
                   product?.sizes.map((size, index) => (
-                    <option key={index} value={size}>
+                    <option key={index} value={size} className=" capitalize">
                       {size}
                     </option>
                   ))}
@@ -216,6 +245,8 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 productId={productId}
                 maxQuantity={product?.maxQuantity}
                 inventory={product?.inventory}
+                showAddOnDialog={true}
+                addons={addonDetails}
               />
             ) : (
               <Button size="lg" disabled>
@@ -223,7 +254,6 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
               </Button>
             )}
           </div>
-          <Separator />
           {product?.sections.map((section, index) => {
             return (
               <div key={index} className="grid gap-4 text-sm leading-loose">

@@ -41,6 +41,7 @@ export function EditProductPageV0({
     sections: product?.sections || [],
     hide: product?.hide || false,
     featured: product?.featured || false,
+    excelId: product?.excelId || "",
   });
 
   async function getImageUrl(categoryImage) {
@@ -187,6 +188,16 @@ export function EditProductPageV0({
         </p>
       </div>
       <form className="grid gap-6" onSubmit={handleSubmit}>
+        <div className="space-y-2">
+          <Label htmlFor="excelId">Excel ID</Label>
+          <Input
+            id="excelId"
+            name="excelId"
+            placeholder="Enter Excel ID"
+            value={formState.excelId}
+            onChange={handleInputChange}
+          />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <Label htmlFor="name">Product Name</Label>

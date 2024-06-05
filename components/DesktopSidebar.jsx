@@ -30,8 +30,7 @@ function DesktopSidebar() {
   }, []);
 
   return (
-    <div className="bg-muted pb-4">
-      <h3 className="text-2xl font-semibold p-4">Browse our products</h3>
+    <div className="bg-muted pt-16 pb-4 overflow-auto max-h-screen">
       {globalData?.dropdowns &&
         globalData?.dropdowns.map((dropdown, index) => (
           <div key={index} className="flex flex-col mt-2 px-4 ">
@@ -57,7 +56,7 @@ function DesktopSidebar() {
                   >
                     <Link
                       href={`/category/${category.categoryName}`}
-                      className="text-sm w-full"
+                      className="text-sm w-full hover:border"
                     >
                       {category.categoryTitle}
                     </Link>

@@ -117,7 +117,7 @@ function Checkouts() {
   });
 
   return (
-    <div className="container mx-auto px-4 pb-16 lg:pt-40 pt-24">
+    <div className="container mx-auto px-4 pb-16 pt-24">
       <Toaster />
       <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
         <h1 className="text-2xl font-bold">My orders</h1>

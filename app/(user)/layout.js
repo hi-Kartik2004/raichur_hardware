@@ -1,3 +1,4 @@
+import DesktopSidebar from "@/components/DesktopSidebar";
 import MobileNavbar from "@/components/MobileNavbar";
 import Navbar from "@/components/Navbar";
 import { Footer } from "@/components/component/footer";
@@ -24,14 +25,27 @@ async function layout({ children }) {
   const categories = await getAllCategories();
   return (
     <div>
-      <div className="hidden lg:block">
-        <Navbar showCategories={true} categories={categories} />
+      <div className="hidden lg:block max-w-[1200px] w-full">
+        <div>
+          <Navbar showCategories={true} categories={categories} />
+        </div>
       </div>
 
       <div className="block lg:hidden">
         <MobileNavbar />
       </div>
-      {children}
+
+      <div className="grid grid-cols-12">
+        <div className=" col-span-2 relative bg-muted border-r hidden lg:block">
+          <div className="sticky top-2">
+            <DesktopSidebar />
+          </div>
+        </div>
+        <div className="lg:col-start-3 lg:col-span-11 col-span-full w-full">
+          {children}
+        </div>
+      </div>
+      <Footer />
       {/* <Footer categories={categories} /> */}
     </div>
   );

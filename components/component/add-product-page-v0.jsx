@@ -25,6 +25,7 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 import globalData from "@/app/data";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 export function AddProductPageV0({
   categories,
@@ -48,10 +49,13 @@ export function AddProductPageV0({
     hide: false,
     featured: false,
     brand: "",
+    excelId: "",
+    addons: [],
   });
 
   const [colorInput, setColorInput] = useState("");
   const [sizeInput, setSizeInput] = useState("");
+  const [addonInput, setAddonInput] = useState("");
 
   async function getImageUrl(categoryImage) {
     if (!categoryImage) return null;
@@ -133,6 +137,19 @@ export function AddProductPageV0({
     setFormState({ ...formState, sizes: updatedSizes });
   };
 
+  const handleAddAddon = () => {
+    setFormState({
+      ...formState,
+      addons: [...formState.addons, addonInput],
+    });
+    setAddonInput("");
+  };
+
+  const handleRemoveAddon = (index) => {
+    const updatedAddons = formState.addons.filter((_, idx) => idx !== index);
+    setFormState({ ...formState, addons: updatedAddons });
+  };
+
   async function addProductToFirebaseFunction({ data }) {
     const ref = collection(db, "products");
     try {
@@ -207,6 +224,8 @@ export function AddProductPageV0({
         hide: false,
         featured: false,
         brand: "",
+        excelId: "",
+        addons: [],
       });
       setSections([]);
       setImagePreviews([]);
@@ -231,6 +250,17 @@ export function AddProductPageV0({
         </p>
       </div>
       <form className="grid gap-6" onSubmit={handleSubmit}>
+        <div className="space-y-2">
+          <Label htmlFor="excelId">Excel ID</Label>
+          <Input
+            id="excelId"
+            name="excelId"
+            placeholder="Enter Excel ID"
+            value={formState.excelId}
+            onChange={handleInputChange}
+          />
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <Label htmlFor="name">Product Name</Label>
@@ -309,6 +339,7 @@ export function AddProductPageV0({
               onChange={handleInputChange}
             />
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
             <Select
@@ -545,6 +576,40 @@ export function AddProductPageV0({
             If checked, this product will be displayed on the main page.
           </Label>
         </div>
+
+        <div className="space-y-2">
+          <Label>Add-ons</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Enter add-on Excel ID"
+              value={addonInput}
+              onChange={(e) => setAddonInput(e.target.value)}
+            />
+            <Button type="button" onClick={handleAddAddon}>
+              Add Add-on
+            </Button>
+          </div>
+          <div className="flex flex-wrap space-x-2">
+            {formState.addons.map((addon, index) => (
+              <div
+                key={index}
+                className="flex items-center space-x-1 border px-2 py-1 rounded gap-2"
+              >
+                <span>{addon}</span>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="xs"
+                  className="p-[0.1rem]"
+                  onClick={() => handleRemoveAddon(index)}
+                >
+                  <Cross2Icon />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <Button className="w-full" type="submit">
           {submitting ? "Submitting..." : "Create Product"}
         </Button>
