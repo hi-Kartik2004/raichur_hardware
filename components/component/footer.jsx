@@ -28,9 +28,20 @@ export function Footer() {
   const [categories, setCategories] = useState({});
 
   useEffect(() => {
-    setInterval(() => {
-      setCategories(JSON.parse(localStorage.getItem("categories")));
-    }, [1000]);
+    const fetchCategories = () => {
+      const categoriesFromStorage = localStorage.getItem("categories");
+      if (categoriesFromStorage) {
+        setCategories(JSON.parse(categoriesFromStorage));
+      }
+    };
+
+    fetchCategories(); // Initial fetch
+
+    // Set interval to fetch categories every second
+    const intervalId = setInterval(fetchCategories, 1000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (

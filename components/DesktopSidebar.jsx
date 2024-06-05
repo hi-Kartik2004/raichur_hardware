@@ -13,14 +13,20 @@ function DesktopSidebar() {
   };
 
   useEffect(() => {
-    const storedCategories = localStorage.getItem("categories");
-    if (storedCategories) {
-      try {
-        setCategories(JSON.parse(storedCategories));
-      } catch (e) {
-        console.error("Failed to parse categories from localStorage:", e);
+    const fetchCategories = () => {
+      const categoriesFromStorage = localStorage.getItem("categories");
+      if (categoriesFromStorage) {
+        setCategories(JSON.parse(categoriesFromStorage));
       }
-    }
+    };
+
+    fetchCategories(); // Initial fetch
+
+    // Set interval to fetch categories every second
+    const intervalId = setInterval(fetchCategories, 1000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
