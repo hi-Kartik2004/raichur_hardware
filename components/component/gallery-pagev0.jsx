@@ -183,7 +183,7 @@ export function GalleryPagev0() {
           </button>
           {selectedImage && (
             <div className="">
-              <Image
+              <img
                 alt={selectedImage.title}
                 className="w-full h-auto object-contain aspect-video"
                 height="800"
