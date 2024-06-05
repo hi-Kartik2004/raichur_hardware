@@ -28,7 +28,9 @@ export function Footer() {
   const [categories, setCategories] = useState({});
 
   useEffect(() => {
-    setCategories(JSON.parse(localStorage.getItem("categories")));
+    setInterval(() => {
+      setCategories(JSON.parse(localStorage.getItem("categories")));
+    }, [1000]);
   }, []);
 
   return (
