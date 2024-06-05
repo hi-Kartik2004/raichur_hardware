@@ -42,17 +42,17 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import globalData from "@/app/data";
-import { BillV0 } from "@/components/component/bill-v0";
 
-function Checkouts() {
+function MyOrders() {
   const { data: session, status } = useSession();
-  //   console.log(session?.user?.email);
   const userEmail = session?.user?.email;
 
   const [checkouts, setCheckouts] = useState([]);
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("none");
   const [adminMessage, setAdminMessage] = useState("");
+  const [BillV0, setBillV0] = useState(null);
+  const [html2pdf, setHtml2pdf] = useState(null);
 
   useEffect(() => {
     async function fetchCheckouts() {
@@ -71,6 +71,19 @@ function Checkouts() {
     }
 
     fetchCheckouts();
+  }, [userEmail]);
+
+  useEffect(() => {
+    async function loadBillComponent() {
+      const { BillV0 } = await import("@/components/component/bill-v0");
+      const html2pdf = await import("html2pdf.js");
+      setBillV0(() => BillV0);
+      setHtml2pdf(() => html2pdf);
+    }
+
+    if (typeof window !== "undefined") {
+      loadBillComponent();
+    }
   }, []);
 
   async function handleStatusChange(id, newStatus) {
@@ -154,7 +167,6 @@ function Checkouts() {
               <TableHead>Product</TableHead>
               <TableHead>Images</TableHead>
               <TableHead>Quantity</TableHead>
-              {/* <TableHead>Price</TableHead> */}
               <TableHead>Total Amount</TableHead>
               <TableHead>Timestamp</TableHead>
               <TableHead>Status</TableHead>
@@ -203,11 +215,6 @@ function Checkouts() {
                     0
                   )}
                 </TableCell>
-                {/* <TableCell>
-                  {checkout.cartItems.map((item) => (
-                    <div key={item.id}>{item.price}</div>
-                  ))}
-                </TableCell> */}
                 <TableCell>Rs {checkout?.totalAmount}</TableCell>
                 <TableCell>
                   {new Date(checkout?.timestamp?.seconds * 1000).toLocaleString(
@@ -225,92 +232,94 @@ function Checkouts() {
                       <Button variant="outline">View Bill</Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl overflow-auto max-h-screen">
-                      <BillV0
-                        companyLogo={globalData?.logoUrl}
-                        companyName={globalData?.companyName}
-                        companyAddress={globalData?.address}
-                        companyPhone={globalData?.phones[0]}
-                        companyEmail={globalData?.emails[0]}
-                        buyerAddress={checkout?.userDetails?.address}
-                        buyerName={checkout?.userDetails?.name}
-                        buyerPhone={checkout?.userDetails?.phone}
-                        items={checkout?.cartItems}
-                        invoiceId={checkout?.id}
-                        gstNumber={globalData?.gstNumber}
-                        dateIssued={new Date(
-                          checkout?.timestamp?.seconds * 1000
-                        ).toLocaleString("en-IN")}
-                      />
-                    </DialogContent>
-                  </Dialog>
-                </TableCell>
-                <TableCell>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="secondary">View Details</Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-h-[500px] overflow-y-auto">
-                      <DialogHeader>
-                        <DialogTitle>Checkout Details</DialogTitle>
-                        <DialogDescription>
-                          Detailed information about the products in this
-                          checkout.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div>
-                        {checkout.cartItems.map((item) => (
-                          <>
-                            <div key={item.id} className="mb-4">
-                              <div className="flex gap-2">
-                                <img
-                                  src={item.imageUrl}
-                                  alt={item.product}
-                                  className="h-20 w-20 object-cover rounded"
-                                />
-                                <div className="font-semibold">
-                                  <Link href={`/product/${item?.productId}`}>
-                                    {item?.product}
-                                  </Link>
-
-                                  <div className="font-medium">
-                                    <div className="flex justify-between gap-2 flex-wrap text-sm mt-1">
-                                      <p>Quantity: {item.quantity}</p>
-                                      <p>Price: Rs {item.price}</p>
-                                    </div>
-
-                                    <div className="flex justify-between gap-2 flex-wrap text-sm mt-1">
-                                      <p>Color: {item?.color}</p>
-                                      <p>Size:{item?.size}</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <Separator className="mb-6" />
-                          </>
-                        ))}
-                      </div>
-                      <p>Incase of any queries</p>
-                      <div className={"flex flex-col"}>
-                        <div className="flex gap-2 justify-start">
-                          <Button asChild>
-                            <Link href="/contact">Contact Us</Link>
-                          </Button>
-
-                          <Button asChild variant="outline">
-                            <Link href={`tel:${globalData?.phones[0]}`}>
-                              Call Us
-                            </Link>
-                          </Button>
-                        </div>
+                      {BillV0 && (
+                        <BillV0
+                          companyLogo={globalData?.logoUrl}
+                          companyName={globalData?.companyName}
+                          companyAddress={globalData?.address}
+                          companyPhone={globalData?.phones[0]}
+                          companyEmail={globalData?.emails[0]}
+                          buyerAddress={checkout?.userDetails?.address}
+                          buyerName={checkout?.userDetails?.name}
+                          buyerPhone={checkout?.userDetails?.phone}
+                          items={checkout?.cartItems}
+                          totalAmount={checkout?.totalAmount}
+                          gstRate={globalData?.gst}
+                          shippingCharge={globalData?.shippingCharge}
+                          paidAmount={checkout?.totalAmount}
+                          deliveryDate={new Date(
+                            checkout?.timestamp?.seconds * 1000
+                          ).toLocaleString("en-IN")}
+                          paymentMode={checkout?.paymentMode}
+                          id={checkout?.id}
+                          status={checkout?.status}
+                          timestamp={checkout?.timestamp}
+                        />
+                      )}
+                      <div className="mt-4 flex justify-end">
+                        <Button
+                          variant="default"
+                          onClick={() => {
+                            const element =
+                              document.getElementById("bill-component");
+                            if (element && html2pdf) {
+                              html2pdf()
+                                .set({
+                                  margin: 1,
+                                  filename: `invoice_${checkout?.id}.pdf`,
+                                  image: { type: "jpeg", quality: 0.98 },
+                                  html2canvas: { scale: 2 },
+                                  jsPDF: {
+                                    unit: "in",
+                                    format: "letter",
+                                    orientation: "portrait",
+                                  },
+                                })
+                                .from(element)
+                                .save();
+                            }
+                          }}
+                        >
+                          Download PDF
+                        </Button>
                       </div>
                     </DialogContent>
                   </Dialog>
                 </TableCell>
                 <TableCell>
-                  {checkout.adminMessage
-                    ? checkout.adminMessage
-                    : "We will contact you to confirm your order and share payment details"}
+                  {checkout?.status == "pending" ? (
+                    <div className="flex gap-2">
+                      <Button
+                        variant="default"
+                        onClick={() =>
+                          handleStatusChange(checkout?.id, "completed")
+                        }
+                      >
+                        Mark as completed
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        onClick={() =>
+                          handleStatusChange(checkout?.id, "cancelled")
+                        }
+                      >
+                        Mark as cancelled
+                      </Button>
+                    </div>
+                  ) : (
+                    "No action required"
+                  )}
+                </TableCell>
+                <TableCell>
+                  {checkout?.status == "pending" ? (
+                    <Input
+                      placeholder="Leave a message..."
+                      value={adminMessage}
+                      onChange={(e) => setAdminMessage(e.target.value)}
+                    />
+                  ) : (
+                    checkout?.adminMessage
+                  )}
                 </TableCell>
               </TableRow>
             ))}
@@ -321,4 +330,4 @@ function Checkouts() {
   );
 }
 
-export default Checkouts;
+export default MyOrders;
