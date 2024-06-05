@@ -40,7 +40,10 @@ import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import globalData from "@/app/data";
-import { BillV0 } from "@/components/component/bill-v0";
+
+const BillV0 = dynamic(() => import("@/components/component/bill-v0"), {
+  ssr: false,
+});
 
 function Checkouts() {
   const [checkouts, setCheckouts] = useState([]);
