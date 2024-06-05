@@ -42,6 +42,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import globalData from "@/app/data";
+import { BillV0 } from "@/components/component/bill-v0";
 
 function Checkouts() {
   const { data: session, status } = useSession();
@@ -157,6 +158,7 @@ function Checkouts() {
               <TableHead>Total Amount</TableHead>
               <TableHead>Timestamp</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Bill Details</TableHead>
               <TableHead>Actions</TableHead>
               <TableHead>Admin Message (if any)</TableHead>
             </TableRow>
@@ -220,11 +222,25 @@ function Checkouts() {
                 <TableCell>
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button variant="outline">Address</Button>
+                      <Button variant="outline">View Bill</Button>
                     </DialogTrigger>
-                    <DialogContent>
-                      <p className="font-semibold">Given Address</p>
-                      {checkout?.userDetails?.address}
+                    <DialogContent className="max-w-2xl overflow-auto max-h-screen">
+                      <BillV0
+                        companyLogo={globalData?.logoUrl}
+                        companyName={globalData?.companyName}
+                        companyAddress={globalData?.address}
+                        companyPhone={globalData?.phones[0]}
+                        companyEmail={globalData?.emails[0]}
+                        buyerAddress={checkout?.userDetails?.address}
+                        buyerName={checkout?.userDetails?.name}
+                        buyerPhone={checkout?.userDetails?.phone}
+                        items={checkout?.cartItems}
+                        invoiceId={checkout?.id}
+                        gstNumber={globalData?.gstNumber}
+                        dateIssued={new Date(
+                          checkout?.timestamp?.seconds * 1000
+                        ).toLocaleString("en-IN")}
+                      />
                     </DialogContent>
                   </Dialog>
                 </TableCell>

@@ -247,6 +247,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 inventory={product?.inventory}
                 showAddOnDialog={true}
                 addons={addonDetails}
+                discount={product?.discount}
               />
             ) : (
               <Button size="lg" disabled>

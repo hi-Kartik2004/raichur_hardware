@@ -19,6 +19,7 @@ export async function POST(req) {
     productId = "",
     color = "",
     size = "",
+    discount = 0,
   } = await req.json();
   const ref = collection(db, "cart");
   try {
@@ -32,6 +33,7 @@ export async function POST(req) {
       productId: productId,
       color: color,
       size: size,
+      discount: discount,
     });
   } catch (err) {
     console.error(err);

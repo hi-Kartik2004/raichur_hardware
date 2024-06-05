@@ -53,15 +53,11 @@ export function FeaturedProducts({ className, category, products }) {
                     )}
                   </p>
                 </Link>
-                <AddToCartButton
-                  productName={product?.name}
-                  price={product?.price}
-                  quantity={1}
-                  imageUrl={product?.images[0]}
-                  productId={product?.id}
-                  maxQuantity={product?.maxQuantity}
-                  inventory={product?.inventory}
-                />
+                <Button className="w-full">
+                  <Link className="w-full" href={`/product/${product?.id}`}>
+                    View Product
+                  </Link>
+                </Button>
               </div>
             </div>
           ))}

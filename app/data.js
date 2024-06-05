@@ -10,6 +10,9 @@ const data = {
     "bhuvandesai2006@gmail.com",
   ],
 
+  // gst number
+  gstNumber: "29AAHFR1020A1Z0",
+
   // logo
   logoUrl: "/raichur_hardware_logo_nobg.png",
 

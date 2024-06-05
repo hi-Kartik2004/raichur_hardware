@@ -22,6 +22,7 @@ function AddToCartButton({
   size,
   showAddOnDialog,
   addons,
+  discount,
 }) {
   const maxLimit = Math.min(inventory, maxQuantity);
   const router = useRouter();
@@ -46,6 +47,7 @@ function AddToCartButton({
         productId: productId,
         color: color,
         size: size,
+        discount: discount,
       }),
     });
 
