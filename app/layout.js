@@ -29,7 +29,7 @@ export default async function RootLayout({ children }) {
         >
           <div className="grid grid-cols-12">
             <div className=" col-span-2 relative bg-muted border-r hidden lg:block">
-              <div className="sticky top-2  ">
+              <div className="sticky top-2">
                 <DesktopSidebar />
               </div>
             </div>
