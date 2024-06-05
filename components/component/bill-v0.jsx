@@ -14,18 +14,18 @@ import { useState, useRef } from "react";
 import { Preview, print } from "react-html2pdf";
 
 export function BillV0({
-  companyName,
-  companyAddress,
-  companyPhone,
-  companyEmail,
-  invoiceId,
-  buyerAddress,
-  buyerName,
-  buyerPhone,
-  items,
-  dateIssued,
-  companyLogo,
-  gstNumber,
+  companyName = "",
+  companyAddress = "",
+  companyPhone = "",
+  companyEmail = "",
+  invoiceId = "",
+  buyerAddress = "",
+  buyerName = "",
+  buyerPhone = "",
+  items = [],
+  dateIssued = "",
+  companyLogo = "",
+  gstNumber = "",
 }) {
   const [loading, setLoading] = useState(false);
   const billRef = useRef(null);
