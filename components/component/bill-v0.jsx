@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import html2pdf from "html2pdf.js";
 import { useState, useRef } from "react";
+import { Preview, print } from "react-html2pdf";
 
 export function BillV0({
   companyName,
@@ -30,30 +31,11 @@ export function BillV0({
   const billRef = useRef(null);
 
   const handleDownload = (filename) => {
-    setLoading(true);
-    const element = billRef.current;
-
-    const opt = {
-      margin: [10, 10, 10, 10], // Top, right, bottom, left
-      filename: `${filename}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    };
-
-    html2pdf()
-      .set(opt)
-      .from(element)
-      .save()
-      .then(() => setLoading(false))
-      .catch((err) => {
-        console.error("Error generating PDF:", err);
-        setLoading(false);
-      });
+    print(filename, "bill-content");
   };
 
   return (
-    <div ref={billRef}>
+    <Preview id="bill-content">
       <div className="flex flex-col w-full max-w-2xl mx-auto bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-auto">
         <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4 flex items-center justify-between gap-6 flex-wrap">
           <div className="flex items-center gap-4">
@@ -230,6 +212,6 @@ export function BillV0({
           </Button>
         </footer>
       </div>
-    </div>
+    </Preview>
   );
 }
