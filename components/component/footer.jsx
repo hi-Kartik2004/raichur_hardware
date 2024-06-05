@@ -114,7 +114,8 @@ export function Footer() {
                 {dropdown}
               </h4>
               <ul className="space-y-1">
-                {categories[dropdown] &&
+                {categories &&
+                  categories[dropdown] &&
                   categories[dropdown].map((category) => (
                     <li>
                       <Link
