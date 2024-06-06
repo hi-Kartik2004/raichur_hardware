@@ -20,13 +20,14 @@ const data = {
   companyName: "Raichur Hardware",
 
   // phone numbers
-  phones: ["+91 9876543210", "+91 1234567990"],
+  phones: ["+91 94490 30030"],
 
   // emails
   emails: ["raichurhardware2024@gmail.com"],
 
   // address
-  address: "123 Main Street, Anytown USA",
+  address:
+    "Old 12-10-49 , New 12-10-87 Near Chandramouleshwar circle, Lingasugur Road, Raichur Karnataka – 584101, India",
 
   // footer desc
   footerDescription:

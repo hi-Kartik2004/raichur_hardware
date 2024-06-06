@@ -69,7 +69,7 @@ export default function BillV0({
             />
             <div className="grid gap-0.5">
               <h1 className="text-lg font-semibold">{companyName}</h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-[16rem]">
                 {companyAddress}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
