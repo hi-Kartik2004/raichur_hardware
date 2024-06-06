@@ -9,11 +9,10 @@ import {
 } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import html2pdf from "html2pdf.js";
 import { useState, useRef } from "react";
 import { Preview, print } from "react-html2pdf";
 
-export function BillV0({
+export default function BillV0({
   companyName = "",
   companyAddress = "",
   companyPhone = "",

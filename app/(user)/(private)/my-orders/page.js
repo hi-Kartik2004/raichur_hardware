@@ -159,7 +159,6 @@ function MyOrders() {
               <TableHead>Product</TableHead>
               <TableHead>Images</TableHead>
               <TableHead>Quantity</TableHead>
-              {/* <TableHead>Price</TableHead> */}
               <TableHead>Total Amount</TableHead>
               <TableHead>Timestamp</TableHead>
               <TableHead>Status</TableHead>
@@ -208,11 +207,6 @@ function MyOrders() {
                     0
                   )}
                 </TableCell>
-                {/* <TableCell>
-                  {checkout.cartItems.map((item) => (
-                    <div key={item.id}>{item.price}</div>
-                  ))}
-                </TableCell> */}
                 <TableCell>Rs {checkout?.totalAmount}</TableCell>
                 <TableCell>
                   {new Date(checkout?.timestamp?.seconds * 1000).toLocaleString(
