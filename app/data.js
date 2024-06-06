@@ -119,7 +119,7 @@ const data = {
       aboutSectionTitle: "Visit Us at Raichur Hardware",
       aboutSectionDescriptions: [
         "Old 12-10-49 , New 12-10-87 Near Chandramouleshwar circle, Lingasugur Road, Raichur Karnataka – 584101, India",
-        "Phone: (+91) 94490 30030",
+        "Phone: +91 94490 30030",
       ],
       aboutSectionImageUrl: "/store_entrance_1.png",
     },
