@@ -10,7 +10,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useState, useRef } from "react";
-import { Preview, print } from "react-html2pdf";
+import html2pdf from "html2pdf.js";
+// import { Preview, print } from "react-html2pdf";
 
 export default function BillV0({
   companyName = "",
@@ -30,11 +31,28 @@ export default function BillV0({
   const billRef = useRef(null);
 
   const handleDownload = (filename) => {
-    print(filename, "bill-content");
-  };
+    const element = document.getElementById("bill-content");
+    if (!element) {
+      console.error("Element with id 'bill-content' not found.");
+      return;
+    }
 
+    const opt = {
+      margin: [0.5, 0],
+      filename: `${filename}.pdf`,
+      image: { type: "png", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+
+    html2pdf()
+      .set(opt)
+      .from(element)
+      .save()
+      .catch((err) => console.error("Error generating PDF:", err));
+  };
   return (
-    <Preview id="bill-content">
+    <div id="bill-content">
       <div className="flex flex-col w-full max-w-2xl mx-auto bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-auto">
         <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4 flex items-center justify-between gap-6 flex-wrap">
           <div className="flex items-center gap-4">
@@ -169,22 +187,25 @@ export default function BillV0({
                       (acc, item) => acc + (+item.discount * item?.price) / 100,
                       0
                     )}{" "}
-                  /-
+                  /-{" "}
                 </div>
               </div>
               <Separator />
               <div className="flex justify-between font-semibold">
                 <div>Total:</div>
-                <div>
+                <div className="text-xl">
                   Rs{" "}
                   {items &&
                     items.reduce(
                       (acc, item) => acc + item.quantity * item.price,
                       0
                     )}{" "}
-                  /-
+                  /- <br />
                 </div>
               </div>
+              <span className="text-xs text-muted-foreground font-medium -mt-2">
+                (incl. of 9% SGST & 9% CGST)
+              </span>
             </div>
           </div>
         </div>
@@ -211,6 +232,6 @@ export default function BillV0({
           </Button>
         </footer>
       </div>
-    </Preview>
+    </div>
   );
 }
