@@ -31,7 +31,7 @@ function ImageCarousel({ images }) {
   };
 
   return (
-    <div className="max-w-[550px] mt-10 xl:mt-0 w-full lg:p-0 p-2 border-gray-400 lg:border-none border rounded">
+    <div className="max-w-[570px] mt-10 xl:mt-0 w-full xl:p-0 p-2 border-gray-400 xl:border-none border rounded">
       <img
         src={images[imageIndex]}
         alt="hero_img"

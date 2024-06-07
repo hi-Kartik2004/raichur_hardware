@@ -46,7 +46,10 @@ export function AddCategoryFormPageV0({
 }) {
   const [submitting, setSubmitting] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [selectedGlobalDropdown, setSelectedGlobalDropdown] = useState("");
+  const [selectedDropdown, setSelectedDropdown] = useState("");
   const router = useRouter();
+
   async function getImageUrl(categoryImage) {
     if (!categoryImage) return null;
 
@@ -79,14 +82,16 @@ export function AddCategoryFormPageV0({
       ? await getImageUrl(categoryImage)
       : "";
     const categoryTitle = formData.get("categoryTitle");
-    const dropdown = formData.get("dropdown");
+    const dropdown = selectedDropdown;
+    const globalDropdown = selectedGlobalDropdown;
     const categoryDescription = formData.get("categoryDescription");
     const resp = await addCategoryToFirebaseFunction(
       categoryName,
       categoryTitle,
       categoryDescription,
       categoryImageUrl,
-      dropdown
+      dropdown,
+      globalDropdown
     );
 
     if (resp.resp) {
@@ -146,6 +151,11 @@ export function AddCategoryFormPageV0({
     category.categoryName.toLowerCase().includes(searchValue.toLowerCase())
   );
 
+  const handleGlobalDropdownChange = (value) => {
+    setSelectedGlobalDropdown(value);
+    setSelectedDropdown("");
+  };
+
   return (
     <div className="flex flex-col gap-8 px-4 md:px-6 pt-12 pb-8 max-w-4xl mx-auto">
       <Toaster />
@@ -189,22 +199,54 @@ export function AddCategoryFormPageV0({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="category">Dropdown</Label>
-              <Select id="dropdown" name="dropdown" required>
+              <Label htmlFor="globalDropdown">Global Dropdown</Label>
+              <Select
+                id="globalDropdown"
+                name="globalDropdown"
+                onValueChange={handleGlobalDropdownChange}
+                required
+              >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder="Select a global dropdown" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {globalData?.dropdowns.map((dropdown) => (
-                      <SelectItem key={dropdown} value={dropdown}>
-                        {dropdown}
+                    {globalData.globalDropdowns.map((group, index) => (
+                      <SelectItem key={index} value={group.name}>
+                        {group.name}
                       </SelectItem>
                     ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
+
+            {selectedGlobalDropdown && (
+              <div className="space-y-2">
+                <Label htmlFor="dropdown">Dropdown</Label>
+                <Select
+                  id="dropdown"
+                  name="dropdown"
+                  onValueChange={setSelectedDropdown}
+                  required
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a dropdown" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {globalData.globalDropdowns
+                        .find((group) => group.name === selectedGlobalDropdown)
+                        ?.dropdowns.map((dropdown, index) => (
+                          <SelectItem key={index} value={dropdown}>
+                            {dropdown}
+                          </SelectItem>
+                        ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             <div className="grid gap-2">
               <Label htmlFor="categoryImage">Category Image</Label>

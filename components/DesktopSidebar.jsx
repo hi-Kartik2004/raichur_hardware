@@ -1,15 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import globalData from "@/app/data";
-import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
 import Link from "next/link";
+import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
 
 function DesktopSidebar() {
   const [categories, setCategories] = useState({});
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeGlobalDropdown, setActiveGlobalDropdown] = useState(null);
+  const [recentlyOpenedDropdown, setRecentlyOpenedDropdown] = useState(null);
+
+  const handleGlobalDropdownClick = (globalDropdown) => {
+    setActiveGlobalDropdown(
+      globalDropdown === activeGlobalDropdown ? null : globalDropdown
+    );
+    setActiveDropdown(null); // Reset active dropdown when global dropdown changes
+    setRecentlyOpenedDropdown(null); // Reset recently opened dropdown
+  };
 
   const handleDropdownClick = (dropdown) => {
     setActiveDropdown(dropdown === activeDropdown ? null : dropdown);
+    setRecentlyOpenedDropdown(dropdown); // Set recently opened dropdown
   };
 
   useEffect(() => {
@@ -30,39 +41,79 @@ function DesktopSidebar() {
   }, []);
 
   return (
-    <div className="bg-muted pt-16 pb-4 overflow-auto max-h-screen">
-      {globalData?.dropdowns &&
-        globalData?.dropdowns.map((dropdown, index) => (
-          <div key={index} className="flex flex-col mt-2 px-4 ">
+    <div className="bg-gray-100 pt-16 pb-4 overflow-auto max-h-screen max-w-[400px] h-screen border-r px-2 w-full">
+      {globalData?.globalDropdowns &&
+        globalData?.globalDropdowns.map((globalDropdown, index) => (
+          <div
+            key={index}
+            className={`flex flex-col mt-2 ${
+              activeGlobalDropdown === globalDropdown.name &&
+              "border border-gray-400 rounded"
+            }`}
+          >
             <button
-              onClick={() => handleDropdownClick(dropdown)}
-              className="text-left p-2 rounded-sm hover:bg-gray-200 flex justify-between w-full"
+              onClick={() => handleGlobalDropdownClick(globalDropdown.name)}
+              className={`text-left p-2 rounded-sm hover:bg-muted focus:bg-muted focus:border flex justify-between w-full ${
+                activeGlobalDropdown === globalDropdown.name &&
+                "border border-gray-500"
+              }`}
             >
-              {dropdown}
+              {globalDropdown.name}
               <span>
-                {activeDropdown === dropdown ? (
+                {activeGlobalDropdown === globalDropdown.name ? (
                   <HiOutlineChevronUp />
                 ) : (
                   <HiOutlineChevronDown />
                 )}
               </span>
             </button>
-            {activeDropdown === dropdown && (
-              <ul>
-                {categories[dropdown]?.map((category) => (
-                  <li
-                    key={category.categoryName}
-                    className="p-2 flex rounded-sm hover:bg-gray-100 w-full hover:border border-gray-200"
+            {activeGlobalDropdown === globalDropdown.name && (
+              <div className="bg-slate-50 border border-slate-50 rounded">
+                {globalDropdown.dropdowns.map((dropdown, dropdownIndex) => (
+                  <div
+                    key={dropdownIndex}
+                    className={`flex flex-col mt-2 border border-muted border-dashed  ${
+                      recentlyOpenedDropdown === dropdown
+                        ? "bg-muted rounded border"
+                        : ""
+                    }`}
                   >
-                    <Link
-                      href={`/category/${category.categoryName}`}
-                      className="text-sm w-full "
+                    <button
+                      onClick={() => handleDropdownClick(dropdown)}
+                      className={`text-left p-2 rounded-sm hover:border hover:border-gray-400 border border-muted border-dashed flex justify-between w-full pl-4 ${
+                        activeDropdown === dropdown &&
+                        "border-dashed border border-gray-500"
+                      } `}
                     >
-                      {category.categoryTitle}
-                    </Link>
-                  </li>
+                      {dropdown}
+                      <span>
+                        {activeDropdown === dropdown ? (
+                          <HiOutlineChevronUp />
+                        ) : (
+                          <HiOutlineChevronDown />
+                        )}
+                      </span>
+                    </button>
+                    {activeDropdown === dropdown && (
+                      <ul className="bg-white border border-gray-400 border-dashed">
+                        {categories[dropdown]?.map((category) => (
+                          <li
+                            key={category.categoryName}
+                            className="py-2 pl-6 flex  hover:border hover:border-gray-600 border-gray-100 border w-full"
+                          >
+                            <Link
+                              href={`/category/${category.categoryName}`}
+                              className="text-sm w-full text-start"
+                            >
+                              {category.categoryTitle}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 ))}
-              </ul>
+              </div>
             )}
           </div>
         ))}

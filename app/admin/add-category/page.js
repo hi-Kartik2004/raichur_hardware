@@ -46,7 +46,8 @@ async function CreateCategory() {
     categoryTitle,
     categoryDescription,
     categoryImageUrl,
-    dropdown
+    dropdown,
+    globalDropdown
   ) {
     "use server";
     const ref = collection(db, "categories");
@@ -57,6 +58,7 @@ async function CreateCategory() {
         categoryDescription: categoryDescription,
         categoryImageUrl: categoryImageUrl,
         dropdown: dropdown,
+        globalDropdown: globalDropdown,
         timestamp: serverTimestamp(),
       });
 

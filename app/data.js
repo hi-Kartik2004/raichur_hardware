@@ -182,6 +182,106 @@ const data = {
     },
   ],
 
+  // global dropdowns
+  globalDropdowns: [
+    {
+      name: "Pipes and Fittings",
+      dropdowns: [
+        "Agricultural",
+        "Plumbing and Sanitation",
+        "GI Pipes",
+        "HDPE Pipes and Fittings",
+        "Solvents and Tapes",
+      ],
+    },
+    {
+      name: "Irrigation and Fittings",
+      dropdowns: [
+        "Drip Irrigation",
+        "Sprinkle Irrigation",
+        "Subsurface Drip",
+        "PVC Ball Valves",
+      ],
+    },
+    {
+      name: "Bath Fittings",
+      dropdowns: [
+        "Faucets",
+        "Shower",
+        "Thermostatic Mixers",
+        "Shower panel",
+        "Water heaters",
+        "Sanitary ware",
+        "Wellness",
+        "Shower enclosures",
+        "Flushing systems",
+        "Drains",
+        "Bath Accessories",
+      ],
+    },
+    {
+      name: "Locks and Fittings",
+      dropdowns: [
+        "DIGITAL LOCKS",
+        "MORTISE LOCKS",
+        "RIM LOCKS",
+        "CYLINDRICAL LOCKS",
+        "PADLOCKS",
+        "FURNITURE LOCKS",
+        "HOME DÉCOR HANDLES",
+        "DOOR CONTROLS",
+        "DOOR FITTINGS",
+        "WARDROBE FITTINGS",
+        "BED FITTINGS",
+        "FURNITURE FITTINGS",
+        "KITCHEN FITTINGS",
+      ],
+    },
+    {
+      name: "Kitchenware",
+      dropdowns: [
+        "Luxury Kitchen Sinks",
+        "Quartz Kitchen Sinks",
+        "Stainless steel sinks",
+      ],
+    },
+    {
+      name: "Pumpsets",
+      dropdowns: [
+        "Open Well Pumps",
+        "Submersible Pumps",
+        "Monoblock Pumps",
+        "Jet Pumps",
+        "Sewage Pumps",
+        "Electric Induction Motors",
+      ],
+    },
+    {
+      name: "Booster Sets and water tanks",
+      dropdowns: [
+        "CMBE And CMBE Twin",
+        "CM Single Booster",
+        "SCALA1 and SCALA2 booster",
+        "Shower and other Boosters",
+        "Overhead Water Tanks",
+      ],
+    },
+    {
+      name: "Valves",
+      dropdowns: [
+        "Ball Valve",
+        "Gate Valve",
+        "Sluice Valve",
+        "Horizontal Check Valve",
+        "Vertical Check Valve",
+      ],
+    },
+    {
+      name: "Manhole Covers",
+      dropdowns: ["Cast Iron Manhole covers"],
+    },
+  ],
+
   // dropdowns
   dropdowns: [
     "Brands",
