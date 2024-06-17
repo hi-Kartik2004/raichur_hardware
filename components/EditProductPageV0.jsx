@@ -20,6 +20,7 @@ import { Toaster } from "./ui/toaster";
 import { useRouter } from "next/navigation";
 import { Separator } from "./ui/separator";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { UploadIcon } from "lucide-react";
 
 export function EditProductPageV0({
   categories,
@@ -30,10 +31,13 @@ export function EditProductPageV0({
   const [submitting, setSubmitting] = useState(false);
   const [sections, setSections] = useState(product?.sections || []);
   const [addonInput, setAddonInput] = useState("");
+  const [colorInput, setColorInput] = useState("");
+  const [sizeInput, setSizeInput] = useState("");
   const [imagePreviews, setImagePreviews] = useState(product?.images || []);
   const [formState, setFormState] = useState({
     name: product?.name || "",
-    price: product?.price || "",
+    price: product?.price || 0,
+    mrp: product?.mrp || 0,
     discount: product?.discount || "",
     maxQuantity: product?.maxQuantity || "",
     description: product?.description || "",
@@ -41,8 +45,11 @@ export function EditProductPageV0({
     category: product?.category || "",
     images: [],
     sections: product?.sections || [],
+    colors: product?.colors || [],
+    sizes: product?.sizes || [],
     hide: product?.hide || false,
     featured: product?.featured || false,
+    brand: product?.brand || "",
     excelId: product?.excelId || "",
     addons: product?.addons || [],
   });
@@ -104,8 +111,24 @@ export function EditProductPageV0({
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const newValue = type === "checkbox" ? checked : value;
-    setFormState({ ...formState, [name]: newValue });
+    const newValue =
+      name === "price" || name === "mrp" // Include MRP in the number check
+        ? parseFloat(value)
+        : type === "checkbox"
+        ? checked
+        : value;
+
+    // Calculate the discount if MRP and price are provided
+    let discount = formState.discount;
+    if (name === "price" || name === "mrp") {
+      const price = name === "price" ? newValue : formState.price;
+      const mrp = name === "mrp" ? newValue : formState.mrp;
+      if (price && mrp) {
+        discount = (((mrp - price) / mrp) * 100).toFixed(2);
+      }
+    }
+
+    setFormState({ ...formState, [name]: newValue, discount });
   };
 
   async function updateProductInFirebaseFunction(productId, { data }) {
@@ -191,11 +214,34 @@ export function EditProductPageV0({
     setFormState({ ...formState, addons: updatedAddons });
   };
 
+  const handleAddColor = (color) => {
+    setFormState({
+      ...formState,
+      colors: [...formState.colors, color],
+    });
+    setColorInput("");
+  };
+
+  const handleRemoveColor = (index) => {
+    const updatedColors = formState.colors.filter((_, idx) => idx !== index);
+    setFormState({ ...formState, colors: updatedColors });
+  };
+
+  const handleAddSize = (size) => {
+    setFormState({
+      ...formState,
+      sizes: [...formState.sizes, size],
+    });
+    setSizeInput("");
+  };
+
+  const handleRemoveSize = (index) => {
+    const updatedSizes = formState.sizes.filter((_, idx) => idx !== index);
+    setFormState({ ...formState, sizes: updatedSizes });
+  };
+
   return (
-    <div
-      key="1"
-      className="mx-auto max-w-2xl space-y-8 pb-8 px-4 overflow-y-auto"
-    >
+    <div className="mx-auto max-w-2xl space-y-8 pb-8 px-4 overflow-y-auto">
       <Toaster />
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Edit {product?.name}</h1>
@@ -241,7 +287,19 @@ export function EditProductPageV0({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="discount">Discount to be shown (in %)</Label>
+            <Label htmlFor="mrp">MRP</Label>
+            <Input
+              id="mrp"
+              name="mrp"
+              placeholder="Enter MRP"
+              type="number"
+              required
+              value={formState.mrp}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="discount">Discount (in %)</Label>
             <Input
               id="discount"
               name="discount"
@@ -253,12 +311,13 @@ export function EditProductPageV0({
               onChange={handleInputChange}
             />
           </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="maxQuantity">Max per person</Label>
+            <Label htmlFor="maxQuantity">Max Quantity per person</Label>
             <Input
               id="maxQuantity"
               name="maxQuantity"
-              className="maxQuantity"
               placeholder="Maximum quantity one person can buy"
               type="number"
               required
@@ -266,18 +325,18 @@ export function EditProductPageV0({
               onChange={handleInputChange}
             />
           </div>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="description">Description</Label>
-          <Textarea
-            className="min-h-[120px]"
-            id="description"
-            name="description"
-            placeholder="Enter product description"
-            required
-            value={formState.description}
-            onChange={handleInputChange}
-          />
+          <div className="space-y-2">
+            <Label htmlFor="description">Description</Label>
+            <Textarea
+              className="min-h-[120px]"
+              id="description"
+              name="description"
+              placeholder="Enter product description"
+              required
+              value={formState.description}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -363,7 +422,7 @@ export function EditProductPageV0({
                     className="absolute top-0 right-0"
                     variant="outline"
                     onClick={() => handleRemoveImage(index)}
-                    size={"xs"}
+                    size="xs"
                   >
                     ❌
                   </Button>
@@ -372,7 +431,7 @@ export function EditProductPageV0({
             </div>
           </div>
         </div>
-        {sections.map((section, index) => (
+        {formState.sections.map((section, index) => (
           <div key={index} className="space-y-2">
             <div className="flex justify-between items-center">
               <Label htmlFor={`section-title-${index}`}>Section Title</Label>
@@ -438,11 +497,9 @@ export function EditProductPageV0({
             If checked, this product will not be displayed on the website.
           </Label>
         </div>
-
         <Separator />
-
         <div className="space-y-2">
-          <Label htmlFor="featured">featured Product</Label>
+          <Label htmlFor="featured">Featured Product</Label>
           <Label className="flex gap-2 items-center">
             <Input
               type="checkbox"
@@ -454,6 +511,16 @@ export function EditProductPageV0({
             />
             If checked, this product will be displayed on the home page.
           </Label>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="brand">Brand</Label>
+          <Input
+            id="brand"
+            name="brand"
+            placeholder="Enter brand name"
+            value={formState.brand}
+            onChange={handleInputChange}
+          />
         </div>
         <div className="space-y-2">
           <Label>Add-ons</Label>
@@ -487,31 +554,84 @@ export function EditProductPageV0({
             ))}
           </div>
         </div>
-        <Button className="w-full" type="submit">
-          {submitting ? "Submitting..." : "Edit Product"}
-        </Button>
+        <div className="space-y-2">
+          <Label htmlFor="colors">Colors</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Enter color"
+              value={colorInput}
+              onChange={(e) => setColorInput(e.target.value)}
+            />
+            <Button type="button" onClick={() => handleAddColor(colorInput)}>
+              Add Color
+            </Button>
+          </div>
+          <div className="flex flex-wrap space-x-2">
+            {formState.colors.map((color, index) => (
+              <div
+                key={index}
+                className="flex items-center space-x-1 border px-2 py-1 rounded gap-2"
+              >
+                <span>{color}</span>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="xs"
+                  className="p-[0.1rem]"
+                  onClick={() => handleRemoveColor(index)}
+                >
+                  <Cross2Icon />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="sizes">Sizes</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Enter size"
+              value={sizeInput}
+              onChange={(e) => setSizeInput(e.target.value)}
+            />
+            <Button type="button" onClick={() => handleAddSize(sizeInput)}>
+              Add Size
+            </Button>
+          </div>
+          <div className="flex flex-wrap space-x-2">
+            {formState.sizes.map((size, index) => (
+              <div
+                key={index}
+                className="flex items-center space-x-1 border px-2 py-1 rounded gap-2"
+              >
+                <span>{size}</span>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="xs"
+                  className="p-[0.1rem]"
+                  onClick={() => handleRemoveSize(index)}
+                >
+                  <Cross2Icon />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center justify-between space-x-4">
+          <Button type="submit" loading={submitting}>
+            Update Product
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => router.back()}
+            disabled={submitting}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
     </div>
-  );
-}
-
-function UploadIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="17 8 12 3 7 8" />
-      <line x1="12" x2="12" y1="3" y2="15" />
-    </svg>
   );
 }

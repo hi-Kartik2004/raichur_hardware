@@ -322,6 +322,7 @@ export function AddCategoryFormPageV0({
                       onClick={() => {
                         handleCategoryDelete(category?.categoryName);
                       }}
+                      disabled={submitting}
                     >
                       <TrashIcon className="h-4 w-4" />
                       <span className="sr-only">Delete</span>

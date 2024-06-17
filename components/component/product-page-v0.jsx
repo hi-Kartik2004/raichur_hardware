@@ -58,8 +58,8 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
   const [relatedData, setRelatedData] = useState([]);
   const [selectedImage, setSelectedImage] = useState(product?.images[0]);
   const [productQuantity, setProductQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState(product?.colors[0]);
+  const [selectedSize, setSelectedSize] = useState(product?.sizes[0]);
   const [addonDetails, setAddonDetails] = useState(null);
 
   function handlePreviewClick(imageUrl) {
@@ -123,10 +123,9 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
     helper();
   }, []);
 
-  const overPrice = +(
-    +product?.price +
-    +(product?.price * product?.discount) / 100
-  );
+  const overPrice = product.mrp
+    ? product.mrp
+    : +(+product?.price + +(product?.price * product?.discount) / 100);
 
   return (
     <>
@@ -171,13 +170,13 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
             </div>
             <div className="text-4xl font-bold">
               Rs {product?.price} /-{" "}
-              {overPrice !== product?.price && (
+              {product?.discount != 0 && (
                 <>
                   <span className="line-through text-sm">
                     Rs {overPrice} /-{" "}
                   </span>
                   <span className="text-green-500 text-lg">
-                    ({" " + product?.discount}% off)
+                    ({" " + Math.trunc(product?.discount)}% off)
                   </span>{" "}
                 </>
               )}
@@ -206,7 +205,9 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 onChange={(e) => setSelectedColor(e.target.value)}
                 className="border rounded-md p-2"
               >
-                <option value="">Select a color</option>
+                <option value="" disabled>
+                  Select a color
+                </option>
                 {product?.colors &&
                   product?.colors.map((color, index) => (
                     <option key={index} value={color} className=" capitalize">
@@ -225,7 +226,9 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
                 onChange={(e) => setSelectedSize(e.target.value)}
                 className="border rounded-md p-2"
               >
-                <option value="">Select a size</option>
+                <option value="" disabled>
+                  Select a size
+                </option>
                 {product?.sizes &&
                   product?.sizes.map((size, index) => (
                     <option key={index} value={size} className=" capitalize">

@@ -39,16 +39,40 @@ export function FeaturedProducts({ className, category, products }) {
                   <p className="text-gray-500 dark:text-gray-400 mb-4 line-clamp-3">
                     {product.description}
                   </p>
-                  <p className="dark:text-gray-400 mb-4">
+
+                  <div className="flex justify-between flex-wrap text-sm text-muted-foreground gap-4">
+                    {product?.colors.length == 1 ? (
+                      <div
+                        className={`w-5 h-5 rounded-full`}
+                        style={{ background: product?.colors[0] }}
+                      ></div>
+                    ) : (
+                      "Multiple colors"
+                    )}
+                    <p className="text-sm text-muted-foreground capitalize">
+                      Size:{" "}
+                      {product?.sizes.length > 1
+                        ? "Multiple"
+                        : product?.sizes[0]
+                        ? product?.sizes[0]
+                        : "Regular"}
+                    </p>
+                  </div>
+
+                  <p className="dark:text-gray-400 mb-4 mt-4">
                     Rs {product.price}/-{" "}
-                    <span className="text-sm line-through	">
-                      Rs{" "}
-                      {+product?.price +
-                        (product?.discount / 100) * product?.price}
-                    </span>{" "}
+                    {product?.discount > 0 && (
+                      <span className="text-sm line-through	">
+                        Rs{" "}
+                        {product.mrp
+                          ? product.mrp
+                          : +product?.price +
+                            (product?.discount / 100) * product?.price}
+                      </span>
+                    )}{" "}
                     {product?.discount > 0 && (
                       <span className="text-sm text-green-500">
-                        ({product.discount}% off)
+                        ({Math.trunc(product.discount)}% off)
                       </span>
                     )}
                   </p>

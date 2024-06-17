@@ -148,18 +148,7 @@ export function ProductsPage({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 p-4 md:pt-10">
-      {/* Filter Form */}
-      <div className="hidden lg:block relative">
-        <div className="sticky top-2">
-          <FilterForm
-            showOnMobile={false}
-            categories={categories}
-            onPriceRangeChange={handlePriceRangeChange}
-          />
-        </div>
-      </div>
-
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-8 p-4 md:pt-10">
       {/* Product List */}
       <div>
         {/* Category Image and Title */}
@@ -228,11 +217,11 @@ export function ProductsPage({
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-lg shadow-sm overflow-hidden dark:bg-gray-950 dark:border dark:border-gray-800"
+              className="bg-white rounded-lg shadow-sm overflow-hidden dark:bg-gray-950 dark:border dark:border-gray-800 border hover:scale-105 duration-100 hover:shadow-lg"
             >
               <Link
                 href={`/product/${product.id}`}
@@ -263,12 +252,34 @@ export function ProductsPage({
                   {product?.description}
                 </p>
 
+                <div className="flex justify-between flex-wrap text-sm text-muted-foreground gap-4">
+                  {product?.colors.length == 1 ? (
+                    <div
+                      className={`w-5 h-5 rounded-full`}
+                      style={{ background: product?.colors[0] }}
+                    ></div>
+                  ) : (
+                    "Multiple colors"
+                  )}
+                  <p className="text-sm text-muted-foreground capitalize">
+                    Size:{" "}
+                    {product?.sizes.length > 1
+                      ? "Multiple"
+                      : product?.sizes[0]
+                      ? product?.sizes[0]
+                      : "Regular"}
+                  </p>
+                </div>
+
                 <p className="text-gray-500 dark:text-gray-400 text-lg">
                   Rs {" " + product.price}/- {"  "}
-                  <span className="text-green-500 text-sm">
-                    ({product?.discount} % off)
-                  </span>
+                  {product?.discount > 0 && (
+                    <span className="text-green-500 text-sm">
+                      ({product?.discount} % off)
+                    </span>
+                  )}
                 </p>
+
                 <Button className="w-full" size="sm" asChild>
                   <Link href={`/product/${product.id}`}>View Product</Link>
                 </Button>
@@ -289,6 +300,17 @@ export function ProductsPage({
             </Button>
           </div>
         )}
+      </div>
+
+      {/* Filter Form */}
+      <div className="hidden lg:block relative">
+        <div className="sticky top-2">
+          <FilterForm
+            showOnMobile={false}
+            categories={categories}
+            onPriceRangeChange={handlePriceRangeChange}
+          />
+        </div>
       </div>
     </div>
   );

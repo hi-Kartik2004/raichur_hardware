@@ -37,6 +37,7 @@ export function AddProductPageV0({
   const [formState, setFormState] = useState({
     name: "",
     price: 0,
+    mrp: 0,
     discount: "",
     maxQuantity: "",
     description: "",
@@ -103,12 +104,23 @@ export function AddProductPageV0({
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue =
-      name === "price"
+      name === "price" || name === "mrp" // Include MRP in the number check
         ? parseFloat(value)
         : type === "checkbox"
         ? checked
         : value;
-    setFormState({ ...formState, [name]: newValue });
+
+    // Calculate the discount if MRP and price are provided
+    let discount = formState.discount;
+    if (name === "price" || name === "mrp") {
+      const price = name === "price" ? newValue : formState.price;
+      const mrp = name === "mrp" ? newValue : formState.mrp;
+      if (price && mrp) {
+        discount = (((mrp - price) / mrp) * 100).toFixed(2);
+      }
+    }
+
+    setFormState({ ...formState, [name]: newValue, discount });
   };
 
   const handleAddColor = () => {
@@ -212,6 +224,7 @@ export function AddProductPageV0({
       setFormState({
         name: "",
         price: 0,
+        mrp: 0,
         discount: "",
         maxQuantity: "",
         description: "",
@@ -250,18 +263,18 @@ export function AddProductPageV0({
         </p>
       </div>
       <form className="grid gap-6" onSubmit={handleSubmit}>
-        <div className="space-y-2">
-          <Label htmlFor="excelId">Excel ID</Label>
-          <Input
-            id="excelId"
-            name="excelId"
-            placeholder="Enter Excel ID"
-            value={formState.excelId}
-            onChange={handleInputChange}
-          />
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="excelId">Excel ID</Label>
+            <Input
+              id="excelId"
+              name="excelId"
+              placeholder="Enter Excel ID"
+              value={formState.excelId}
+              onChange={handleInputChange}
+            />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="name">Product Name</Label>
             <Input
@@ -270,6 +283,21 @@ export function AddProductPageV0({
               placeholder="Enter product name"
               required
               value={formState.name}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="mrp">MRP</Label>
+            <Input
+              id="mrp"
+              name="mrp"
+              type="number"
+              step="0.01"
+              placeholder="Enter MRP"
+              value={formState.mrp}
               onChange={handleInputChange}
             />
           </div>
@@ -610,7 +638,7 @@ export function AddProductPageV0({
           </div>
         </div>
 
-        <Button className="w-full" type="submit">
+        <Button className="w-full" type="submit" disabled={submitting}>
           {submitting ? "Submitting..." : "Create Product"}
         </Button>
       </form>

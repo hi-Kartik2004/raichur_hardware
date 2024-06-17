@@ -83,7 +83,7 @@ function AddToCartButton({
 
       <Separator className="mt-4" />
 
-      {showDialog && showAddOnDialog && <AddOnDialog addons={addons} />}
+      {showAddOnDialog && <AddOnDialog addons={addons} />}
     </>
   );
 }

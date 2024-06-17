@@ -5,12 +5,12 @@ import React from "react";
 function loading() {
   // quotes for an hardware store website
   const quotes = [
-    "We have most of the products in the market.",
-    "Building trust, faith and delivering quality services",
-    "We have delivered services to more than 2 Lakh customers",
-    "We have been in the business since 1990",
-    "We are the most trusted hardware store in Raichur",
-    "We have the best deals and enjoy a seamless shopping experience",
+    "Offering a wide range of products to meet your needs.",
+    " Building trust, faith and delivering quality services.",
+    "Proudly serving over 2,00,000+ happy customers.",
+    "Providing reliable service since 1970.",
+    "One of the most trusted hardware store in Raichur.",
+    "Discover great deals and enjoy a seamless shopping experience.",
   ];
 
   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
