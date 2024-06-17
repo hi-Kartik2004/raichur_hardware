@@ -44,6 +44,13 @@ export function Footer() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const allDropdowns = globalData?.globalDropdowns.reduce(
+    (accumulator, currentValue) => {
+      return [...accumulator, ...currentValue.dropdowns];
+    },
+    []
+  );
+
   return (
     <footer className="bg-gray-100 dark:bg-gray-800 pt-12 pb-6 md:pt-16 md:pb-8 px-6">
       <div className="max-w-8xl grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
@@ -120,29 +127,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="grid md:col-span-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-6 w-full gap-4 md:gap-14 justify-center">
-          {globalData?.dropdowns.map((dropdown) => (
-            <div className="space-y-2">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-50 capitalize">
-                {dropdown}
-              </h4>
-              <ul className="space-y-1">
-                {categories &&
-                  categories[dropdown] &&
-                  categories[dropdown].map((category) => (
-                    <li key={category.categoryName}>
-                      <Link
-                        href={`/category/${category.categoryName}`}
-                        className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
-                      >
-                        {category.categoryTitle}
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          ))}
-
+        <div className="grid col-span-auto md:col-span-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 w-full gap-4 md:gap-14 justify-between">
           <div className="space-y-2">
             <h4 className="font-semibold text-gray-900 dark:text-gray-50">
               Quick Links
@@ -205,6 +190,28 @@ export function Footer() {
               </li>
             </ul>
           </div>
+          {allDropdowns &&
+            allDropdowns.map((dropdown) => (
+              <div className="space-y-2">
+                <h4 className="font-semibold text-gray-900 dark:text-gray-50 capitalize">
+                  {dropdown}
+                </h4>
+                <ul className="space-y-1">
+                  {categories &&
+                    categories[dropdown] &&
+                    categories[dropdown].map((category) => (
+                      <li key={category.categoryName}>
+                        <Link
+                          href={`/category/${category.categoryName}`}
+                          className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
+                        >
+                          {category.categoryTitle}
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
         </div>
       </div>
       <div className="container max-w-8xl mt-8 md:mt-12 flex items-center justify-between">
