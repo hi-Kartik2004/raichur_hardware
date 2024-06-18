@@ -73,7 +73,11 @@ function AddToCartButton({
     <>
       <Toaster />
       {status === "authenticated" ? (
-        <Button className="w-full" onClick={() => handleAddToCart(productName)}>
+        <Button
+          className="w-full"
+          onClick={() => handleAddToCart(productName)}
+          disabled={submitting}
+        >
           <ShoppingCartIcon className="mr-2 h-4 w-4" />{" "}
           {submitting ? "Adding..." : "Add to cart"}
         </Button>

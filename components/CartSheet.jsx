@@ -277,7 +277,9 @@ function CartSheet() {
                       href={`/product/${item?.productId}`}
                       className="font-medium"
                     >
-                      <SheetClose>{item?.product}</SheetClose>
+                      <SheetClose>
+                        <p className="text-start">{item?.product}</p>
+                      </SheetClose>
                     </Link>
                     <p className="text-muted-foreground text-xs">
                       Colour: {item?.color}, Size: {item?.size}
