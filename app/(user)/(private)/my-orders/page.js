@@ -225,7 +225,7 @@ function MyOrders() {
                     <DialogTrigger asChild>
                       <Button variant="outline">View Bill</Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-2xl overflow-auto max-h-screen">
+                    <DialogContent className="max-w-3xl overflow-auto max-h-screen">
                       <BillV0
                         companyLogo={globalData?.logoUrl}
                         companyName={globalData?.companyName}

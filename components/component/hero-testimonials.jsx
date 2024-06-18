@@ -20,6 +20,7 @@ To read more about using these font, please visit the Next.js documentation:
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 
 import globalData from "@/app/data";
+import Image from "next/image";
 
 export function HeroTestimonials() {
   return (
@@ -34,130 +35,38 @@ export function HeroTestimonials() {
             Hear from real people who love our products.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {globalData?.heroTestimonials &&
-            globalData.heroTestimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950"
-              >
-                <div className="flex items-start">
-                  <Avatar className="mr-4 h-12 w-12">
-                    <AvatarImage
-                      alt={testimonial.name}
-                      src={testimonial.image}
+
+        <div className="container py-12 md:py-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {globalData?.heroTestimonials &&
+              globalData.heroTestimonials.map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden dark:bg-gray-950"
+                >
+                  <div className="relative h-48 md:h-64">
+                    <Image
+                      src={testimonial?.image || "/placeholder.svg"}
+                      alt="Testimonial 1"
+                      width={640}
+                      height={480}
+                      className="object-cover w-full h-full"
                     />
-                    <AvatarFallback>
-                      {testimonial.name[0] + testimonial.name[1]}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="text-lg font-semibold">
-                      {testimonial.name}
-                    </h3>
-                    <p className="mt-2 text-gray-500 dark:text-gray-400">
-                      "{testimonial.message}"
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h3 className="text-lg font-semibold">
+                        {testimonial?.name}
+                      </h3>
+                      <p className="text-sm">{testimonial?.designation}</p>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-500 dark:text-gray-400">
+                      "{testimonial?.message}"
                     </p>
                   </div>
                 </div>
-              </div>
-            ))}
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <div className="flex items-start">
-              <Avatar className="mr-4 h-12 w-12">
-                <AvatarImage
-                  alt="Sarah Johnson"
-                  src="/placeholder-avatar.jpg"
-                />
-                <AvatarFallback>SJ</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold">Sarah Johnson</h3>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">
-                  "I absolutely love this product! It has transformed my daily
-                  routine and made my life so much easier."
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <div className="flex items-start">
-              <Avatar className="mr-4 h-12 w-12">
-                <AvatarImage alt="Alex Smith" src="/placeholder-avatar.jpg" />
-                <AvatarFallback>AS</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold">Alex Smith</h3>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">
-                  "I was hesitant at first, but this product has exceeded all my
-                  expectations. It's a game-changer!"
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <div className="flex items-start">
-              <Avatar className="mr-4 h-12 w-12">
-                <AvatarImage alt="Emily Parker" src="/placeholder-avatar.jpg" />
-                <AvatarFallback>EP</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold">Emily Parker</h3>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">
-                  "I've been using this product for months and I can't imagine
-                  my life without it. It's truly a lifesaver!"
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <div className="flex items-start">
-              <Avatar className="mr-4 h-12 w-12">
-                <AvatarImage
-                  alt="Michael Davis"
-                  src="/placeholder-avatar.jpg"
-                />
-                <AvatarFallback>MD</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold">Michael Davis</h3>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">
-                  "This product has truly changed the way I approach my daily
-                  tasks. I highly recommend it to anyone!"
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <div className="flex items-start">
-              <Avatar className="mr-4 h-12 w-12">
-                <AvatarImage alt="Jessica Lee" src="/placeholder-avatar.jpg" />
-                <AvatarFallback>JL</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold">Jessica Lee</h3>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">
-                  "This product has completely transformed the way I work. It's
-                  been a game-changer for my productivity!"
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <div className="flex items-start">
-              <Avatar className="mr-4 h-12 w-12">
-                <AvatarImage alt="David Chen" src="/placeholder-avatar.jpg" />
-                <AvatarFallback>DC</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-semibold">David Chen</h3>
-                <p className="mt-2 text-gray-500 dark:text-gray-400">
-                  "I was skeptical at first, but this product has exceeded all
-                  my expectations. It's become an essential part of my daily
-                  routine."
-                </p>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
       </div>

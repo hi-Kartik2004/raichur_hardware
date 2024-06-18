@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
+import Image from "next/image";
 
 export default function BillV0({
   companyName = "",
@@ -57,7 +58,7 @@ export default function BillV0({
 
   return (
     <div id="bill-content">
-      <div className="flex flex-col w-full max-w-2xl mx-auto bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-auto">
+      <div className="flex flex-col w-full max-w-3xl mx-auto bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-auto">
         <header className="bg-gray-100 dark:bg-gray-800 px-6 py-4 flex items-center justify-between gap-6 flex-wrap">
           <div className="flex items-center gap-4">
             <img
@@ -112,6 +113,7 @@ export default function BillV0({
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead>Image</TableHead>
                   <TableHead>Item</TableHead>
                   <TableHead>Qty</TableHead>
                   <TableHead>Colour</TableHead>
@@ -125,20 +127,29 @@ export default function BillV0({
                 {items &&
                   items.map((item, index) => (
                     <TableRow key={index}>
+                      <TableCell>
+                        <Image
+                          src={item?.imageUrl}
+                          alt={item?.product}
+                          width={75}
+                          height={75}
+                        />
+                      </TableCell>
                       <TableCell>{item?.product}</TableCell>
                       <TableCell>{item?.quantity}</TableCell>
                       <TableCell>{item?.color}</TableCell>
                       <TableCell>{item?.size}</TableCell>
                       <TableCell>
-                        Rs{" "}
+                        Rs&nbsp;
                         {calculateMRP(
                           item?.price,
                           Math.trunc(item?.discount)
                         ).toFixed(0)}
+                        /-
                       </TableCell>
                       <TableCell>{Math.trunc(item?.discount)} % </TableCell>
                       <TableCell>
-                        Rs {item?.quantity * item?.price} /-
+                        Rs&nbsp;{item?.quantity * item?.price}/-
                       </TableCell>
                     </TableRow>
                   ))}
@@ -153,7 +164,7 @@ export default function BillV0({
                   Subtotal:
                 </div>
                 <div>
-                  Rs{" "}
+                  Rs&nbsp;
                   {items &&
                     items
                       .reduce(
@@ -166,7 +177,7 @@ export default function BillV0({
                             ),
                         0
                       )
-                      .toFixed(0)}{" "}
+                      .toFixed(0)}
                   /-
                 </div>
               </div>
@@ -175,7 +186,7 @@ export default function BillV0({
                   Discount:
                 </div>
                 <div>
-                  Rs{" "}
+                  Rs&nbsp;
                   {items &&
                     items
                       .reduce(
@@ -189,22 +200,22 @@ export default function BillV0({
                             item?.quantity * item?.price),
                         0
                       )
-                      .toFixed(0)}{" "}
-                  /-{" "}
+                      .toFixed(0)}
+                  /-
                 </div>
               </div>
               <Separator />
               <div className="flex justify-between font-semibold">
                 <div>Total:</div>
                 <div className="text-xl">
-                  Rs{" "}
+                  Rs&nbsp;
                   {items &&
                     items
                       .reduce(
                         (acc, item) => acc + item.quantity * item.price,
                         0
                       )
-                      .toFixed(2)}{" "}
+                      .toFixed(0)}
                   /- <br />
                 </div>
               </div>

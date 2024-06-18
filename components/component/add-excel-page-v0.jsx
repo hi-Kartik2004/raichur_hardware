@@ -34,6 +34,34 @@ export function AddExcelPageV0() {
 
     setProcessing(true);
     const rows = await readXlsxFile(file);
+    if (rows.length <= 1) {
+      alert("The file is empty or has only the header row.");
+      setProcessing(false);
+      return;
+    }
+
+    // Extract the header row
+    const header = rows[0];
+    const columnIndex = {
+      product_id: header.indexOf("product_id"),
+      discount: header.indexOf("discount"),
+      selling_price: header.indexOf("selling_price"),
+      mrp: header.indexOf("mrp"),
+    };
+
+    if (
+      columnIndex.product_id === -1 ||
+      columnIndex.discount === -1 ||
+      columnIndex.selling_price === -1 ||
+      columnIndex.mrp === -1
+    ) {
+      alert(
+        "The file must contain product_id, discount, selling_price, and mrp columns."
+      );
+      setProcessing(false);
+      return;
+    }
+
     setTotalRows(rows.length - 1); // Exclude header row
 
     let success = 0;
@@ -41,8 +69,17 @@ export function AddExcelPageV0() {
     let processed = [];
 
     for (let i = 1; i < rows.length; i++) {
-      const [product_id, discount, selling_price] = rows[i];
-      const result = await updateProduct(product_id, discount, selling_price);
+      const product_id = rows[i][columnIndex.product_id];
+      const discount = rows[i][columnIndex.discount];
+      const selling_price = rows[i][columnIndex.selling_price];
+      const mrp = rows[i][columnIndex.mrp];
+
+      const result = await updateProduct(
+        product_id,
+        discount,
+        selling_price,
+        mrp
+      );
 
       if (result.success) {
         success++;
@@ -59,7 +96,7 @@ export function AddExcelPageV0() {
     setProcessing(false);
   };
 
-  const updateProduct = async (product_id, discount, selling_price) => {
+  const updateProduct = async (product_id, discount, selling_price, mrp) => {
     try {
       const productsRef = collection(db, "products");
       const q = query(productsRef, where("excelId", "==", product_id));
@@ -70,6 +107,7 @@ export function AddExcelPageV0() {
         await updateDoc(docRef, {
           discount: discount.toString(),
           price: Number(selling_price),
+          mrp: Number(mrp),
         });
         return { success: true };
       } else {
@@ -124,6 +162,7 @@ export function AddExcelPageV0() {
               <li>product_id</li>
               <li>discount</li>
               <li>selling_price</li>
+              <li>mrp</li>
               <li>*the discount must be in %</li>
             </ul>
           </div>

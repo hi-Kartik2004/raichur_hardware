@@ -1,6 +1,4 @@
 import icons from "@/app/icons";
-import { HeroTestimonials } from "@/components/component/hero-testimonials";
-import { FaPhoneSlash } from "react-icons/fa6";
 
 const data = {
   adminEmails: [
@@ -32,6 +30,27 @@ const data = {
   // footer desc
   footerDescription:
     " Raichur hardware Store is your one-stop shop for high-quality products at affordable prices. Discover the best deals and enjoy a seamless shopping experience.",
+
+  // footer reach
+  footerReach: [
+    {
+      stat: "21000",
+      description: "lorem ipsum dolor",
+    },
+    {
+      stat: "21000",
+      description: "lorem ipsum dolor",
+    },
+    {
+      stat: "21000",
+      description: "lorem ipsum dolor",
+    },
+  ],
+
+  // social handles link
+  facebook: "https://facebook.com",
+  instagram: "https://instagram.com",
+  linkedin: "https://linkedin.com",
 
   // terms
   termsOfService: "/terms",
@@ -79,10 +98,10 @@ const data = {
   // about page
   aboutPageSections: [
     {
-      aboutSectionBadgeText: "Raichur Hardware",
-      aboutSectionTitle: "Your One-Stop Shop for Home Improvement",
+      aboutSectionBadgeText: "About the Founder",
+      aboutSectionTitle: "The Founder of the Company",
       aboutSectionDescriptions: [
-        "Raichur Hardware has been serving the local community for over 50 years, providing high-quality tools, supplies, and expert advice to help you tackle any home improvement project.",
+        "The company was founded in 1970 by the late Shri Jivraj Mulji Desai, a young and dynamic entrepreneur. He established Raichur Machinery Stores, a business specializing in ginning and pressing machines, general supplies, and paints.",
       ],
       aboutSectionImageUrl: "/image_of_seth_jeevraj.jpg",
     },
@@ -126,13 +145,13 @@ const data = {
   ],
 
   // faqs
-
   faqs: [
     {
       icon: icons?.money,
-      question: "How long does it take to set up your product?",
+      question:
+        "What is the role of Raichur Hardware in case of damaged goods, shortages, or complaints?",
       answer:
-        "The setup process is designed to be quick and easy. Most customers can get up and running in just a few minutes. We provide detailed onboarding guides and our support team is available to help you every step of the way.",
+        "If you encounter any issues with your goods, please visit our website to report your complaint. Once we verify the complaint and find it genuine, our team will address and resolve the problem accordingly.",
     },
     {
       icon: icons?.time,
@@ -170,12 +189,21 @@ const data = {
   heroTestimonials: [
     {
       name: "Sarah Smith",
+      designation: "CEO, Hill Networks",
       message:
         "I absolutely love this product! It has transformed my daily routine and made my life so much easier.",
       image: "",
     },
     {
       name: "Alex Smith",
+      designation: "CEO, Bill Networks",
+      message:
+        "I was hesitant at first, but this product has exceeded all my expectations. It's a game-changer!",
+      image: "",
+    },
+    {
+      name: "Joe Dan",
+      designation: "CEO, Pill Networks",
       message:
         "I was hesitant at first, but this product has exceeded all my expectations. It's a game-changer!",
       image: "",
@@ -282,41 +310,7 @@ const data = {
     },
   ],
 
-  // dropdowns
-  dropdowns: [
-    "Brands",
-    "Pipes & Fittings", //    "Garden Pipes",
-    "Valves",
-    "Solvent & Clamps",
-    "Chamber Covers",
-    "Water Tanks",
-    "Bath Fittings", // "Plastic Bath Fittings",
-    "Sanitary Ware",
-    "Kitchen Sinks",
-    "Agricultural",
-    "Plastic Bath Fittings",
-    "Garden Pipes",
-    "Agricultural Pipes",
-  ],
-
   // featured logos
-  //   https://www.finolexpipes.com/
-  // 2. https://www.taropumps.com/
-  // 3. https://www.jaquar.com/
-  // 4. https://www.godrej.com/godrej-locking-solutions-and-systems
-  // 5. https://watertecindia.com/
-  // 6. https://carysil.com/
-  // 7. https://www.se.com/in/en/ - SCHNEIDER
-  // 8. https://www.vikingindia.com/
-  // 9. https://www.esscobathware.com/
-  // 10. https://www.aquatech.com/
-  // 11. https://www.bergerpaints.com/
-  // 12. https://www.finolexdrip.com/
-  // 13. https://www.skf.com/in
-  // 14. https://www.matrixvalves.in/
-  // 15. https://www.grundfos.com/in
-  // 16. https://deepakvalves.com/
-  // 17. https://www.sonetindia.com/
   featuredLogos: [
     {
       logo: "/company_logos/Finolex Pipes.png",

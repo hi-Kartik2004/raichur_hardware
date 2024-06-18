@@ -84,26 +84,14 @@ export function Footer() {
           <div className="mt-6">
             <h4 className="text-semibold text-start">Our Reach</h4>
             <div className="flex justify-between gap-4 flex-wrap mt-4 max-w-full">
-              <div className="flex flex-col gap-1 items-start">
-                <h3 className="text-xl font-semibold">21000+</h3>
-                <p className="text-sm text-muted-foreground">
-                  Lorem ipsum dolor
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-1 items-start">
-                <h3 className="text-xl font-semibold">900+</h3>
-                <p className="text-sm text-muted-foreground">
-                  Lorem ipsum dolor
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-1 items-start">
-                <h3 className="text-xl font-semibold">40+</h3>
-                <p className="text-sm text-muted-foreground">
-                  Lorem ipsum dolor
-                </p>
-              </div>
+              {globalData?.footerReach.map((ele, index) => (
+                <div key={index} className="flex flex-col gap-1 items-start">
+                  <h3 className="text-xl font-semibold">{ele?.stat}+</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {ele?.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -112,15 +100,15 @@ export function Footer() {
             <div className="">
               <h4 className="text-md">Connect with us!</h4>
               <div className="flex justify-between gap-2 flex-wrap mt-4 max-w-[200px]">
-                <Link href={"/"}>
+                <Link href={globalData?.facebook} target="_blank">
                   <FaFacebook size={30} />
                 </Link>
 
-                <Link href="/">
+                <Link href={globalData?.instagram} target="_blank">
                   <FaInstagram size={30} />
                 </Link>
 
-                <Link href="/">
+                <Link href={globalData?.linkedin} target="_blank">
                   <FaLinkedin size={30} />
                 </Link>
               </div>
