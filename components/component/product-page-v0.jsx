@@ -38,7 +38,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { previousDay } from "date-fns";
 import {
   collection,
@@ -53,6 +53,7 @@ import { db } from "@/firebase/config";
 import { useEffect, useState } from "react";
 import AddToCartButton from "../AddToCartButton";
 import AddOnDialog from "./AddOnDialog";
+import { Router } from "next/router";
 
 export function ProductPageV0({ productId, product, isAddedToCart }) {
   const [relatedData, setRelatedData] = useState([]);
@@ -61,6 +62,7 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
   const [selectedColor, setSelectedColor] = useState(product?.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0]);
   const [addonDetails, setAddonDetails] = useState(null);
+  const router = useRouter();
 
   function handlePreviewClick(imageUrl) {
     setSelectedImage(imageUrl);
@@ -123,9 +125,13 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
     helper();
   }, []);
 
-  const overPrice = product.mrp
+  const overPrice = product?.mrp
     ? product.mrp
     : +(+product?.price + +(product?.price * product?.discount) / 100);
+
+  if (!product) {
+    router.push("/category/all");
+  }
 
   return (
     <>

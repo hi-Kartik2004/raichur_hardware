@@ -11,7 +11,6 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
-// import { Preview, print } from "react-html2pdf";
 
 export default function BillV0({
   companyName = "",
@@ -51,6 +50,11 @@ export default function BillV0({
       .save()
       .catch((err) => console.error("Error generating PDF:", err));
   };
+
+  const calculateMRP = (price, discount) => {
+    return price / (1 - discount / 100);
+  };
+
   return (
     <div id="bill-content">
       <div className="flex flex-col w-full max-w-2xl mx-auto bg-white dark:bg-gray-950 rounded-lg shadow-lg overflow-auto">
@@ -101,23 +105,8 @@ export default function BillV0({
                 <br />
                 {buyerAddress} <br />
                 +91 {buyerPhone} <br />
-                {/* Sophia Anderson
-              <br />
-              123 Main St
-              <br />
-              Anytown, CA 12345 */}
               </div>
             </div>
-            {/* <div className="text-right">
-            <h2 className="text-lg font-semibold">Ship To:</h2>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              Sophia Anderson
-              <br />
-              123 Main St
-              <br />
-              Anytown, CA 12345
-            </div>
-          </div> */}
           </div>
           <div>
             <Table>
@@ -127,13 +116,9 @@ export default function BillV0({
                   <TableHead>Qty</TableHead>
                   <TableHead>Colour</TableHead>
                   <TableHead>Size</TableHead>
-                  <TableHead>Unit Price</TableHead>
-                  <TableHead>
-                    Discount <br /> <span className="text-xs">per unit</span>
-                  </TableHead>
-                  <TableHead>
-                    Total <br /> <span className="text-xs">inc. discount</span>
-                  </TableHead>
+                  <TableHead>MRP</TableHead>
+                  <TableHead>Discount</TableHead>
+                  <TableHead>Total</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -145,10 +130,14 @@ export default function BillV0({
                       <TableCell>{item?.color}</TableCell>
                       <TableCell>{item?.size}</TableCell>
                       <TableCell>
-                        Rs {item?.price + (item?.price * item?.discount) / 100}
+                        Rs{" "}
+                        {calculateMRP(
+                          item?.price,
+                          Math.trunc(item?.discount)
+                        ).toFixed(0)}
                       </TableCell>
-                      <TableCell>{item?.discount} % </TableCell>
-                      <TableCell className="">
+                      <TableCell>{Math.trunc(item?.discount)} % </TableCell>
+                      <TableCell>
                         Rs {item?.quantity * item?.price} /-
                       </TableCell>
                     </TableRow>
@@ -166,13 +155,18 @@ export default function BillV0({
                 <div>
                   Rs{" "}
                   {items &&
-                    items.reduce(
-                      (acc, item) =>
-                        acc +
-                        item.quantity *
-                          (item?.price + (item.price * item?.discount) / 100),
-                      0
-                    )}{" "}
+                    items
+                      .reduce(
+                        (acc, item) =>
+                          acc +
+                          item.quantity *
+                            calculateMRP(
+                              item?.price,
+                              Math.trunc(item?.discount)
+                            ),
+                        0
+                      )
+                      .toFixed(0)}{" "}
                   /-
                 </div>
               </div>
@@ -183,10 +177,19 @@ export default function BillV0({
                 <div>
                   Rs{" "}
                   {items &&
-                    items.reduce(
-                      (acc, item) => acc + (+item.discount * item?.price) / 100,
-                      0
-                    )}{" "}
+                    items
+                      .reduce(
+                        (acc, item) =>
+                          acc +
+                          (item.quantity *
+                            calculateMRP(
+                              item?.price,
+                              Math.trunc(item?.discount)
+                            ) -
+                            item?.quantity * item?.price),
+                        0
+                      )
+                      .toFixed(0)}{" "}
                   /-{" "}
                 </div>
               </div>
@@ -196,10 +199,12 @@ export default function BillV0({
                 <div className="text-xl">
                   Rs{" "}
                   {items &&
-                    items.reduce(
-                      (acc, item) => acc + item.quantity * item.price,
-                      0
-                    )}{" "}
+                    items
+                      .reduce(
+                        (acc, item) => acc + item.quantity * item.price,
+                        0
+                      )
+                      .toFixed(2)}{" "}
                   /- <br />
                 </div>
               </div>
