@@ -188,12 +188,14 @@ function MyOrders() {
                 </TableCell>
                 <TableCell>
                   {checkout.cartItems.slice(0, 3).map((item, index) => (
-                    <img
-                      key={item?.id}
-                      src={item?.imageUrl}
-                      alt={item?.product}
-                      className="h-10 w-10 inline-block ml-2"
-                    />
+                    <Link href={`/product/${item?.productId}`}>
+                      <img
+                        key={item?.id}
+                        src={item?.imageUrl}
+                        alt={item?.product}
+                        className="h-10 w-10 inline-block ml-2"
+                      />
+                    </Link>
                   ))}
                   {checkout.cartItems.length > 3 && (
                     <span className="ml-2">
@@ -261,11 +263,13 @@ function MyOrders() {
                           <>
                             <div key={item.id} className="mb-4">
                               <div className="flex gap-2">
-                                <img
-                                  src={item.imageUrl}
-                                  alt={item.product}
-                                  className="h-20 w-20 object-cover rounded"
-                                />
+                                <Link href={`/product/${item?.productId}`}>
+                                  <img
+                                    src={item.imageUrl}
+                                    alt={item.product}
+                                    className="h-20 w-20 object-cover rounded"
+                                  />
+                                </Link>
                                 <div className="font-semibold">
                                   <Link href={`/product/${item?.productId}`}>
                                     {item?.product}
