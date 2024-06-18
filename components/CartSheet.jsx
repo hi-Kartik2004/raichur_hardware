@@ -9,15 +9,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
+import { Dialog, DialogContent } from "./ui/dialog";
 import { HiShoppingCart } from "react-icons/hi";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { toast } from "./ui/use-toast";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { setConfig } from "next/config";
+import globalData from "@/app/data";
+import BillV0 from "./component/bill-v0";
 
 async function getMyCart() {
   let response;
@@ -94,6 +95,12 @@ async function deleteCartItem(itemId) {
   }
 }
 
+async function clearCart(cartItems) {
+  for (const item of cartItems) {
+    await deleteCartItem(item.id);
+  }
+}
+
 function CartSheet() {
   const { data: session, status } = useSession();
   const [cartItems, setCartItems] = useState([]);
@@ -106,6 +113,8 @@ function CartSheet() {
     phone: "",
     address: "",
   });
+  const [checkoutDetails, setCheckoutDetails] = useState(null);
+  const [billDialogOpen, setBillDialogOpen] = useState(false);
 
   async function checkout(cartItems, totalAmount, userDetails) {
     setSubmitting(true);
@@ -127,6 +136,7 @@ function CartSheet() {
         });
         return;
       }
+      const data = await response.json();
       toast({
         title: "Checkout Successful!",
         description:
@@ -137,6 +147,16 @@ function CartSheet() {
       cartItems.map(async (item) => {
         await deleteCartItem(item.id);
       });
+
+      setCheckoutDetails({
+        cartItems: cartItems,
+        totalAmount: totalAmount,
+        userDetails: userDetails,
+      });
+
+      globalData?.adminEmails &&
+        globalData?.adminEmails.includes(session?.user?.email) &&
+        setBillDialogOpen(true);
     } catch (error) {
       console.error("Error during checkout", error);
       toast({
@@ -222,7 +242,18 @@ function CartSheet() {
     );
     await checkout(cartItems, totalAmount, userDetails);
     setDialogOpen(false);
-    setCartItems([]); // Clear cart items after successful checkout
+    setCartItems([]);
+  };
+
+  const handleClearCart = async () => {
+    if (window.confirm("Are you sure you want to clear the cart?")) {
+      await clearCart(cartItems);
+      setCartItems([]); // Clear cart items after confirmation
+      toast({
+        title: "Cart Cleared",
+        description: "All items have been removed from your cart.",
+      });
+    }
   };
 
   return (
@@ -336,15 +367,19 @@ function CartSheet() {
               <Button className="w-full mt-4" onClick={handleCheckout}>
                 Checkout
               </Button>
+              <Button
+                className="w-full mt-4 border"
+                onClick={handleClearCart}
+                variant={"destructive"}
+              >
+                Clear Cart
+              </Button>
             </div>
           )}
         </SheetContent>
       </Sheet>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        {/* <DialogTrigger asChild>
-          <Button>Open Dialog</Button>
-        </DialogTrigger> */}
         <DialogContent>
           <form onSubmit={handleDialogSubmit}>
             <h2 className="text-lg font-medium">Confirm your details</h2>
@@ -366,7 +401,9 @@ function CartSheet() {
             <div className="mt-4">
               <label className="block text-sm font-medium">Phone</label>
               <Input
-                type="text"
+                type="number"
+                min="1000000000"
+                max="9999999999"
                 value={userDetails.phone}
                 onChange={(e) =>
                   setUserDetails({ ...userDetails, phone: e.target.value })
@@ -390,6 +427,31 @@ function CartSheet() {
               </Button>
             </div>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        className="overflow-auto"
+        open={billDialogOpen}
+        onOpenChange={setBillDialogOpen}
+      >
+        <DialogContent className="max-w-3xl overflow-auto max-h-screen">
+          {checkoutDetails && (
+            <BillV0
+              companyLogo={globalData?.logoUrl}
+              companyName={globalData?.companyName}
+              companyAddress={globalData?.address}
+              companyPhone={globalData?.phones[0]}
+              companyEmail={globalData?.emails[0]}
+              buyerAddress={checkoutDetails?.userDetails?.address}
+              buyerName={checkoutDetails?.userDetails?.name}
+              buyerPhone={checkoutDetails?.userDetails?.phone}
+              items={checkoutDetails?.cartItems}
+              invoiceId={checkoutDetails?.id}
+              gstNumber={globalData?.gstNumber}
+              dateIssued={new Date().toLocaleString("en-IN")}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>
