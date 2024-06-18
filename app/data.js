@@ -18,7 +18,7 @@ const data = {
   companyName: "Raichur Hardware",
 
   // phone numbers
-  phones: ["+91 94490 30030"],
+  phones: ["+91 94488 00030"],
 
   // emails
   emails: ["raichurhardware2024@gmail.com"],
