@@ -272,10 +272,10 @@ export function ProductsPage({
                 </div>
 
                 <p className="text-gray-500 dark:text-gray-400 text-lg">
-                  Rs {" " + product.price}/- {"  "}
+                  Rs {" " + Math.trunc(product.price)}/- {"  "}
                   {product?.discount > 0 && (
                     <span className="text-green-500 text-sm">
-                      ({product?.discount} % off)
+                      ({Math.trunc(product?.discount)} % off)
                     </span>
                   )}
                 </p>
