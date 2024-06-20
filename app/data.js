@@ -229,10 +229,6 @@ const data = {
       dropdowns: ["Self-Fit Pipes", "Ring-Fit Pipes"],
     },
     {
-      name: "Drainage & Sewage Pipes",
-      dropdowns: ["Self-Fit Pipes", "Ring-Fit Pipes"],
-    },
-    {
       name: "ASTM Fittings",
       dropdowns: [
         "Coupler & Union",
