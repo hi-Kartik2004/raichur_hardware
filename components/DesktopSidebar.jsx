@@ -44,13 +44,7 @@ function DesktopSidebar() {
       }
     };
 
-    fetchCategories(); // Initial fetch
-
-    // Set interval to fetch categories every second
-    const intervalId = setInterval(fetchCategories, 1000);
-
-    // Clear interval on component unmount
-    return () => clearInterval(intervalId);
+    fetchCategories(); // Fetch categories on initial load
   }, []);
 
   return (
