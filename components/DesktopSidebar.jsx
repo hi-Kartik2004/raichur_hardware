@@ -3,12 +3,19 @@ import React, { useEffect, useState } from "react";
 import globalData from "@/app/data";
 import Link from "next/link";
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "@/firebase/config";
+
+const CACHE_KEY = "categories";
+const CACHE_TIMESTAMP_KEY = "categories_timestamp";
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 function DesktopSidebar() {
   const [categories, setCategories] = useState({});
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeGlobalDropdown, setActiveGlobalDropdown] = useState(null);
   const [recentlyOpenedDropdown, setRecentlyOpenedDropdown] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleGlobalDropdownClick = (globalDropdown) => {
     setActiveGlobalDropdown(
@@ -24,28 +31,65 @@ function DesktopSidebar() {
   };
 
   useEffect(() => {
+    const fetchCategoriesFromFirebase = async () => {
+      try {
+        const categoriesData = {};
+        const categoriesCollection = collection(db, "categories");
+        const querySnapshot = await getDocs(categoriesCollection);
+
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const dropdown = data.dropdown;
+
+          if (!categoriesData[dropdown]) {
+            categoriesData[dropdown] = [];
+          }
+          categoriesData[dropdown].push(data);
+        });
+
+        setCategories(categoriesData);
+        localStorage.setItem(CACHE_KEY, JSON.stringify(categoriesData));
+        localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setLoading(false);
+      }
+    };
+
     const fetchCategories = () => {
-      const categoriesFromStorage = localStorage.getItem("categories");
-      if (categoriesFromStorage) {
+      const categoriesFromStorage = localStorage.getItem(CACHE_KEY);
+      const timestampFromStorage = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+      const isCacheExpired =
+        !timestampFromStorage ||
+        Date.now() - timestampFromStorage > CACHE_DURATION;
+
+      if (categoriesFromStorage && !isCacheExpired) {
         const parsedCategories = JSON.parse(categoriesFromStorage);
 
-        // Sort the categories alphabetically
-        const sortedCategories = {};
-        for (const key in parsedCategories) {
-          sortedCategories[key] = parsedCategories[key].sort((a, b) => {
-            return a.categoryName.localeCompare(b.categoryName, undefined, {
-              numeric: true,
-              sensitivity: "base",
-            });
-          });
-        }
-
-        setCategories(sortedCategories);
+        setCategories(parsedCategories);
+        setLoading(false);
+      } else {
+        fetchCategoriesFromFirebase(); // Fetch categories from Firebase if not in localStorage or cache expired
       }
     };
 
     fetchCategories(); // Fetch categories on initial load
+
+    const handleStorageChange = () => {
+      fetchCategories();
+    };
+
+    // Add event listener for localStorage changes
+    window.addEventListener("storage", handleStorageChange);
+
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-gray-100 pt-16 pb-4 overflow-auto max-h-screen max-w-[400px] h-screen border-r px-2 w-full">

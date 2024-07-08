@@ -45,13 +45,6 @@ async function Navbar() {
             <CartSheet />
           </div>
         </div>
-
-        {/* Categories Bottom Navbar */}
-        {
-          <div className="hidden">
-            <CategoriesNavbar />
-          </div>
-        }
       </nav>
     </div>
   );
