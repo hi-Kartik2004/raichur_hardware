@@ -27,7 +27,20 @@ function DesktopSidebar() {
     const fetchCategories = () => {
       const categoriesFromStorage = localStorage.getItem("categories");
       if (categoriesFromStorage) {
-        setCategories(JSON.parse(categoriesFromStorage));
+        const parsedCategories = JSON.parse(categoriesFromStorage);
+
+        // Sort the categories alphabetically
+        const sortedCategories = {};
+        for (const key in parsedCategories) {
+          sortedCategories[key] = parsedCategories[key].sort((a, b) => {
+            return a.categoryName.localeCompare(b.categoryName, undefined, {
+              numeric: true,
+              sensitivity: "base",
+            });
+          });
+        }
+
+        setCategories(sortedCategories);
       }
     };
 
