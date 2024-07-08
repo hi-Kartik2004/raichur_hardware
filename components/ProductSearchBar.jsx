@@ -61,7 +61,7 @@ function ProductSearchBar({ onSheet = false }) {
     }
   };
 
-  const debouncedSearch = useCallback(debounce(handleSearch, 300), []);
+  const debouncedSearch = useCallback(debounce(handleSearch, 400), []);
 
   useEffect(() => {
     debouncedSearch(searchQuery);
