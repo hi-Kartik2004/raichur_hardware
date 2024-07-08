@@ -45,6 +45,10 @@ const data = {
       stat: "21000",
       description: "lorem ipsum dolor",
     },
+    {
+      stat: "21000",
+      description: "lorem ipsum dolor",
+    },
   ],
 
   // social handles link

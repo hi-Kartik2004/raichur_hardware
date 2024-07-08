@@ -84,7 +84,7 @@ export default function BillV0({
           </div>
           <div className="flex flex-col items-end gap-1">
             <div className="text-sm font-medium">
-              Invoice <span className="underline-offset-4">{invoiceId}</span>
+              Quotation <span className="underline-offset-4">{invoiceId}</span>
             </div>
             <div className="text-sm text-gray-500 dark:text-gray-400">
               Issued on - {dateIssued}

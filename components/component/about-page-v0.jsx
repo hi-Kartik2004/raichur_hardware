@@ -19,6 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import Link from "next/link";
 import globalData from "@/app/data";
+import Image from "next/image";
 
 export function AboutPageV0() {
   return (
@@ -60,6 +61,12 @@ export function AboutPageV0() {
             </div>
           </section>
         ))}
+
+        <img
+          src="/Blue organic timeline infographic.png"
+          alt="Roadmap"
+          className="w-full"
+        />
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-gray-500 dark:text-gray-400">
