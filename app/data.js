@@ -9,7 +9,7 @@ const data = {
   ],
 
   // gst number
-  gstNumber: "29AAHFR1020A1Z0",
+  gstNumber: "29AFCPD3464Q1Z1",
 
   // logo
   logoUrl: "/raichur_hardware_logo_nobg.png",
@@ -21,7 +21,7 @@ const data = {
   phones: ["+91 94488 00030"],
 
   // emails
-  emails: ["raichurhardware2024@gmail.com"],
+  emails: ["raichurhardware2024@yahoo.com"],
 
   // address
   address:
@@ -34,20 +34,20 @@ const data = {
   // footer reach
   footerReach: [
     {
-      stat: "21000",
-      description: "lorem ipsum dolor",
+      stat: "200000",
+      description: "Customers served",
     },
     {
-      stat: "21000",
-      description: "lorem ipsum dolor",
+      stat: "10000",
+      description: "Products available",
     },
     {
-      stat: "21000",
-      description: "lorem ipsum dolor",
+      stat: "1000",
+      description: "Professionals trained",
     },
     {
-      stat: "21000",
-      description: "lorem ipsum dolor",
+      stat: "100",
+      description: "Meetings with carpenters, mechanics, plumbers, and electricians",
     },
   ],
 
@@ -62,7 +62,7 @@ const data = {
 
   // privacy
   privacy:
-    "https://docs.google.com/document/d/1WtNP0H-Hmpv0vuaGrdZ3XcHm1imepaabxyEW-w7n2Ao/edit?usp=sharing",
+    "https://docs.google.com/document/d/1RLOMlHDvVqiccSbNTNgHGHrejgediOC1GnKbh2uKzDA/edit?usp=sharing",
 
   // return policy
   returnAndCancellationPolicy:
@@ -79,7 +79,7 @@ const data = {
     </h1>
   ),
   heroDescription:
-    "Offering complete solutions for agricultural, irrigational, and water supply (plumbing) needs since 1970.",
+    "Offering complete solutions for agricultural, irrigational, and water supply (plumbing) needs since 1972.",
   heroDescriptionSecondLineFunc: () => (
     <p className="text-lg my-6">
       {/* Building trust, faith and having delivered services to{" "}
@@ -111,7 +111,8 @@ const data = {
       aboutSectionBadgeText: "About the Founder",
       aboutSectionTitle: "The Founder of the Company",
       aboutSectionDescriptions: [
-        "The company was founded in 1970 by the late Shri Jivraj Mulji Desai, a young and dynamic entrepreneur. He established Raichur Machinery Stores, a business specializing in ginning and pressing machines, general supplies, and paints.",
+        "The company was founded in 1972
+        by the late Shri Jivraj Mulji Desai, a young and dynamic entrepreneur. He established Raichur Machinery Stores, a business specializing in ginning and pressing machines, general supplies, and paints.",
       ],
       aboutSectionImageUrl: "/image_of_seth_jeevraj.jpg",
     },
