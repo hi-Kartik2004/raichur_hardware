@@ -168,6 +168,7 @@ export function Footer() {
                     <Link
                       className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                       href={`${globalData?.privacy}`}
+                      target="_blank"
                     >
                       Privacy Policy
                     </Link>
@@ -176,6 +177,7 @@ export function Footer() {
                     <Link
                       className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                       href={`${globalData?.termsOfService}`}
+                      target="_blank"
                     >
                       Terms of Service
                     </Link>
@@ -184,6 +186,7 @@ export function Footer() {
                     <Link
                       className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
                       href={`${globalData?.returnAndCancellationPolicy}`}
+                      target="_blank"
                     >
                       Returns & Cancellation Policy
                     </Link>
