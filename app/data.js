@@ -57,10 +57,10 @@ const data = {
   linkedin: "https://linkedin.com",
 
   // terms
-  termsOfService: "/terms",
+  termsOfService: "https://docs.google.com/document/d/1n_9ZuDO-6GzhHdZ4koXkBBBc-xJ1MtQzp3m3SI6F0D4/edit?usp=sharing",
 
   // privacy
-  privacy: "/privacy",
+  privacy: "https://docs.google.com/document/d/1WtNP0H-Hmpv0vuaGrdZ3XcHm1imepaabxyEW-w7n2Ao/edit?usp=sharing",
 
   // hero section
   heroTitleFunc: () => (
@@ -191,7 +191,7 @@ const data = {
       icon: icons?.lock,
       question: "How can I provide my feedback?",
       answer:
-        "always welcome feedback. Feel free to contact us via the website 'contact' page or E-mail: raichurhardware2024@yahoo.com",
+        "We always welcome feedback. Feel free to contact us via the website 'contact' page or E-mail: raichurhardware2024@yahoo.com",
     },
     {
       icon: icons?.time,
@@ -203,7 +203,7 @@ const data = {
       icon: icons?.questionmark,
       question: "How do i track my order?",
       answer:
-        "will be provided with the third-party delivery contractor’s phone number and tracking number (if available). All relevant details will be shared with you.",
+        "You will be provided with the third-party delivery contractor’s phone number and tracking number (if available). All relevant details will be shared with you.",
     },
     {
       icon: icons?.plug,
@@ -233,7 +233,7 @@ const data = {
       icon: icons?.plug,
       question: "Do you offer a warranty?",
       answer:
-        "on specific products will be based on the manufacturer’s policy. Only certain products come with a warranty, which will be specified after checkout by our team",
+        "Warranty on specific products will be based on the manufacturer’s policy. Only certain products come with a warranty, which will be specified after checkout by our team",
     },
     {
       icon: icons?.time,
