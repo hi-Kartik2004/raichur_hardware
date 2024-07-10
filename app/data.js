@@ -185,7 +185,7 @@ const data = {
       icon: icons?.plug,
       question: " How do I register on the site?",
       answer:
-        "Click on the "Sign In" option in the upper right corner of your screen and follow the steps. Registration is mandatory for placing an order. you will also be automatically be asked to sign in when checking out your cart",
+        "Click on the 'Sign In' option in the upper right corner of your screen and follow the steps. Registration is mandatory for placing an order. you will also be automatically be asked to sign in when checking out your cart",
     },
     {
       icon: icons?.lock,
@@ -222,7 +222,7 @@ const data = {
       question: "How do I report a problem and contact your team?",
       answer:
         "Visit the website, click on 'Contact' and follow the instructions. We will get in touch with you as soon as possible.",
-    }, 
+    },
     {
       icon: icons?.money,
       question: "Is free shipping available?",
@@ -234,19 +234,19 @@ const data = {
       question: "Do you offer a warranty?",
       answer:
         "on specific products will be based on the manufacturer’s policy. Only certain products come with a warranty, which will be specified after checkout by our team",
-    }, 
+    },
     {
       icon: icons?.time,
       question: "What are your store timings?",
       answer:
         "Our online store is open 24/7. The offline store operates from Monday to Saturday, 10:00 AM to 7:00 PM.",
-    }, 
+    },
     {
       icon: icons?.questionmark,
       question: "How and when will my ordered goods be delivered?",
       answer:
         "After checkout, you can choose to either pick up your order from our offline store or have it delivered to your address. For delivery, a third-party delivery company or contractor will be hired, and their contact information along with the order ID/delivery ID will be shared with you",
-    },  
+    },
   ],
 
   // contact page
