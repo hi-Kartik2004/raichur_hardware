@@ -15,7 +15,7 @@ const data = {
   logoUrl: "/raichur_hardware_logo_nobg.png",
 
   // name
-  companyName: "Raichur Hardware",
+  companyName: "Raichur Hardwares",
 
   // phone numbers
   phones: ["+91 94488 00030"],
@@ -159,28 +159,94 @@ const data = {
     },
     {
       icon: icons?.time,
-      question: "How long does it take to set up your product?",
+      question: "What is your refund and cancellation policy?",
       answer:
-        "The setup process is designed to be quick and easy. Most customers can get up and running in just a few minutes. We provide detailed onboarding guides and our support team is available to help you every step of the way.",
+        "Orders can be canceled within 24 hours. A cancellation fee will be charged, and the remaining amount will be refunded. For further details check out our policy.",
     },
     {
       icon: icons?.questionmark,
-      question: "How long does it take to set up your product?",
+      question: "Why should I buy from the Raichur Hardware website?",
       answer:
-        "The setup process is designed to be quick and easy. Most customers can get up and running in just a few minutes. We provide detailed onboarding guides and our support team is available to help you every step of the way.",
+        "1.	Wide Range of Products: Find everything you need in one place.   2.Easy Browsing: Conveniently explore our collections at your own pace.   3.Competitive Prices: Enjoy great value for your money.   4.Delivery Options: Get your purchases delivered to your doorstep.(extra charges applicable)",
     },
     {
       icon: icons?.lock,
-      question: "How long does it take to set up your product?",
+      question: "How do I place an order on raichurhardware.in?",
       answer:
-        "The setup process is designed to be quick and easy. Most customers can get up and running in just a few minutes. We provide detailed onboarding guides and our support team is available to help you every step of the way.",
+        "Browse through our product catalogs, add the items you desire to your cart, and proceed to checkout. Follow the on-screen instructions to complete your order.",
+    },
+    {
+      icon: icons?.questionmark,
+      question: "When and how do I pay?",
+      answer:
+        "After adding your desired products to your cart, you can pay after our team contacts you about your purchase. Cash payment is only available if the pick-up option is selected. For delivery, payment must be made upfront.",
     },
     {
       icon: icons?.plug,
-      question: "How long does it take to set up your product?",
+      question: " How do I register on the site?",
       answer:
-        "The setup process is designed to be quick and easy. Most customers can get up and running in just a few minutes. We provide detailed onboarding guides and our support team is available to help you every step of the way.",
+        "Click on the "Sign In" option in the upper right corner of your screen and follow the steps. Registration is mandatory for placing an order. you will also be automatically be asked to sign in when checking out your cart",
     },
+    {
+      icon: icons?.lock,
+      question: "How can I provide my feedback?",
+      answer:
+        "always welcome feedback. Feel free to contact us via the website 'contact' page or E-mail: raichurhardware2024@yahoo.com",
+    },
+    {
+      icon: icons?.time,
+      question: "What is your return policy?",
+      answer:
+        "We do not accept returns. All products are thoroughly checked by our team before dispatch. Customers are welcome to inspect the items themselves before pick-up.",
+    },
+    {
+      icon: icons?.questionmark,
+      question: "How do i track my order?",
+      answer:
+        "will be provided with the third-party delivery contractor’s phone number and tracking number (if available). All relevant details will be shared with you.",
+    },
+    {
+      icon: icons?.plug,
+      question: "How can I cancel an order?",
+      answer:
+        "To cancel an order within 24 hours, use the contact page of the website to message us about your cancellation and mention your reason too",
+    },
+    {
+      icon: icons?.lock,
+      question: "Can I pick up my order at a location?",
+      answer:
+        "Yes, you can pick up your order in person at our offline store: Raichur Hardware Chandramouleshwara Circle Siya Talab Raichur – 584101, Karnataka (Monday to Saturday – 10:00 AM to 7:00 PM)",
+    },
+    {
+      icon: icons?.questionmark,
+      question: "How do I report a problem and contact your team?",
+      answer:
+        "Visit the website, click on 'Contact' and follow the instructions. We will get in touch with you as soon as possible.",
+    }, 
+    {
+      icon: icons?.money,
+      question: "Is free shipping available?",
+      answer:
+        "Free shipping is not available. Shipping charges will be communicated to you by our team.",
+    },
+    {
+      icon: icons?.plug,
+      question: "Do you offer a warranty?",
+      answer:
+        "on specific products will be based on the manufacturer’s policy. Only certain products come with a warranty, which will be specified after checkout by our team",
+    }, 
+    {
+      icon: icons?.time,
+      question: "What are your store timings?",
+      answer:
+        "Our online store is open 24/7. The offline store operates from Monday to Saturday, 10:00 AM to 7:00 PM.",
+    }, 
+    {
+      icon: icons?.questionmark,
+      question: "How and when will my ordered goods be delivered?",
+      answer:
+        "After checkout, you can choose to either pick up your order from our offline store or have it delivered to your address. For delivery, a third-party delivery company or contractor will be hired, and their contact information along with the order ID/delivery ID will be shared with you",
+    },  
   ],
 
   // contact page
