@@ -39,6 +39,7 @@ async function page() {
     "use server";
     console.log(data);
     const ref = collection(db, "products");
+
     try {
       const doc = await addDoc(ref, {
         ...data,

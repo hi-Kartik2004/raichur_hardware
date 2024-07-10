@@ -2,17 +2,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Input } from "./ui/input";
 import { HiOutlineSearch } from "react-icons/hi";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  startAt,
-  endAt,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { SheetClose } from "./ui/sheet";
 import { useRouter } from "next/navigation";
@@ -28,12 +19,13 @@ function debounce(func, wait) {
 }
 
 async function searchInAllProducts(searchQuery) {
+  const formattedQuery = searchQuery.toLowerCase().trim();
+  const searchKeywords = formattedQuery.split(" ");
+
   const q = query(
     collection(db, "products"),
     where("hide", "==", false),
-    orderBy("name_lowercase"),
-    startAt(searchQuery.toLowerCase()),
-    endAt(searchQuery.toLowerCase() + "\uf8ff")
+    where("name_keywords", "array-contains-any", searchKeywords)
   );
 
   const snapshot = await getDocs(q);
@@ -88,7 +80,6 @@ function ProductSearchBar({ onSheet = false }) {
           handleSearch(searchQuery);
         }}
       />
-      {/* Render the list of products */}
       {isDropdownOpen && (
         <div className="absolute top-full mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10">
           {products.length > 0 ? (

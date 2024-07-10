@@ -205,10 +205,13 @@ export function AddProductPageV0({
       formState.images.map((image) => getImageUrl(image))
     );
 
+    const nameKeywords = formState.name.toLowerCase().split(" ");
+
     const formStateWithImageUrls = {
       ...formState,
       images: imageUrls,
       sections: sections,
+      name_keywords: nameKeywords,
     };
 
     const resp = await addProductToFirebaseFunction({

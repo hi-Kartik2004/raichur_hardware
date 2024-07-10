@@ -57,10 +57,16 @@ const data = {
   linkedin: "https://linkedin.com",
 
   // terms
-  termsOfService: "https://docs.google.com/document/d/1n_9ZuDO-6GzhHdZ4koXkBBBc-xJ1MtQzp3m3SI6F0D4/edit?usp=sharing",
+  termsOfService:
+    "https://docs.google.com/document/d/1n_9ZuDO-6GzhHdZ4koXkBBBc-xJ1MtQzp3m3SI6F0D4/edit?usp=sharing",
 
   // privacy
-  privacy: "https://docs.google.com/document/d/1WtNP0H-Hmpv0vuaGrdZ3XcHm1imepaabxyEW-w7n2Ao/edit?usp=sharing",
+  privacy:
+    "https://docs.google.com/document/d/1WtNP0H-Hmpv0vuaGrdZ3XcHm1imepaabxyEW-w7n2Ao/edit?usp=sharing",
+
+  // return policy
+  returnAndCancellationPolicy:
+    "https://docs.google.com/document/d/1WtNP0H-Hmpv0vuaGrdZ3XcHm1imepaabxyEW-w7n2Ao/edit?usp=sharing",
 
   // hero section
   heroTitleFunc: () => (

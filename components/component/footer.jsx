@@ -180,6 +180,14 @@ export function Footer() {
                       Terms of Service
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 text-sm"
+                      href={`${globalData?.returnAndCancellationPolicy}`}
+                    >
+                      Returns & Cancellation Policy
+                    </Link>
+                  </li>
                 </ul>
               </div>
               <div className="space-y-2">
