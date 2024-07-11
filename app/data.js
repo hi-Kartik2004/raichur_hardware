@@ -47,7 +47,8 @@ const data = {
     },
     {
       stat: "100",
-      description: "Meetings with carpenters, mechanics, plumbers, and electricians",
+      description:
+        "Meetings with carpenters, mechanics, plumbers, and electricians",
     },
   ],
 
@@ -111,8 +112,7 @@ const data = {
       aboutSectionBadgeText: "About the Founder",
       aboutSectionTitle: "The Founder of the Company",
       aboutSectionDescriptions: [
-        "The company was founded in 1972
-        by the late Shri Jivraj Mulji Desai, a young and dynamic entrepreneur. He established Raichur Machinery Stores, a business specializing in ginning and pressing machines, general supplies, and paints.",
+        "The company was founded in 1972 by the late Shri Jivraj Mulji Desai, a young and dynamic entrepreneur. He established Raichur Machinery Stores, a business specializing in ginning and pressing machines, general supplies, and paints.",
       ],
       aboutSectionImageUrl: "/image_of_seth_jeevraj.jpg",
     },

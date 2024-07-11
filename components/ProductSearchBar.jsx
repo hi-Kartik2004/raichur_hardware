@@ -25,7 +25,7 @@ async function searchInAllProducts(searchQuery) {
   const q = query(
     collection(db, "products"),
     where("hide", "==", false),
-    where("name_keywords", "array-contains-any", searchKeywords)
+    where("name_keywords", "array-contains", searchKeywords)
   );
 
   const snapshot = await getDocs(q);
