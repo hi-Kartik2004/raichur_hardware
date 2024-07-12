@@ -22,6 +22,16 @@ import { Separator } from "./ui/separator";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { UploadIcon } from "lucide-react";
 
+function generateSubstrings(str) {
+  const substrings = [];
+  for (let i = 0; i < str.length; i++) {
+    for (let j = i + 1; j <= str.length; j++) {
+      substrings.push(str.slice(i, j).toLowerCase());
+    }
+  }
+  return substrings;
+}
+
 export function EditProductPageV0({
   categories,
   isProductAlreadyCreatedFunction,
@@ -175,8 +185,11 @@ export function EditProductPageV0({
       ...newImageUrls,
     ];
 
+    const nameKeywords = generateSubstrings(formState.name.toLowerCase());
+
     const formStateWithImageUrls = {
       ...formState,
+      name_keywords: nameKeywords,
       images: imageUrls,
       sections: sections,
     };

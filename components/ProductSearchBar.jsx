@@ -8,14 +8,16 @@ import Link from "next/link";
 import { SheetClose } from "./ui/sheet";
 import { useRouter } from "next/navigation";
 
-// Custom debounce function
+// Custom debounce function with cancel feature
 function debounce(func, wait) {
   let timeout;
-  return function (...args) {
+  function debounced(...args) {
     const context = this;
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(context, args), wait);
-  };
+  }
+  debounced.cancel = () => clearTimeout(timeout);
+  return debounced;
 }
 
 async function searchInAllProducts(searchQuery) {
@@ -25,7 +27,7 @@ async function searchInAllProducts(searchQuery) {
   const q = query(
     collection(db, "products"),
     where("hide", "==", false),
-    where("name_keywords", "array-contains", searchKeywords)
+    where("name_keywords", "array-contains-any", searchKeywords)
   );
 
   const snapshot = await getDocs(q);
@@ -41,13 +43,16 @@ function ProductSearchBar({ onSheet = false }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSearch = async (query) => {
     if (query.trim() !== "") {
+      setLoading(true);
       const searchedProducts = await searchInAllProducts(query);
       setProducts(searchedProducts);
       setIsDropdownOpen(true);
+      setLoading(false);
     } else {
       setIsDropdownOpen(false);
     }
@@ -57,6 +62,9 @@ function ProductSearchBar({ onSheet = false }) {
 
   useEffect(() => {
     debouncedSearch(searchQuery);
+    return () => {
+      debouncedSearch.cancel();
+    };
   }, [searchQuery]);
 
   return (
@@ -82,7 +90,9 @@ function ProductSearchBar({ onSheet = false }) {
       />
       {isDropdownOpen && (
         <div className="absolute top-full mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-          {products.length > 0 ? (
+          {loading ? (
+            <p className="text-gray-500 p-4">Loading...</p>
+          ) : products.length > 0 ? (
             products.slice(0, 4).map((product) => (
               <div
                 key={product.id}

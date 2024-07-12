@@ -27,6 +27,16 @@ import { Separator } from "../ui/separator";
 import globalData from "@/app/data";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
+function generateSubstrings(str) {
+  const substrings = [];
+  for (let i = 0; i < str.length; i++) {
+    for (let j = i + 1; j <= str.length; j++) {
+      substrings.push(str.slice(i, j).toLowerCase());
+    }
+  }
+  return substrings;
+}
+
 export function AddProductPageV0({
   categories,
   isProductAlreadyCreatedFunction,
@@ -205,7 +215,7 @@ export function AddProductPageV0({
       formState.images.map((image) => getImageUrl(image))
     );
 
-    const nameKeywords = formState.name.toLowerCase().split(" ");
+    const nameKeywords = generateSubstrings(formState.name.toLowerCase());
 
     const formStateWithImageUrls = {
       ...formState,
