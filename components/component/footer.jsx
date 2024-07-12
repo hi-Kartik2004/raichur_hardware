@@ -101,7 +101,7 @@ export function Footer() {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col gap-4 max-w-[900px]">
+          <div className="w-full flex flex-col gap-4 max-w-[800px]">
             <div className="flex flex-wrap justify-between gap-10">
               <div className="space-y-2">
                 <h4 className="font-semibold text-gray-900 dark:text-gray-50">
@@ -284,7 +284,7 @@ export function Footer() {
                       className="flex flex-col gap-1 items-start"
                     >
                       <h3 className="text-xl font-semibold">{ele?.stat}+</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground max-w-[200px] flex flex-wrap">
                         {ele?.description}
                       </p>
                     </div>
