@@ -1,12 +1,14 @@
-import React from "react";
+import globalData from "@/app/data";
+import { auth } from "@/auth";
 import Link from "next/link";
-import { auth, signIn } from "@/auth";
+import { HiTranslate } from "react-icons/hi";
+import GoogleTranslator from "react-multilingual-content";
+import CartSheet from "./CartSheet";
 import ProductSearchBar from "./ProductSearchBar";
 import SignInButton from "./SignInButton";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import UserButton from "./UserButton";
-import CartSheet from "./CartSheet";
-import globalData from "@/app/data";
-import CategoriesNavbar from "./CategoriesNavbar";
+import Translator from "./Translator";
 
 async function Navbar() {
   const showCategories = true;
@@ -39,7 +41,9 @@ async function Navbar() {
             <Link href="/gallery" className="text-sm">
               Gallery
             </Link>
+            <Translator />
           </div>
+
           <div className="flex items-center gap-6">
             {session?.user ? <UserButton /> : <SignInButton />}
             <CartSheet />

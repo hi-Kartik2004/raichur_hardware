@@ -56,6 +56,7 @@ const data = {
   facebook: "https://facebook.com",
   instagram: "https://instagram.com",
   linkedin: "https://linkedin.com",
+  googleMaps: "https://maps.app.goo.gl/JM1DPqbfZyc32Ha99",
 
   // terms
   termsOfService:

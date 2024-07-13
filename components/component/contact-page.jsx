@@ -173,6 +173,17 @@ export function ContactPage() {
                       </Link>
                     </div>
                   ))}
+
+                <div className="flex items-center gap-2">
+                  <MapPinIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                  <Link
+                    href={globalData?.googleMaps}
+                    target="_blank"
+                    className="text-gray-500 dark:text-gray-400"
+                  >
+                    {globalData?.googleMaps}
+                  </Link>
+                </div>
               </div>
             </div>
             <div className="space-y-4">

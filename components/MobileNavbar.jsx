@@ -12,6 +12,7 @@ import SignInButton from "./SignInButton";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import globalData from "@/app/data";
+import Translator from "./Translator";
 // import { Caesar_Dressing } from "next/font/google";
 
 async function MobileNavbar() {
@@ -69,6 +70,7 @@ async function MobileNavbar() {
           </Link> */}
 
           <div className="flex gap-4 items-center">
+            <Translator />
             {session?.user ? <UserButton /> : <SignInButton />}
             <CartSheet />
           </div>
