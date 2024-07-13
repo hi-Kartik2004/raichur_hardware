@@ -98,7 +98,7 @@ export default function BillV0({
         <div className="p-6 flex flex-col gap-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h2 className="text-lg font-semibold">Bill To:</h2>
+              <h2 className="text-lg font-semibold">Quotation To:</h2>
               <div className="text-sm text-gray-500 dark:text-gray-400">
                 <span className=" text-black font-medium text-lg">
                   {buyerName}
