@@ -189,16 +189,27 @@ export function ProductPageV0({ productId, product, isAddedToCart }) {
             </div>
             <div className="grid gap-2">
               <Label className="text-base" htmlFor="quantity">
-                Quantity
+                Quantity{" "}
+                <span className="text-sm text-muted-foreground">
+                  (Maximum Quantity: {+product?.maxQuantity})
+                </span>
               </Label>
               <Input
                 defaultValue={1}
                 id="quantity"
                 min={1}
-                max={product?.maxQuantity}
+                max={+product?.maxQuantity + 1 - 1}
                 type="number"
                 value={productQuantity}
-                onChange={(e) => setProductQuantity(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value > +product?.maxQuantity) {
+                    setProductQuantity(product?.maxQuantity);
+                  } else if (e.target.value < 0) {
+                    setProductQuantity(1);
+                  } else {
+                    setProductQuantity(e.target.value);
+                  }
+                }}
               />
             </div>
             <div className="grid gap-2">
