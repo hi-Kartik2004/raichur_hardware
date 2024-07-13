@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import globalData from "@/app/data";
 import Link from "next/link";
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/config";
 
 const CACHE_KEY = "categories";
@@ -31,6 +31,30 @@ function DesktopSidebar() {
   };
 
   useEffect(() => {
+    const sortCategories = (categoriesData) => {
+      const sortedCategories = {};
+      Object.keys(categoriesData)
+        .sort()
+        .forEach((key) => {
+          sortedCategories[key] = categoriesData[key].sort((a, b) => {
+            const aTitle = a.categoryTitle;
+            const bTitle = b.categoryTitle;
+
+            const aIsNumber = /^\d/.test(aTitle);
+            const bIsNumber = /^\d/.test(bTitle);
+
+            if (aIsNumber && bIsNumber) {
+              const aNumber = parseInt(aTitle.match(/^\d+/)[0], 10);
+              const bNumber = parseInt(bTitle.match(/^\d+/)[0], 10);
+              return aNumber - bNumber || aTitle.localeCompare(bTitle);
+            }
+
+            return aTitle.localeCompare(bTitle);
+          });
+        });
+      return sortedCategories;
+    };
+
     const fetchCategoriesFromFirebase = async () => {
       try {
         const categoriesData = {};
@@ -47,8 +71,9 @@ function DesktopSidebar() {
           categoriesData[dropdown].push(data);
         });
 
-        setCategories(categoriesData);
-        localStorage.setItem(CACHE_KEY, JSON.stringify(categoriesData));
+        const sortedCategories = sortCategories(categoriesData);
+        setCategories(sortedCategories);
+        localStorage.setItem(CACHE_KEY, JSON.stringify(sortedCategories));
         localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
         setLoading(false);
       } catch (error) {
@@ -66,8 +91,8 @@ function DesktopSidebar() {
 
       if (categoriesFromStorage && !isCacheExpired) {
         const parsedCategories = JSON.parse(categoriesFromStorage);
-
-        setCategories(parsedCategories);
+        const sortedCategories = sortCategories(parsedCategories);
+        setCategories(sortedCategories);
         setLoading(false);
       } else {
         fetchCategoriesFromFirebase(); // Fetch categories from Firebase if not in localStorage or cache expired
