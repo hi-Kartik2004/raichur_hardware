@@ -118,9 +118,9 @@ const data = {
       aboutSectionImageUrl: "/image_of_seth_jeevraj.jpg",
     },
     {
-      aboutSectionBadgeText: "Our Products",
+      aboutSectionBadgeText: "Store",
       aboutSectionTitle:
-        "Everything You Need for Your Home Improvement Projects",
+        "Raichur Hardware",
       aboutSectionDescriptions: [
         "At Raichur Hardware, we offer a comprehensive selection of high-quality tools, hardware, and home improvement supplies to meet all your needs. From power tools and hand tools to gardening equipment, plumbing supplies, and electrical components, we have everything you need to tackle any project, big or small.",
         "Our knowledgeable staff is always on hand to provide expert advice and help you find the right products for your specific needs. Whether you're a seasoned DIYer or a first-time homeowner, we're here to support you every step of the way.",
