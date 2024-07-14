@@ -55,7 +55,7 @@ export function Footer() {
     <>
       <footer className="bg-gray-100 dark:bg-gray-800 pt-12 pb-6 md:pt-16 md:pb-8 px-6">
         <div className="flex justify-evenly gap-10 flex-wrap w-full">
-          <div className="space-y-4 md:pr-4 md:border-r-2 col-span-4 max-w-[500px] w-full">
+          <div className="space-y-4 md:pr-4 md:border-r-2 col-span-4 max-w-[400px] w-full">
             <Link
               className="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-50"
               href="#"
@@ -101,7 +101,7 @@ export function Footer() {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col gap-4 max-w-[800px]">
+          <div className="w-full flex flex-col gap-4 max-w-[600px] md:max-w-[700px]">
             <div className="flex flex-wrap justify-between gap-10">
               <div className="space-y-2">
                 <h4 className="font-semibold text-gray-900 dark:text-gray-50">
