@@ -119,8 +119,7 @@ const data = {
     },
     {
       aboutSectionBadgeText: "Store",
-      aboutSectionTitle:
-        "Raichur Hardware",
+      aboutSectionTitle: "Raichur Hardware",
       aboutSectionDescriptions: [
         "At Raichur Hardware, we offer a comprehensive selection of high-quality tools, hardware, and home improvement supplies to meet all your needs. From power tools and hand tools to gardening equipment, plumbing supplies, and electrical components, we have everything you need to tackle any project, big or small.",
         "Our knowledgeable staff is always on hand to provide expert advice and help you find the right products for your specific needs. Whether you're a seasoned DIYer or a first-time homeowner, we're here to support you every step of the way.",
@@ -137,11 +136,10 @@ const data = {
       aboutSectionImageUrl: "/people/crowd_1.jpg",
     },
     {
-      aboutSectionBadgeText: "Our Services",
-      aboutSectionTitle: "Expert Advice and Personalized Support",
+      aboutSectionBadgeText: "About categories",
+      aboutSectionTitle: "Wide Range of products",
       aboutSectionDescriptions: [
-        "In addition to our extensive product selection, Raichur Hardware also offers a range of services to support our customers. Our experienced staff can provide expert advice and guidance on everything from tool selection and project planning to troubleshooting and repair.",
-        "We also offer a variety of hands-on workshops and DIY classes to help our customers learn new skills and tackle their home improvement projects with confidence. Whether you're a seasoned DIYer or a first-time homeowner, we're here to support you every step of the way.",
+        "Being the most trusted hardware store in Raichur, with 1000+ products our product categories include PVC, CPVC, SWR & ASTM Pipes, Drainage & Sewage Pipes, CPVC fittings, Agricultural Fittings, PVC Self-Fit Pipes, PVC Plain Pipes, PVC Self-Fit (slotted) Pipes, PVC U Column Pipes Coupler Type, ASTM Plumbing Pipes, CPVC Pipes, SWR Pipes, Self-Fit Pipes, Ring-Fit Pipes, Coupler & Union, Elbows, Tee(s), Reducer & Reducing Bush, End Cap & THRD End Plug, Threaded Adapters (MTA & FTA), Bends, Clip & Clamps, Tank & Hex Nipple, UPVC Valves, Converter Couplers, Reducer, End Cap, Bends & Transition Bush, Tank Nipple, CPVC Ball Valve, Flange with Gasket, Mixer, CPVC Fittings (SCH 40), CPVC Fittings (SCH 80), Elbow 90° (Plain and THRD), Elbow 45° (Plain), End Cap (Plain and THRD), Tail Piece, Butterfly Valve, Service Saddle (THRD), Reducing Bush, Single Y (Reducing & non-reducing), Bend (45° & 90°), Repairing Coupler (R/R), Single Y & Double Y, Bend (Double Socket), Tee (Double Socket), Gully Trap, Multi-Floor Trap, Nahani Trap, P-Trap & S-Trap, Vent Cowl, WC Connector, Socket Plug & Door Cap, Drip Irrigation, Sprinkle Irrigation, Subsurface Drip, PVC Ball Valves, Faucets, Shower, Thermostatic Mixers, Shower panel, Water heaters, Sanitary ware, Wellness, Shower enclosures, Flushing systems, Drains, Bath Accessories, Digital locks, Mortise locks, Rim locks, Cylindrical locks, Padlocks, Furniture locks, Home décor handles, Door controls, Door fittings, Wardrobe fittings, Bed fittings, Furniture fittings, Kitchen fittings, Luxury Kitchen Sinks, Quartz Kitchen Sinks, Stainless steel sinks, Open Well Pumps, Submersible Pumps, Monoblock Pumps, Jet Pumps, Sewage Pumps, Electric Induction Motors, CMBE And CMBE Twin, CM Single Booster, SCALA1 and SCALA2 booster, Shower and other Boosters, Overhead Water Tanks, Ball Valve, Gate Valve, Sluice Valve, Horizontal Check Valve, Vertical Check Valve, Cast Iron Manhole covers.",
       ],
       aboutSectionImageUrl: "/people/finolex_winning.jpg",
     },
