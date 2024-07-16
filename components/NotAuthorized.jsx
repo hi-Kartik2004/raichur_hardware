@@ -2,7 +2,7 @@ import React from "react";
 
 function NotAuthorized() {
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="min-h-screen flex justify-center items-center px-2">
       <div className="max-w-[720px]">
         <h3 className="text-center text-3xl font-semibold">
           You're{" "}
