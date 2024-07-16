@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { auth } from "@/auth";
 import { Footer } from "@/components/component/footer";
 import { cn } from "@/lib/utils";
