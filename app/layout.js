@@ -29,6 +29,7 @@ export default async function RootLayout({ children }) {
             fontSans.variable
           )}
         >
+          <SpeedInsights />
           {children}
         </body>
       </html>
