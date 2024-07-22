@@ -3,6 +3,36 @@ import { db } from "@/firebase/config";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import React from "react";
 
+async function getCategoryDetails(categoryName) {
+  "use server";
+  const q = query(
+    collection(db, "categories"),
+    where("categoryName", "==", categoryName)
+  );
+  const snapshot = await getDocs(q);
+  const data = [];
+  snapshot.forEach((doc) => {
+    data.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+  return data;
+}
+
+export async function generateMetadata({ params }) {
+  // read route params
+  const categoryName = decodeURIComponent(params.id);
+
+  // fetch data
+  const categoryDetails = await getCategoryDetails(categoryName);
+
+  return {
+    title: categoryName || "All products",
+    description: categoryDetails[0]?.categoryDescription || "All products",
+  };
+}
+
 async function Category({ params }) {
   const categoryName = decodeURIComponent(params.id);
   console.log(categoryName);
@@ -40,24 +70,6 @@ async function Category({ params }) {
     return data;
   }
 
-  // Function to get details of the specific category
-  async function getCategoryDetails() {
-    "use server";
-    const q = query(
-      collection(db, "categories"),
-      where("categoryName", "==", categoryName)
-    );
-    const snapshot = await getDocs(q);
-    const data = [];
-    snapshot.forEach((doc) => {
-      data.push({
-        id: doc.id,
-        ...doc.data(),
-      });
-    });
-    return data;
-  }
-
   // Function to get all categories
   async function getAllCategories() {
     "use server";
@@ -75,8 +87,9 @@ async function Category({ params }) {
 
   // Fetch data for products, category details, and all categories
   const products = await getAllCategoryProducts(categoryName);
-  const categoryDetails = await getCategoryDetails();
-  const categories = await getAllCategories();
+  const categoryDetails = await getCategoryDetails(categoryName);
+  // const categories = await getAllCategories();
+  const categories = [];
 
   return (
     <div className="pt-10 lg:pt-22">
