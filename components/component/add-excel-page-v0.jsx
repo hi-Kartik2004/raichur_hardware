@@ -163,7 +163,9 @@ export function AddExcelPageV0() {
               <li>discount</li>
               <li>selling_price</li>
               <li>mrp</li>
-              <li>*the discount must be in %</li>
+              <li>Discount in (%) dont't mention "%"</li>
+              <li>Eg: 26.80 and not 26.80%</li>
+              <li>Note: discount column must not be more than 100%</li>
             </ul>
           </div>
           <Separator />
