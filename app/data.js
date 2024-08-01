@@ -115,7 +115,7 @@ const data = {
       aboutSectionTitle: "Raichur Hardware",
       aboutSectionDescriptions: [
         "In 1975, Raichur Machinery Stores was renamed Raichur Hardwares. By 1992, the business shifted its focus from ginning and pressing machines to selling agricultural equipment such as irrigation systems, irrigation pump sets, and G.I pipes.",
-        "That same year, Finolex invited Raichur Hardwares to collaborate as dealers in the Raichur district, a partnership that has since made Raichur Hardwares a major distributor for Finolex.",
+	"That same year, Finolex invited Raichur Hardwares to collaborate as dealers in the Raichur district, a partnership that has since made Raichur Hardwares a major distributor for Finolex.",
       ],
       aboutSectionImageUrl: "https://i.postimg.cc/V6G5Fk1T/Raichurhardware.png",
     },
@@ -283,6 +283,7 @@ const data = {
         "ASTM Plumbing Pipes",
         "CPVC Pipes",
         "SWR Pipes",
+        "HDPE Pipes",
       ],
     },
     {
@@ -303,6 +304,13 @@ const data = {
         "Tank & Hex Nipple",
         "UPVC Valves",
         "Converter Couplers",
+      ],
+    },
+    {
+      name: "GI Pipes and Fittings",
+      dropdowns: [
+        "GI pipes",
+        "GI Fittings",
       ],
     },
     {
