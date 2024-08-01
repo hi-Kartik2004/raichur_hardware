@@ -44,6 +44,9 @@ export function AllProductsTableV0({
 
   // Function to handle delete
   async function handleDelete(id) {
+    const flag = confirm("Are you sure you want to delete this product?");
+    if (!flag) return;
+
     const resp = await deleteProductFunction(id);
     if (resp.resp) {
       toast({

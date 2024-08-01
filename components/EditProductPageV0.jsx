@@ -43,6 +43,7 @@ export function EditProductPageV0({
   const [addonInput, setAddonInput] = useState("");
   const [colorInput, setColorInput] = useState("");
   const [sizeInput, setSizeInput] = useState("");
+  const [synonymsInput, setSynonymsInput] = useState("");
   const [imagePreviews, setImagePreviews] = useState(product?.images || []);
   const [formState, setFormState] = useState({
     name: product?.name || "",
@@ -56,6 +57,7 @@ export function EditProductPageV0({
     images: [],
     sections: product?.sections || [],
     colors: product?.colors || [],
+    synonyms: product?.synonyms || [],
     sizes: product?.sizes || [],
     hide: product?.hide || false,
     featured: product?.featured || false,
@@ -187,9 +189,17 @@ export function EditProductPageV0({
 
     const nameKeywords = generateSubstrings(formState.name.toLowerCase());
 
+    const synonymsString = formState.synonyms.join(" ").toLowerCase();
+    const searchQueriesKeywords = generateSubstrings(synonymsString);
+
+    // merge searchQueriesKeywords with nameKeywords exclude duplicates
+    const searchQueries = Array.from(
+      new Set([...searchQueriesKeywords, ...nameKeywords])
+    );
+
     const formStateWithImageUrls = {
       ...formState,
-      name_keywords: nameKeywords,
+      name_keywords: searchQueries,
       images: imageUrls,
       sections: sections,
     };
@@ -238,6 +248,21 @@ export function EditProductPageV0({
   const handleRemoveColor = (index) => {
     const updatedColors = formState.colors.filter((_, idx) => idx !== index);
     setFormState({ ...formState, colors: updatedColors });
+  };
+
+  const handleAddSynonyms = () => {
+    setFormState({
+      ...formState,
+      synonyms: [...formState.synonyms, synonymsInput],
+    });
+    setSynonymsInput("");
+  };
+
+  const handleRemoveSynonyms = (index) => {
+    const updatedSynonyms = formState.synonyms.filter(
+      (_, idx) => idx !== index
+    );
+    setFormState({ ...formState, synonyms: updatedSynonyms });
   };
 
   const handleAddSize = (size) => {
@@ -626,6 +651,36 @@ export function EditProductPageV0({
                   onClick={() => handleRemoveSize(index)}
                 >
                   <Cross2Icon />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="colors">Product Synonyms</Label>
+          <div className="flex items-center gap-2">
+            <Input
+              id="synonyms"
+              name="synonyms"
+              placeholder="Enter a Synonyms"
+              value={synonymsInput}
+              onChange={(e) => setSynonymsInput(e.target.value)}
+            />
+            <Button type="button" onClick={handleAddSynonyms}>
+              Add Synonyms
+            </Button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {formState.synonyms.map((synonym, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <span>{synonym}</span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => handleRemoveSynonyms(index)}
+                >
+                  Remove
                 </Button>
               </div>
             ))}
