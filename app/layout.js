@@ -1,10 +1,10 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { auth } from "@/auth";
-import { Footer } from "@/components/component/footer";
 import { cn } from "@/lib/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SessionProvider } from "next-auth/react";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,6 +33,7 @@ export default async function RootLayout({ children }) {
         >
           {children}
           <SpeedInsights />
+          <Analytics />
         </body>
       </html>
     </SessionProvider>
